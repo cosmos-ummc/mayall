@@ -1,1 +1,1 @@
-export { default as Title } from "./title-view";
+export { default as Title } from "./title";
