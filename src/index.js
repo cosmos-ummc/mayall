@@ -1,27 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { Title } from "./components";
 import * as serviceWorker from "./service-worker";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Login } from "./routes/login";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Login, Landing } from "./components";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <main>
         <Switch>
-          <Route
-            path="/"
-            render={(props) => <Title {...props} text={`landing page`} />}
-            exact
-          />
-          <Login />
-          <Route
-            path="/register"
-            render={(props) => <Title {...props} text={`register page`} />}
-          />
-          <Route render={(props) => <Title {...props} text={`404 page`} />} />
+          <Route path="/" exact component={Landing} />
+          <Route path="/login" component={Login} />
         </Switch>
       </main>
     </BrowserRouter>
