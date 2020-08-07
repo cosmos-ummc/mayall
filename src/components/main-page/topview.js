@@ -5,74 +5,53 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
+import topview01 from "../../images/topview01.PNG";
+import topview02 from "../../images/topview02.PNG";
+
 
 const useStyles = makeStyles((theme) => ({
-    '@global': {
-        ul: {
-            margin: 0,
-            padding: 0,
-            listStyle: 'none',
-        },
+    canvas:{
+        flexGrow: 1,
+        marginTop: '50px',
+        height: '500px',
+        width: '100vw',
     },
-    mainFeaturedPost: {
+    view: {
         position: 'relative',
-        backgroundColor: theme.palette.grey[800],
-        color: theme.palette.common.white,
-        marginBottom: theme.spacing(4),
-        backgroundSize: 'cover',
+        // backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        height: '500px'
+        backgroundPosition: "center center",
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        margin: theme.spacing('auto')
     },
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0,
-        backgroundColor: 'rgba(0,0,0,.3)',
-    },
-    mainFeaturedPostContent: {
-        position: 'relative',
-        padding: theme.spacing(3),
-        [theme.breakpoints.up('md')]: {
-            padding: theme.spacing(6),
-            paddingRight: 0,
-        },
-    }
 }));
 
+const images = {
+    topview01: topview01,
+    topview02: topview02
+}
 
 export default function Topview(props) {
     const classes = useStyles();
-    const { topview } = props;
+    const { topimgs } = props;
 
     return (
         <React.Fragment>
-            <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: topview.backgroundImage }}>
-                {/* Increase the priority of the hero background image */}
-                {<img style={{ display: 'none' }}  />}
-                <div className={classes.overlay} />
-                <Grid container>
-                    <Grid item md={6}>
-                        <div className={classes.mainFeaturedPostContent}>
-                            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                                {topview.title}
-                            </Typography>
-                            <Typography variant="h5" color="inherit" paragraph>
-                                {topview.description}
-                            </Typography>
-                            <Link variant="subtitle1" href="#">
-                                {topview.linkText}
-                            </Link>
-                        </div>
-                    </Grid>
-                </Grid>
-            </Paper>
+
+            <Grid container alignItems="center" direction="row" className={classes.canvas}>
+                {topimgs.map((img) => (
+                    <Grid item key={img.name} xs={12} sm={6}
+                          className={classes.view}
+                          style={{backgroundImage: `url(${images[img.name]})`}}/>
+                ))}
+            </Grid>
+
         </React.Fragment>
     );
 }
 
 Topview.propTypes = {
-    topview: PropTypes.array
+    topimgs: PropTypes.array
 };

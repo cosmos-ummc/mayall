@@ -9,6 +9,7 @@ import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
 
+
 const useStyles = makeStyles((theme) => ({
 
 }));
@@ -21,17 +22,21 @@ const info_sections = [
 ];
 
 const func_sections = [
-    { title: 'SCHEDULE', url: '#' },
-    { title: 'CHAT', url: '#' },
-    { title: 'LOGIN', url: '#' }
+    { title: 'SCHEDULE', url: '#', icon: 'DateRangeIcon' },
+    { title: 'CHAT', url: '#', icon: 'ChatIcon' },
+    { title: 'LOGIN', url: '#', icon: 'PersonIcon' }
 ];
 
-const topview = {
-    title: 'title here',
-    description: 'description here',
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    linkText: "Read more..."
-}
+const topimgs = [
+    {
+        name: 'topview01',
+        linkText: '../../images/topview01.PNG'
+    },
+    {
+        name: 'topview02',
+        linkText: '../../images/topview02.PNG'
+    }
+]
 
 const health_feeds = [
     {
@@ -203,9 +208,9 @@ export default function Landing() {
         <React.Fragment>
             <CssBaseline />
 
-            <Navbar title="MHPSS" info_sections={info_sections} func_sections={func_sections} />
+            <Navbar info_sections={info_sections} func_sections={func_sections} />
 
-            <Topview topview={topview}/>
+            <Topview topimgs={topimgs}/>
 
             <Feed title="Health's Feed" feed={health_feeds}/>
             <Feed title="Recommended" feed={recommended_feeds}/>
