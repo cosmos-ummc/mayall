@@ -8,17 +8,27 @@ import Video from './video';
 import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
+import Link from "@material-ui/core/Link";
+import cyan from "@material-ui/core/colors/cyan";
 
 
 const useStyles = makeStyles((theme) => ({
-
+    link: {
+        margin: theme.spacing(1),
+        '&:hover': {
+            fontWeight: 'bold',
+            textDecoration: 'none',
+            color: `${cyan[500]}`,
+        }
+    },
 }));
 
 const info_sections = [
-    { title: "Health's Feed", url: '#' },
-    { title: 'Recommended', url: '#' },
-    { title: 'Expecially For You', url: '#' },
-    { title: 'Meditation Video', url: '#' }
+    { title: "Home", url: '#' },
+    { title: "Health's Feed", url: '#feed02' },
+    { title: 'Recommended', url: '#feed03' },
+    { title: 'Expecially For You', url: '#feed04' },
+    { title: 'Meditation Video', url: '#feed05' }
 ];
 
 const func_sections = [
@@ -210,17 +220,19 @@ export default function Landing() {
 
             <Navbar info_sections={info_sections} func_sections={func_sections} />
 
-            <Topview topimgs={topimgs}/>
+            <section id="#"><Topview topimgs={topimgs}/></section>
 
-            <Feed title="Health's Feed" feed={health_feeds}/>
-            <Feed title="Recommended" feed={recommended_feeds}/>
-            <Feed title="Expecially for You" feed={expecially_feeds}/>
+            <section id="feed02"><Feed title="Health's Feed" feed={health_feeds} /></section>
 
-            <Video title="Meditation Video" videos={videos}/>
+            <section id="feed03"><Feed title="Recommended" feed={recommended_feeds} /></section>
+
+            <section id="feed04"><Feed title="Expecially for You" feed={expecially_feeds} /></section>
+
+            <section id="feed05"><Video title="Meditation Video" videos={videos} /></section>
 
             <Chat title="Find New Friends to Chat With!" buttonText="Let's Explore"/>
 
-            <Game title="Suggested Games for Android Users" games={android_games}/>
+            <Game title="Suggested Games for Android Users" games={android_games} id="feed05"/>
             <Game title="Suggested Games for IOS Users" games={ios_games}/>
 
             <Footer footer={footer}/>

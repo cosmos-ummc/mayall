@@ -10,6 +10,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import PersonIcon from '@material-ui/icons/Person';
 import logo_img from "../../images/logo.PNG";
 import cyan from "@material-ui/core/colors/cyan";
+import Scrollspy from 'react-scrollspy';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,11 +39,22 @@ const useStyles = makeStyles((theme) => ({
     },
     link: {
         margin: theme.spacing(1),
+        '&:hover, &:focus': {
+            fontWeight: 'bold',
+            textDecoration: 'none',
+            color: `${cyan[600]}`,
+        },
         '&:hover': {
             fontWeight: 'bold',
             textDecoration: 'none',
-            color: `${cyan[500]}`,
-        }
+            color: `${cyan[200]}`,
+        },
+    },
+    active: {
+        margin: theme.spacing(1),
+        fontWeight: 'bold',
+        textDecoration: 'none',
+        color: `${cyan[600]}`,
     },
     divider: {
         backgroundColor: 'grey',
@@ -77,19 +89,32 @@ export default function Navbar(props) {
                     <img className={classes.logo} src={logo_img}/>
 
                     <div className={classes.spacer}/>
-                    <nav>
-                        {info_sections.map((section) => (
-                            <Link
-                                color="textPrimary"
-                                noWrap
-                                key={section.title}
-                                variant="button"
-                                href={section.url}
-                                className={classes.link}
-                            >
-                                {section.title}
-                            </Link>
-                        ))}
+                    <nav className="nav">
+                        <Scrollspy items={ ['#', 'feed02', 'feed03', 'feed04', 'feed05'] }
+                                   currentClassName={classes.active}
+                                   style={{
+                                       fontWeight: 300
+                                   }}
+                                   offset={ -50 }
+                                   onUpdate={
+                                       (el) => {
+                                           console.log(el)
+                                       }
+                                   }>
+                            {info_sections.map((section) => (
+                                <Link
+                                    color="textPrimary"
+                                    noWrap
+                                    key={section.title}
+                                    variant="button"
+                                    href={section.url}
+                                    className={classes.link}
+                                >
+                                    {section.title}
+                                </Link>
+                            ))}
+
+                        </Scrollspy>
                     </nav>
 
                     <div className={classes.divider}/>

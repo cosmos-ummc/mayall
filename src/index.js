@@ -10,10 +10,10 @@ ReactDOM.render(
     <BrowserRouter>
       <main>
         <Switch>
-          <Route path="/" exact component={Landing} />
+          <Route path="/l" exact component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/mainpage" component={Mainpage} />
+          <Route path="/" component={Mainpage} />
         </Switch>
       </main>
     </BrowserRouter>
