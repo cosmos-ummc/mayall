@@ -4,3 +4,6 @@ export { Landing } from "./landing";
 export { Login } from "./login";
 export { Register } from "./register";
 export { Mainpage } from "./main-page"
+export { ChatBox } from "./chat-box";
+export { ChatList } from "./chat-list";
+export { ChatRoom } from "./chat-room";
