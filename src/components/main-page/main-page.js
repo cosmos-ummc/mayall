@@ -28,7 +28,7 @@ const info_sections = [
 const func_sections = [
     { title: 'SCHEDULE', url: '#', icon: 'DateRangeIcon' },
     { title: 'CHAT', url: '#', icon: 'ChatIcon' },
-    { title: 'LOGIN', url: '#', icon: 'PersonIcon' }
+    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
 
 const topimgs = [

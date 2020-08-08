@@ -13,6 +13,8 @@ import cyan from "@material-ui/core/colors/cyan";
 import Scrollspy from 'react-scrollspy';
 import {useHistory} from "react-router-dom";
 import {login, logout} from "../../api/auth";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
     },
     icon: {
         fontSize: '35px'
+    },
+    menu: {
+        marginTop: theme.spacing(4),
     }
 }));
 
@@ -82,6 +87,16 @@ const icons = {
 export default function Navbar(props) {
     const classes = useStyles();
     const {func_sections, info_sections} = props;
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const history = useHistory();
 
@@ -128,19 +143,34 @@ export default function Navbar(props) {
 
                     <div className={classes.divider}/>
 
-                    {func_sections.map((section) => (
-                        <Button
-                            color="primary"
-                            key={section.title}
-                            variant="outlined"
-                            href={section.url}
-                            className={classes.button}
+                    <div>
+                        {func_sections.map((section) => (
+                            <Button
+                                color="primary"
+                                key={section.title}
+                                variant="outlined"
+                                href={section.url}
+                                className={classes.button}
+                                aria-controls={`${section.title}` === 'PROFILE' ? "simple-menu" : null}
+                                aria-haspopup={`${section.title}` === 'PROFILE' ? true : false}
+                                onClick={`${section.title}` === 'PROFILE' ? handleClick : null}
+                            >
+                                {React.createElement(icons[section.icon], {className: `${classes.icon}`})}
+                            </Button>
+
+                        ))}
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                            className={classes.menu}
                         >
-                            {React.createElement(icons[section.icon], {className: `${classes.icon}`})}
-                        </Button>
-
-                    ))}
-
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </Menu>
+                    </div>
                 </Toolbar>
             </AppBar>
         </React.Fragment>
