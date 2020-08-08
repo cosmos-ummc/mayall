@@ -1,8 +1,5 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 import topview01 from "../../images/topview01.PNG";
@@ -12,7 +9,8 @@ import topview02 from "../../images/topview02.PNG";
 const useStyles = makeStyles((theme) => ({
     canvas:{
         flexGrow: 1,
-        marginTop: '50px',
+        marginTop: 50,
+        marginBottom: 20,
         height: '500px',
         width: '100vw',
     },
