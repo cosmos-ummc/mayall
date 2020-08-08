@@ -11,6 +11,7 @@ import Footer from './footer';
 import feedimg01 from "../../images/feed01.PNG";
 import feedimg02 from "../../images/feed02.PNG";
 import feedimg03 from "../../images/feed03.PNG";
+import {Redirect} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -180,7 +181,15 @@ const footer = {
 };
 
 export default function Landing() {
+
     const classes = useStyles();
+
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    console.log(token);
+    if (!token) {
+        return <Redirect to="/login" />;
+    }
 
     return (
         <React.Fragment>

@@ -3,17 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./service-worker";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Mainpage, Register, Login, Landing, ChatRoom } from "./components";
+import { MainPage, Register, Login, ChatRoom } from "./components";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <main>
         <Switch>
-          <Route path="/l" exact component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/" component={Mainpage} />
+          <Route path="/" component={MainPage} exact />
           <Route path="/chat" component={ChatRoom} />
         </Switch>
       </main>

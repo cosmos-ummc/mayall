@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
@@ -11,6 +11,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import logo_img from "../../images/logo.PNG";
 import cyan from "@material-ui/core/colors/cyan";
 import Scrollspy from 'react-scrollspy';
+import {useHistory} from "react-router-dom";
+import {login, logout} from "../../api/auth";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 3),
         width: '100px'
     },
-    spacer:{
+    spacer: {
         flex: '1 1 auto'
     },
     link: {
@@ -67,19 +69,27 @@ const useStyles = makeStyles((theme) => ({
         borderColor: 'rgba(255, 255, 255, 0)',
     },
     icon: {
-        fontSize : '35px'
+        fontSize: '35px'
     }
 }));
 
 const icons = {
-    DateRangeIcon : DateRangeIcon,
-    ChatIcon : ChatIcon,
-    PersonIcon : PersonIcon
+    DateRangeIcon: DateRangeIcon,
+    ChatIcon: ChatIcon,
+    PersonIcon: PersonIcon
 }
 
 export default function Navbar(props) {
     const classes = useStyles();
-    const { func_sections, info_sections } = props;
+    const {func_sections, info_sections} = props;
+
+    const history = useHistory();
+
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        await logout();
+        history.push("/login");
+    };
 
     return (
         <React.Fragment>
@@ -90,12 +100,12 @@ export default function Navbar(props) {
 
                     <div className={classes.spacer}/>
                     <nav className="nav">
-                        <Scrollspy items={ ['home', 'feeds', 'meditation', 'games'] }
+                        <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
                                    currentClassName={classes.active}
                                    style={{
                                        fontWeight: 300
                                    }}
-                                   offset={ -150 }
+                                   offset={-150}
                                    onUpdate={
                                        (el) => {
                                            console.log(el)
@@ -126,7 +136,7 @@ export default function Navbar(props) {
                             href={section.url}
                             className={classes.button}
                         >
-                            {React.createElement(icons[section.icon], {className:`${classes.icon}`})}
+                            {React.createElement(icons[section.icon], {className: `${classes.icon}`})}
                         </Button>
 
                     ))}
