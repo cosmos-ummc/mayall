@@ -90,12 +90,12 @@ export default function Navbar(props) {
 
                     <div className={classes.spacer}/>
                     <nav className="nav">
-                        <Scrollspy items={ ['#', 'feed02', 'feed03', 'feed04', 'feed05'] }
+                        <Scrollspy items={ ['home', 'feeds', 'meditation', 'games'] }
                                    currentClassName={classes.active}
                                    style={{
                                        fontWeight: 300
                                    }}
-                                   offset={ -50 }
+                                   offset={ -150 }
                                    onUpdate={
                                        (el) => {
                                            console.log(el)

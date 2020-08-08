@@ -50,8 +50,11 @@ const useStyles = makeStyles((theme) => ({
                 border: `3px solid ${grey[900]}`
             },
             "&.Mui-focused fieldset": {
-                border: `3px solid ${blueGrey[500]}`   // focus
+                border: `3px solid ${blueGrey[500]}`  // focus
             }
+        },
+        '&:hover': {
+            backgroundColor: grey[50],
         }
     },
     submit: {
