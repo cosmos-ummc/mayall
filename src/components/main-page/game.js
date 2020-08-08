@@ -5,11 +5,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import PropTypes from "prop-types";
 import cyan from "@material-ui/core/colors/cyan";
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import search_img from "../../images/searchIcon.PNG";
+
 
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
-        padding: theme.spacing(6, 10, 8),
+        padding: theme.spacing(6, 10),
     },
     header: {
         fontSize: 30,
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 0
     },
     divider: {
-        backgroundColor: `${cyan[300]}`,
+        backgroundColor: `${cyan[900]}`,
         margin: theme.spacing(3, 'auto'),
         marginBottom: 40,
         height: 4,
@@ -27,12 +30,16 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
     },
-    cardPricing: {
+    icon: {
+        margin: theme.spacing(3, 'auto'),
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginBottom: theme.spacing(2),
-    }
+        flexFlow: 'row',
+        width: '40%'
+    },
+    img: {
+        width: 50,
+        margin: theme.spacing(0, 0.5),
+    },
 }));
 
 export default function Game(props) {
@@ -57,6 +64,13 @@ export default function Game(props) {
                             </Grid>
                         ))}
                     </Grid>
+
+                    <div className={classes.icon}>
+                        <SportsEsportsIcon className={classes.img}/>
+                        <Typography gutterBottom>
+                            Click the games above to download!
+                        </Typography>
+                    </div>
                 </Container>
             </div>
         </React.Fragment>
