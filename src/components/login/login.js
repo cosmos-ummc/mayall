@@ -154,7 +154,7 @@ export default function SignIn() {
                             </Grid>
                         </Grid>
                         <Box mt={5}>
-                            <Copyright/>
+                            <Copyright color='grey'/>
                         </Box>
                     </form>
                 </div>

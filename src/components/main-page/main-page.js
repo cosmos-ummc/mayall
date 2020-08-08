@@ -154,7 +154,7 @@ const ios_games =[
 const footer = {
     banner: 'Enjoy Your Day!',
     title: 'Help Resources',
-    info: [
+    info01: [
         {
             site: 'Ministry of Health Malaysia official website for information related to COVID-19',
             linkText: 'http://covid-19.moh.gov.my/',
@@ -167,6 +167,8 @@ const footer = {
             site: 'Malaysian Mental Health Association (MMHA)',
             linkText: 'www.mmha.org.my',
         },
+    ],
+    info02: [
         {
             site: 'Befrienders',
             linkText: 'https://www.befrienders.org.my/',
@@ -176,20 +178,20 @@ const footer = {
             linkText: 'https://www.kpwkm.gov.my/kpwkm/index.php?r=portal/full&id=NGtVYXZIMjRqM3diW',
         }
     ],
-    phone: '15999'
-
+    phone: '15999',
 };
+
 
 export default function Landing() {
 
     const classes = useStyles();
 
-    // if not logged in, navigate to login page
-    const token = localStorage.getItem("auth-token");
-    console.log(token);
-    if (!token) {
-        return <Redirect to="/login" />;
-    }
+    // // if not logged in, navigate to login page
+    // const token = localStorage.getItem("auth-token");
+    // console.log(token);
+    // if (!token) {
+    //     return <Redirect to="/login" />;
+    // }
 
     return (
         <React.Fragment>
