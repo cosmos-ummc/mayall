@@ -26,7 +26,7 @@ const info_sections = [
 ];
 
 const func_sections = [
-    { title: 'SCHEDULE', url: '#', icon: 'DateRangeIcon' },
+    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
     { title: 'CHAT', url: '#', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];

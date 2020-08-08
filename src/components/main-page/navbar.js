@@ -114,6 +114,7 @@ export default function Navbar(props) {
                     <img className={classes.logo} src={logo_img}/>
 
                     <div className={classes.spacer}/>
+
                     <nav className="nav">
                         <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
                                    currentClassName={classes.active}
