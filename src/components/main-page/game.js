@@ -4,18 +4,24 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import PropTypes from "prop-types";
+import cyan from "@material-ui/core/colors/cyan";
 
 
 const useStyles = makeStyles((theme) => ({
-    '@global': {
-        ul: {
-            margin: 0,
-            padding: 0,
-            listStyle: 'none',
-        },
-    },
     heroContent: {
-        padding: theme.spacing(8, 0, 6),
+        padding: theme.spacing(6, 10, 8),
+    },
+    header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 0
+    },
+    divider: {
+        backgroundColor: `${cyan[300]}`,
+        margin: theme.spacing(3, 'auto'),
+        marginBottom: 40,
+        height: 4,
+        width: 110,
     },
     cardHeader: {
         backgroundColor:
@@ -35,20 +41,24 @@ export default function Game(props) {
 
     return (
         <React.Fragment>
-            <Container maxWidth="md" component="main" className={classes.heroContent}>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                    {title}
-                </Typography>
-                <Grid container spacing={2} alignItems="flex-end">
-                    {games.map((game) => (
-                        <Grid item key={game.name}>
-                            <a href={game.link}>
-                                <img border="0" alt={game.name} src={game.logo} width="100" height="100" />
-                            </a>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
+            <div style={{backgroundColor: `${title}` === 'Suggested Games for IOS Users' ? `${cyan[50]}` : null}}>
+                <Container component="main" className={classes.heroContent}>
+                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.header}>
+                        {title}
+                    </Typography>
+                    <div className={classes.divider}></div>
+
+                    <Grid container spacing={2} justify="space-evenly" alignItems="center">
+                        {games.map((game) => (
+                            <Grid item key={game.name}>
+                                <a href={game.link}>
+                                    <img border="0" alt={game.name} src={game.logo} width="100" height="100" />
+                                </a>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Container>
+            </div>
         </React.Fragment>
     );
 }

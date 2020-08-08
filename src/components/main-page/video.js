@@ -11,28 +11,39 @@ import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import PropTypes from "prop-types";
+import cyan from "@material-ui/core/colors/cyan";
+import CardMedia from "@material-ui/core/CardMedia";
 
 
 const useStyles = makeStyles((theme) => ({
-    '@global': {
-        ul: {
-            margin: 0,
-            padding: 0,
-            listStyle: 'none',
-        },
-    },
     heroContent: {
         padding: theme.spacing(8, 0, 6),
     },
-    cardHeader: {
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+    card: {
+        maxWidth: 345,
+        // height: 200,
+        // width: 400,
+        display: "flex",
+        borderRadius: 0,
+        backgroundColor: `rgba(255, 255, 255, 0)`,
+        boxShadow: "none",
     },
-    cardPricing: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'baseline',
-        marginBottom: theme.spacing(2),
+    header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: 0
+    },
+    divider: {
+        backgroundColor: `${cyan[300]}`,
+        margin: theme.spacing(3, 'auto'),
+        marginBottom: 40,
+        height: 4,
+        width: 110,
+    },
+    content: {
+        width: '100%',
+        height: '100%',
+        margin: theme.spacing(0),
     }
 }));
 
@@ -43,31 +54,32 @@ export default function Video(props) {
     return (
         <React.Fragment>
             <Container maxWidth="md" component="main" className={classes.heroContent}>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.header}>
                     {title}
                 </Typography>
-                <Grid container spacing={5} alignItems="flex-end">
+                <div className={classes.divider}></div>
+
+                <Grid container spacing={0} justify="space-evenly" alignItems="center">
                     {videos.map((video) => (
-                        // Enterprise card is full width at sm breakpoint
-                        <Grid item key={video.title} xs={12} sm={video.title === 'Enterprise' ? 12 : 6} md={4}>
-                            <Card>
-                                <CardHeader
-                                    title={video.title}
-                                    titleTypographyProps={{ align: 'center' }}
-                                    subheaderTypographyProps={{ align: 'center' }}
-                                    action={video.title === 'Pro' ? <StarIcon /> : null}
-                                    className={classes.cardHeader}
-                                />
-                                <CardContent>
-                                    <iframe src={video.src}
+                        <Grid item key={video.title} xs={12} sm={6} md={4}>
+                            <Card className={classes.card}>
+                                <CardActions>
+                                    <CardContent>
+                                        <CardMedia
+                                            component="iframe"
+                                            className={classes.media}
+                                            src={video.src}
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen></iframe>
-                                </CardContent>
-                                <CardActions>
-                                    <Button fullWidth variant={video.buttonVariant} color="primary">
-                                        {video.buttonText}
-                                    </Button>
+                                            allowFullScreen
+                                        />
+                                        {/*<iframe*/}
+                                        {/*    className={classes.content}*/}
+                                        {/*    src={video.src}*/}
+                                        {/*    frameBorder="0"*/}
+                                        {/*    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"*/}
+                                        {/*    allowFullScreen></iframe>*/}
+                                    </CardContent>
                                 </CardActions>
                             </Card>
                         </Grid>

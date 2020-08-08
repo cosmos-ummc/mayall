@@ -16,14 +16,12 @@ import grey from "@material-ui/core/colors/grey";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: 360,
-    },
     heroContent: {
-        padding: theme.spacing(6, 0, 6),
+        padding: theme.spacing(6, 10, 8),
     },
     card: {
         height: "100%",
+        maxWidth: 360,
         // borderRadius: 0,
         // backgroundColor: theme.palette.primary.light,
         // color: theme.palette.primary.contrastText,
@@ -73,43 +71,46 @@ export default function Feed(props) {
 
     return (
         <React.Fragment>
-            <Container maxWidth="md" component="main" className={classes.heroContent}>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.header}>
-                    {title}
-                </Typography>
-                <div className={classes.divider}></div>
-                <Grid container spacing={2} alignItems="stretch">
-                    {feed.map((feed) => (
-                        <Grid item key={feed.title} xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={feed.img}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h8" component="h3" className={classes.cardHeader}>
-                                        {feed.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {feed.description}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button
-                                        type="submit"
-                                        variant="outlined"
-                                        color="primary"
-                                        href={feed.link}
-                                        className={classes.button}
-                                    >
-                                        {feed.buttonText}
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
+            <div style={{backgroundColor: `${title}` === 'Expecially for You' ? `${cyan[50]}` : null}}>
+                <Container component="main" className={classes.heroContent}>
+                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.header}>
+                        {title}
+                    </Typography>
+                    <div className={classes.divider}></div>
+
+                    <Grid container spacing={2} alignItems="stretch">
+                        {feed.map((feed) => (
+                            <Grid item key={feed.title} xs={12} sm={6} md={4}>
+                                <Card className={classes.card}>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={feed.img}
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h8" component="h3" className={classes.cardHeader}>
+                                            {feed.title}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {feed.description}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button
+                                            type="submit"
+                                            variant="outlined"
+                                            color="primary"
+                                            href={feed.link}
+                                            className={classes.button}
+                                        >
+                                            {feed.buttonText}
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Container>
+            </div>
         </React.Fragment>
     );
 }

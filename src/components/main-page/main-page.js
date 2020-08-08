@@ -8,21 +8,13 @@ import Video from './video';
 import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
-import cyan from "@material-ui/core/colors/cyan";
 import feedimg01 from "../../images/feed01.PNG";
 import feedimg02 from "../../images/feed02.PNG";
 import feedimg03 from "../../images/feed03.PNG";
 
 
 const useStyles = makeStyles((theme) => ({
-    link: {
-        margin: theme.spacing(1),
-        '&:hover': {
-            fontWeight: 'bold',
-            textDecoration: 'none',
-            color: `${cyan[500]}`,
-        }
-    },
+
 }));
 
 const info_sections = [
@@ -106,10 +98,10 @@ const videos = [
         title: 'Medidation Video #2',
         src: 'https://www.youtube.com/embed/inpok4MKVLM'
     },
-    {
-        title: 'Medidation Video #3',
-        src: 'https://www.youtube.com/embed/itZMM5gCboo'
-    }
+    // {
+    //     title: 'Medidation Video #3',
+    //     src: 'https://www.youtube.com/embed/itZMM5gCboo'
+    // }
 ]
 
 const android_games =[

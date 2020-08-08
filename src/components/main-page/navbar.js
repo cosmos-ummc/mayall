@@ -113,7 +113,6 @@ export default function Navbar(props) {
                                     {section.title}
                                 </Link>
                             ))}
-
                         </Scrollspy>
                     </nav>
 
