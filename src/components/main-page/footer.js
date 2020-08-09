@@ -8,13 +8,12 @@ import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Copyright from "../copyright/copyright";
-import cyan from '@material-ui/core/colors/cyan';
 import grey from '@material-ui/core/colors/grey';
 
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
-        backgroundColor: `${cyan[400]}`,
+        backgroundColor: '#5F7D95',
         height: 150,
         display: 'flex',
         alignItems: 'center',

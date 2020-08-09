@@ -12,6 +12,7 @@ import feedimg01 from "../../images/feed01.PNG";
 import feedimg02 from "../../images/feed02.PNG";
 import feedimg03 from "../../images/feed03.PNG";
 import {Redirect} from "react-router-dom";
+import {Schedule} from "../schedule";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const info_sections = [
-    { title: "Home", url: 'home' },
+    { title: "Home", url: '/' },
     { title: "Health's Feed", url: '#feeds' },
     { title: 'Meditation', url: '#meditation' },
     { title: 'Games', url: '#games' },
@@ -27,7 +28,7 @@ const info_sections = [
 
 const func_sections = [
     { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: '#', icon: 'ChatIcon' },
+    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
 
@@ -219,9 +220,9 @@ export default function Landing() {
                 <Game title="Suggested Games for IOS Users" games={ios_games}/>
             </section>
 
-
             <Footer footer={footer}/>
 
         </React.Fragment>
+
     );
 }

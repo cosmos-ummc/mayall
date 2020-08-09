@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
         border: `2px solid ${grey[900]}`,
         color: 'white',
         '&:hover': {
-            color: 'blue',
+            color: 'black',
+            border: '2px solid black'
         }
     },
     button2: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(8, 'auto', 0),
     },
     formControl: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(2, 'auto', 0),
         minWidth: 120,
         "& .MuiOutlinedInput-root": {
             "& fieldset": {
@@ -76,20 +77,72 @@ const useStyles = makeStyles((theme) => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    instruction1: {
+        margin: theme.spacing(0, 'auto'),
+        width: 450,
+        fontStyle: 'italic',
+    },
+    instruction1null: {
+        margin: theme.spacing(0, 'auto'),
+        width: 450,
+        fontStyle: 'italic',
+        color: `rgba(255, 255, 255, 1)`
+    },
+    button3: {
+        margin: theme.spacing(2, 1, 0, 28),
+        padding: theme.spacing(1, 3.5),
+        backgroundColor: `${cyan[500]}`,
+        border: `2px solid ${grey[900]}`,
+        color: 'white',
+        '&:hover': {
+            color: 'black',
+            border: '2px solid black'
+        },
+    },
+    instruction2: {
+        marginTop: theme.spacing(3.5),
+        marginLeft: theme.spacing(0.5),
+        width: 200,
+        textDecorationLine: 'underline',
+        fontWeight: 'bold'
+    },
+    instruction2null: {
+        marginTop: theme.spacing(3.5),
+        marginLeft: theme.spacing(0.5),
+        width: 200,
+        textDecorationLine: 'underline',
+        fontWeight: 'bold',
+        color: `rgba(255, 255, 255, 1)`
+    }
 }));
 
 const info_sections = [
-    { title: "Home", url: 'home' },
-    { title: "Health's Feed", url: '#feeds' },
-    { title: 'Meditation', url: '#meditation' },
-    { title: 'Games', url: '#games' },
+    { title: "Home", url: '/' },
+    { title: "Health's Feed", url: '/#feeds' },
+    { title: 'Meditation', url: '/#meditation' },
+    { title: 'Games', url: '/#games' },
 ];
 
 const func_sections = [
-    { title: 'SCHEDULE', url: '#', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: '#', icon: 'ChatIcon' },
+    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
+    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
+
+const timeslots = [
+    {
+        time: '2 August 2020 2.00 P.M.',
+        value: 10
+    },
+    {
+        time: '3 August 2020 2.00 P.M.',
+        value: 20
+    },
+    {
+        time: '4 August 2020 2.00 P.M.',
+        value: 30
+    },
+]
 
 export default function Schedule() {
     const classes = useStyles();
@@ -98,6 +151,7 @@ export default function Schedule() {
     const [state, setState] = React.useState({
         age: '',
         name: 'hai',
+        isChoosed: false
     });
 
     const handleChange = (event) => {
@@ -105,14 +159,29 @@ export default function Schedule() {
         setState({
             ...state,
             [name]: event.target.value,
+            isChoosed: true,
         });
     };
+
+
+    /* save button */
+    const [saveState, setSaveState] = React.useState({
+        isSaved: false
+    });
+
+    function handleSave(event) {
+        event.preventDefault();
+        setSaveState({
+            isSaved: true,
+        });
+        console.log(saveState.isSaved)
+    }
 
     return (
         <React.Fragment>
             <CssBaseline />
 
-            {/*<Navbar info_sections={info_sections} func_sections={func_sections} />*/}
+            <Navbar info_sections={info_sections} func_sections={func_sections} />
 
             <Container className={classes.canvas}>
                 <div className={classes.div}>
@@ -162,21 +231,37 @@ export default function Schedule() {
                             }}
                         >
                             <option aria-label="None" value="" />
-                            <option value={10}>2 August 2020 2.00 P.M.</option>
-                            <option value={20}>3 August 2020 2.00 P.M.</option>
-                            <option value={30}>4 August 2020 2.00 P.M.</option>
+                            {timeslots.map((slot) => (
+                                <option value={slot.value}>{slot.time}</option>
+                            ))}
                         </Select>
                     </FormControl>
                     <br/>
-                    <Button
-                        type="submit"
-                        variant="outlined"
-                        color="primary"
-                        href="#"
-                        className={classes.button1}
-                    >
-                        Save
-                    </Button>
+                    <div className={state.isChoosed? classes.instruction1: classes.instruction1null}>
+                        <p>*You can only change the session time a day before the meeting. Choose your preferred time and save.</p>
+                    </div>
+
+                    <Grid container direction="row" justify="center" alignItems="center">
+                        <Grid item>
+                            <Button
+                                type="submit"
+                                variant="outlined"
+                                color="primary"
+                                href="#"
+                                onClick={handleSave}
+                                className={classes.button3}
+                            >
+                                Save
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <div className={saveState.isSaved? classes.instruction2: classes.instruction2null}>
+                                <p>Your answer has been saved and sent to your consultant</p>
+                            </div>
+                        </Grid>
+                    </Grid>
+
+
                 </div>
             </Container>
 
