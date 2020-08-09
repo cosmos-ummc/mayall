@@ -11,8 +11,6 @@ import grey from "@material-ui/core/colors/grey";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
-import Moment from 'react-moment';
-import 'moment-timezone';
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
