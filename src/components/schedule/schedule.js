@@ -12,7 +12,6 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 
-
 const useStyles = makeStyles((theme) => ({
     canvas: {
         // backgroundColor: 'grey',
@@ -116,20 +115,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const info_sections = [
-    { title: "Home", url: '/' },
-    { title: "Health's Feed", url: '/#feeds' },
-    { title: 'Meditation', url: '/#meditation' },
-    { title: 'Games', url: '/#games' },
-];
-
-const func_sections = [
-    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
-    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
-];
-
 const timeslots = [
     {
         time: '2 August 2020 2.00 P.M.',
@@ -182,7 +167,7 @@ export default function Schedule() {
         <React.Fragment>
             <CssBaseline />
 
-            <Navbar info_sections={info_sections} func_sections={func_sections} />
+            <Navbar />
 
             <Container className={classes.canvas}>
                 <div className={classes.div}>

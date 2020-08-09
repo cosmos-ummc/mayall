@@ -62,19 +62,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const info_sections = [
-    { title: "Home", url: '/' },
-    { title: "Health's Feed", url: '/#feeds' },
-    { title: 'Meditation', url: '/#meditation' },
-    { title: 'Games', url: '/#games' },
-];
-
-const func_sections = [
-    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
-    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
-];
 
 export default function ScheduleNone() {
     const classes = useStyles();
@@ -96,7 +83,7 @@ export default function ScheduleNone() {
         <React.Fragment>
             <CssBaseline />
 
-            <Navbar info_sections={info_sections} func_sections={func_sections} />
+            <Navbar />
 
             <Container className={classes.canvas}>
                 <div className={classes.div}>
