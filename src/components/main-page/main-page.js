@@ -12,24 +12,14 @@ import feedimg01 from "../../images/feed01.PNG";
 import feedimg02 from "../../images/feed02.PNG";
 import feedimg03 from "../../images/feed03.PNG";
 import {Redirect} from "react-router-dom";
+import {Schedule} from "../schedule";
+import DisableMatch from "../disable-match/disable-match"
 
 
 const useStyles = makeStyles((theme) => ({
 
 }));
 
-const info_sections = [
-    { title: "Home", url: 'home' },
-    { title: "Health's Feed", url: '#feeds' },
-    { title: 'Meditation', url: '#meditation' },
-    { title: 'Games', url: '#games' },
-];
-
-const func_sections = [
-    { title: 'SCHEDULE', url: '#', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: '#', icon: 'ChatIcon' },
-    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
-];
 
 const topimgs = [
     {
@@ -154,7 +144,7 @@ const ios_games =[
 const footer = {
     banner: 'Enjoy Your Day!',
     title: 'Help Resources',
-    info: [
+    info01: [
         {
             site: 'Ministry of Health Malaysia official website for information related to COVID-19',
             linkText: 'http://covid-19.moh.gov.my/',
@@ -167,6 +157,8 @@ const footer = {
             site: 'Malaysian Mental Health Association (MMHA)',
             linkText: 'www.mmha.org.my',
         },
+    ],
+    info02: [
         {
             site: 'Befrienders',
             linkText: 'https://www.befrienders.org.my/',
@@ -176,26 +168,26 @@ const footer = {
             linkText: 'https://www.kpwkm.gov.my/kpwkm/index.php?r=portal/full&id=NGtVYXZIMjRqM3diW',
         }
     ],
-    phone: '15999'
-
+    phone: '15999',
 };
+
 
 export default function Landing() {
 
     const classes = useStyles();
 
-    // if not logged in, navigate to login page
-    const token = localStorage.getItem("auth-token");
-    console.log(token);
-    if (!token) {
-        return <Redirect to="/login" />;
-    }
+    // // if not logged in, navigate to login page
+    // const token = localStorage.getItem("auth-token");
+    // console.log(token);
+    // if (!token) {
+    //     return <Redirect to="/login" />;
+    // }
 
     return (
         <React.Fragment>
             <CssBaseline />
 
-            <Navbar info_sections={info_sections} func_sections={func_sections} />
+            <Navbar />
 
             <section id="home">
                 <Topview topimgs={topimgs}/>
@@ -217,9 +209,11 @@ export default function Landing() {
                 <Game title="Suggested Games for IOS Users" games={ios_games}/>
             </section>
 
-
             <Footer footer={footer}/>
 
+            <DisableMatch isMatch={true}/>
+
         </React.Fragment>
+
     );
 }

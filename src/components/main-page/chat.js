@@ -17,7 +17,7 @@ const postfont = {
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
-        backgroundColor: 'black',
+        backgroundColor: '#212121',
         color: theme.palette.common.white,
         height: 200,
         display: 'flex',

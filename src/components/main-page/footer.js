@@ -8,13 +8,12 @@ import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Copyright from "../copyright/copyright";
-import cyan from '@material-ui/core/colors/cyan';
 import grey from '@material-ui/core/colors/grey';
 
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
-        backgroundColor: `${cyan[400]}`,
+        backgroundColor: '#5F7D95',
         height: 150,
         display: 'flex',
         alignItems: 'center',
@@ -23,26 +22,27 @@ const useStyles = makeStyles((theme) => ({
     },
     div: {
         margin: theme.spacing(3, 'auto'),
+        color: 'white',
+        fontWeight: 'bold'
     },
     footerdiv: {
-        backgroundColor: `${grey[400]}`,
+        backgroundColor: `${grey[900]}`,
+        color: 'white'
     },
     footer: {
-        // borderTop: `1px solid ${theme.palette.divider}`,
-        // marginTop: theme.spacing(8),
+        width: '80%',
         paddingTop: theme.spacing(3),
         paddingBottom: theme.spacing(3),
-        [theme.breakpoints.up('sm')]: {
-            paddingTop: theme.spacing(6),
-            paddingBottom: theme.spacing(6),
-        },
+        margin: theme.spacing(0, 'auto'),
     },
     res: {
-        flexWrap: 'wrap',
-        display: 'flex',
-        flexFlow: 'row',
+        color: 'white'
+    },
+    col: {
+        width: '50%'
     }
 }));
+
 
 export default function Game(props) {
     const classes = useStyles();
@@ -59,26 +59,48 @@ export default function Game(props) {
             </Paper>
             <div className={classes.footerdiv}>
                 <Container maxWidth="md" component="footer" className={classes.footer}>
-                    <Typography variant="h6" color="textPrimary" gutterBottom>
+                    <Typography variant="h5" color="inherit" gutterBottom style={{marginBottom: 20, fontWeight: 'bold'}}>
                         {footer.title}
                     </Typography>
-                    <Grid container spacing={4} justify="space-between" className={classes.res}>
-                        {footer.info.map((info) => (
-                            <Grid item xs={6} sm={3} key={info.site}>
-                                <Typography color="textPrimary" gutterBottom>
-                                    {info.site}
-                                </Typography>
-                                <Link href="#" variant="subtitle1" color="textSecondary">
-                                    {info.linkText}
-                                </Link>
+
+                    <Grid container direction="row" >
+                        <Grid item className={classes.col}>
+                            <Grid container direction="column" justify="space-between" className={classes.res}>
+                                {footer.info01.map((info) => (
+                                    <Grid item xs={6} key={info.site} style={{marginBottom: 20}}>
+                                        <Typography variant="body2" gutterBottom>
+                                            {info.site}
+                                        </Typography>
+                                        <Link href="#" color="inherit" variant="body2">
+                                            {info.linkText}
+                                        </Link>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
+                        </Grid>
+                        <Grid item className={classes.col}>
+                            <Grid container direction="column" justify="space-between" className={classes.res}>
+                                {footer.info02.map((info) => (
+                                    <Grid item xs={6} key={info.site} style={{marginBottom: 20}}>
+                                        <Typography variant="body2" gutterBottom>
+                                            {info.site}
+                                        </Typography>
+                                        <Link href="#" color="inherit" variant="body2">
+                                            {info.linkText}
+                                        </Link>
+                                    </Grid>
+                                ))}
+                                <Grid item xs={6} style={{marginTop: 10}}>
+                                    <Typography variant="h6" color="inherit" gutterBottom>
+                                        Call {footer.phone}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                    <Typography variant="h6" color="textPrimary" gutterBottom>
-                        Call {footer.phone}
-                    </Typography>
+
                     <Box mt={5}>
-                        <Copyright />
+                        <Copyright color='white'/>
                     </Box>
                 </Container>
             </div>

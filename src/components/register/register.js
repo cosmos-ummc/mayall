@@ -202,7 +202,7 @@ export default function SignUp() {
                             </Grid>
                         </Grid>
                         <Box mt={2}>
-                            <Copyright />
+                            <Copyright color='grey'/>
                         </Box>
                     </form>
                 </div>

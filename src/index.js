@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./service-worker";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { MainPage, Register, Login, ChatRoom } from "./components";
+import {MainPage, Register, Login, ChatRoom, Schedule} from "./components";
+import ScheduleNone from "./components/schedule-none/schedule-none";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +15,9 @@ ReactDOM.render(
           <Route path="/register" component={Register} />
           <Route path="/" component={MainPage} exact />
           <Route path="/chat" component={ChatRoom} />
+          <Route path="/schedule" component={Schedule} />
+          <Route path="/schedule-none" component={ScheduleNone} />
+
         </Switch>
       </main>
     </BrowserRouter>

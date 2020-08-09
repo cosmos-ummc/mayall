@@ -15,7 +15,9 @@ import {useHistory} from "react-router-dom";
 import {login, logout} from "../../api/auth";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -75,8 +77,30 @@ const useStyles = makeStyles((theme) => ({
     },
     menu: {
         marginTop: theme.spacing(4),
-    }
+    },
+    typography: {
+        padding: theme.spacing(2),
+    },
+    popover: {
+        pointerEvents: 'none',
+    },
+    paper: {
+        padding: theme.spacing(1),
+    },
 }));
+
+export const info_sections = [
+    { title: "Home", url: '/' },
+    { title: "Health's Feed", url: '#feeds' },
+    { title: 'Meditation', url: '#meditation' },
+    { title: 'Games', url: '#games' },
+];
+export const func_sections = [
+    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
+    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
+    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
+    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
+];
 
 const icons = {
     DateRangeIcon: DateRangeIcon,
@@ -86,17 +110,30 @@ const icons = {
 
 export default function Navbar(props) {
     const classes = useStyles();
-    const {func_sections, info_sections} = props;
 
+
+    {/* Handle Profile Menu */}
     const [anchorEl, setAnchorEl] = React.useState(null);
-
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    /* Popover */
+    const [anchorEl2, setAnchorEl2] = React.useState(null);
+
+    const handlePopoverOpen = (event) => {
+        setAnchorEl2(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setAnchorEl2(null);
+    };
+
+    const open = Boolean(anchorEl2);
+
 
     const history = useHistory();
 
@@ -114,6 +151,7 @@ export default function Navbar(props) {
                     <img className={classes.logo} src={logo_img}/>
 
                     <div className={classes.spacer}/>
+
                     <nav className="nav">
                         <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
                                    currentClassName={classes.active}
@@ -144,21 +182,88 @@ export default function Navbar(props) {
                     <div className={classes.divider}/>
 
                     <div>
-                        {func_sections.map((section) => (
-                            <Button
-                                color="primary"
-                                key={section.title}
-                                variant="outlined"
-                                href={section.url}
-                                className={classes.button}
-                                aria-controls={`${section.title}` === 'PROFILE' ? "simple-menu" : null}
-                                aria-haspopup={`${section.title}` === 'PROFILE' ? true : false}
-                                onClick={`${section.title}` === 'PROFILE' ? handleClick : null}
-                            >
-                                {React.createElement(icons[section.icon], {className: `${classes.icon}`})}
-                            </Button>
 
-                        ))}
+                        {/* Schedule */}
+
+                        <Button
+                            color="primary"
+                            key={func_sections[0].title}
+                            variant="outlined"
+                            href={func_sections[0].url}
+                            className={classes.button}
+                        >
+                            <Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>
+                                {React.createElement(icons[func_sections[0].icon], {className: `${classes.icon}`})}
+                            </Badge>
+
+                        </Button>
+
+                        {/* Schedule None */}
+                        <Button
+                            color="primary"
+                            key={func_sections[1].title}
+                            variant="outlined"
+                            href={func_sections[1].url}
+                            className={classes.button}
+                        >
+                            <Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>
+                                {React.createElement(icons[func_sections[1].icon], {className: `${classes.icon}`})}
+                            </Badge>
+                        </Button>
+
+                        {/* Chat */}
+                        <Button
+                            color="primary"
+                            key={func_sections[2].title}
+                            variant="outlined"
+                            href={func_sections[2].url}
+                            className={classes.button}
+
+                            aria-owns={open ? 'mouse-over-popover' : undefined}
+                            aria-haspopup="true"
+                            onMouseEnter={handlePopoverOpen}
+                            onMouseLeave={handlePopoverClose}
+                        >
+                            <Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>
+                                {React.createElement(icons[func_sections[2].icon], {className: `${classes.icon}`})}
+                            </Badge>
+                        </Button>
+                        <Popover
+                            id="mouse-over-popover"
+                            className={classes.popover}
+                            classes={{
+                                paper: classes.paper,
+                            }}
+                            open={open}
+                            anchorEl={anchorEl2}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            onClose={handlePopoverClose}
+                            disableRestoreFocus
+                        >
+                            <Typography>You hava new message.</Typography>
+                        </Popover>
+
+
+                        {/* Profile */}
+                        <Button
+                            color="primary"
+                            key={func_sections[3].title}
+                            variant="outlined"
+                            href={func_sections[3].url}
+                            className={classes.button}
+                            aria-controls={"simple-menu"}
+                            aria-haspopup={true}
+                            onClick={handleClick}
+                        >
+                            {React.createElement(icons[func_sections[3].icon], {className: `${classes.icon}`})}
+                        </Button>
                         <Menu
                             id="simple-menu"
                             anchorEl={anchorEl}
@@ -171,6 +276,35 @@ export default function Navbar(props) {
                             <MenuItem onClick={handleClose}>Logout</MenuItem>
                         </Menu>
                     </div>
+
+                    {/*<div>*/}
+                    {/*    {func_sections.map((section) => (*/}
+                    {/*        <Button*/}
+                    {/*            color="primary"*/}
+                    {/*            key={section.title}*/}
+                    {/*            variant="outlined"*/}
+                    {/*            href={section.url}*/}
+                    {/*            className={classes.button}*/}
+                    {/*            aria-controls={`${section.title}` === 'PROFILE' ? "simple-menu" : null}*/}
+                    {/*            aria-haspopup={`${section.title}` === 'PROFILE' ? true : false}*/}
+                    {/*            onClick={`${section.title}` === 'PROFILE' ? handleClick : null}*/}
+                    {/*        >*/}
+                    {/*            {React.createElement(icons[section.icon], {className: `${classes.icon}`})}*/}
+                    {/*        </Button>*/}
+
+                    {/*    ))}*/}
+                    {/*    <Menu*/}
+                    {/*        id="simple-menu"*/}
+                    {/*        anchorEl={anchorEl}*/}
+                    {/*        keepMounted*/}
+                    {/*        open={Boolean(anchorEl)}*/}
+                    {/*        onClose={handleClose}*/}
+                    {/*        className={classes.menu}*/}
+                    {/*    >*/}
+                    {/*        <MenuItem onClick={handleClose}>Profile</MenuItem>*/}
+                    {/*        <MenuItem onClick={handleClose}>Logout</MenuItem>*/}
+                    {/*    </Menu>*/}
+                    {/*</div>*/}
                 </Toolbar>
             </AppBar>
         </React.Fragment>
