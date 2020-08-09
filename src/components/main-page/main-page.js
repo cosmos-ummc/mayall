@@ -13,6 +13,11 @@ import feedimg02 from "../../images/feed02.PNG";
 import feedimg03 from "../../images/feed03.PNG";
 import {Redirect} from "react-router-dom";
 import {Schedule} from "../schedule";
+import DisableMatch from "../disable-match/disable-match"
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import search_img from "../../images/searchIcon.PNG";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -222,6 +227,8 @@ export default function Landing() {
             </section>
 
             <Footer footer={footer}/>
+
+            <DisableMatch isMatch={true}/>
 
         </React.Fragment>
 
