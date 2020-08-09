@@ -125,6 +125,7 @@ const info_sections = [
 
 const func_sections = [
     { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
+    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
     { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
