@@ -14,29 +14,12 @@ import feedimg03 from "../../images/feed03.PNG";
 import {Redirect} from "react-router-dom";
 import {Schedule} from "../schedule";
 import DisableMatch from "../disable-match/disable-match"
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import search_img from "../../images/searchIcon.PNG";
 
 
 const useStyles = makeStyles((theme) => ({
 
 }));
 
-const info_sections = [
-    { title: "Home", url: '/' },
-    { title: "Health's Feed", url: '#feeds' },
-    { title: 'Meditation', url: '#meditation' },
-    { title: 'Games', url: '#games' },
-];
-
-const func_sections = [
-    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
-    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
-    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
-];
 
 const topimgs = [
     {
@@ -204,7 +187,7 @@ export default function Landing() {
         <React.Fragment>
             <CssBaseline />
 
-            <Navbar info_sections={info_sections} func_sections={func_sections} />
+            <Navbar />
 
             <section id="home">
                 <Topview topimgs={topimgs}/>
