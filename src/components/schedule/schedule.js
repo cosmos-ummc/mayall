@@ -11,6 +11,7 @@ import grey from "@material-ui/core/colors/grey";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
+import DisableMatch from "../disable-match/disable-match";
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
@@ -253,6 +254,7 @@ export default function Schedule() {
                 </div>
             </Container>
 
+            <DisableMatch isMatch={true}/>
 
         </React.Fragment>
     );

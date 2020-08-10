@@ -4,7 +4,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
 import Box from "@material-ui/core/Box";
+import enable_img from "../../images/enable-icon.PNG";
 import disable_img from "../../images/disable-icon.PNG";
+
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 
@@ -12,9 +14,9 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles((theme) => ({
     div: {
         top: 'auto',
-        right: 12,
+        left: 10,
         bottom: 12,
-        left: 'auto',
+        right: 'auto',
         margin: theme.spacing(5, 3),
         position: 'fixed',
         width: 100
@@ -25,21 +27,38 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginTop: 10,
-        border: '2px solid #74CCD1',
-        backgroundColor: '#74CCD1',
+        padding: theme.spacing(0),
+        border: '3px solid #74CCD1',
         '&:hover': {
-            backgroundColor: '#74CCD1',
-            border: '2px solid grey',
+            border: '3px solid #5F7D95',
+        }
+    },
+    disable: {
+        marginTop: 10,
+        padding: theme.spacing(0),
+        border: '3px solid #5F7D95',
+        '&:hover': {
+            border: '3px solid #74CCD1',
         }
     },
     icon: {
         width: 80,
-        height: 80
+        height: 80,
     },
 }));
 
 export default function DisableMatch(){
     const classes = useStyles();
+
+    const [state, setState] = React.useState({
+        isDisable : false,
+    })
+    function handleDisable(event) {
+        event.preventDefault();
+        setState({
+            isDisable: !state.isDisable,
+        });
+    }
 
     return (
         <React.Fragment>
@@ -51,8 +70,10 @@ export default function DisableMatch(){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button href="#" color="primary" variant="contained" className={classes.button}>
-                            <img className={classes.icon} src={disable_img}/>
+                        <Button href="#" color="primary" variant="contained"
+                                className={state.isDisable? classes.disable : classes.button}
+                                onClick={handleDisable}>
+                            <img className={classes.icon} src={state.isDisable? disable_img : enable_img}/>
                         </Button>
                     </Grid>
                 </Grid>
