@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
+import DisableMatch from "../disable-match/disable-match";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -117,6 +118,7 @@ export default function ScheduleNone() {
                 </div>
             </Container>
 
+            <DisableMatch isMatch={true}/>
 
         </React.Fragment>
     );
