@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 const topimgs = [
     {
         name: 'topview01',
-        linkText: '../../images/topview01.PNG'
+        linkText: '../../images/topview01.jpg'
     },
     {
         name: 'topview02',
-        linkText: '../../images/topview02.PNG'
+        linkText: '../../images/topview02.jpg'
     }
 ]
 

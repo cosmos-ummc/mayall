@@ -8,7 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ChatIcon from '@material-ui/icons/Chat';
 import PersonIcon from '@material-ui/icons/Person';
-import logo_img from "../../images/logo.PNG";
+import logo_img from "../../images/logo9.png";
 import cyan from "@material-ui/core/colors/cyan";
 import Scrollspy from 'react-scrollspy';
 import {useHistory} from "react-router-dom";
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
         margin: theme.spacing(1, 3),
-        width: '100px'
+        width: '50px'
     },
     spacer: {
         flex: '1 1 auto'
@@ -97,7 +97,7 @@ export const info_sections = [
 ];
 export const func_sections = [
     { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'SCHEDULE-NONE', url: 'schedule-none', icon: 'DateRangeIcon' },
+    { title: 'MEETUP', url: 'meetup', icon: 'DateRangeIcon' },
     { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
@@ -192,13 +192,13 @@ export default function Navbar(props) {
                             href={func_sections[0].url}
                             className={classes.button}
                         >
-                            <Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>
+                            {/*<Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>*/}
                                 {React.createElement(icons[func_sections[0].icon], {className: `${classes.icon}`})}
-                            </Badge>
+                            {/*</Badge>*/}
 
                         </Button>
 
-                        {/* Schedule None */}
+                        {/* Scheduled Meetup */}
                         <Button
                             color="primary"
                             key={func_sections[1].title}

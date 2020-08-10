@@ -2,27 +2,18 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
-import topview01 from "../../images/topview01.PNG";
-import topview02 from "../../images/topview02.PNG";
+import topview01 from "../../images/topview01.jpg";
+import topview02 from "../../images/topview02.jpg";
 
 
 const useStyles = makeStyles((theme) => ({
     canvas:{
-        flexGrow: 1,
-        marginTop: 50,
-        marginBottom: 20,
-        height: '500px',
-        width: '100vw',
+        marginTop: 80,
     },
-    view: {
-        position: 'relative',
-        // backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: "center center",
+    image: {
+        margin: theme.spacing(0),
+        padding: theme.spacing(0),
         width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        margin: theme.spacing('auto')
     },
 }));
 
@@ -38,13 +29,15 @@ export default function Topview(props) {
     return (
         <React.Fragment>
 
-            <Grid container alignItems="center" direction="row" className={classes.canvas}>
-                {topimgs.map((img) => (
-                    <Grid item key={img.name} xs={12} sm={6}
-                          className={classes.view}
-                          style={{backgroundImage: `url(${images[img.name]})`}}/>
-                ))}
-            </Grid>
+                <div className={classes.canvas}></div>
+                <Grid container direction="row" justify="flex-start" alignItems="center">
+                    <Grid item xs={12} sm={6}>
+                        <img className={classes.image} alt={'image'} src={topview01}/>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <img className={classes.image} alt={'image'} src={topview02}/>
+                    </Grid>
+                </Grid>
 
         </React.Fragment>
     );
