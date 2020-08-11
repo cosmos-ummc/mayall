@@ -8,9 +8,14 @@ import Video from './video';
 import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
-import feedimg01 from "../../images/feed01.PNG";
-import feedimg02 from "../../images/feed02.PNG";
-import feedimg03 from "../../images/feed03.PNG";
+import feedimg01 from "../../images/feeds/feed01.PNG";
+import feedimg02 from "../../images/feeds/feed02.PNG";
+import feedimg03 from "../../images/feeds/feed03.PNG";
+import gameimg01 from "../../images/games/AntiStress_Anxiety_Relief_Game.png";
+import gameimg02 from "../../images/games/bubblewrap_android.png";
+import gameimg03 from "../../images/games/flow_free.png";
+import gameimg04 from "../../images/games/Pigment_Adult_Coloring_Book.png";
+
 import {Redirect} from "react-router-dom";
 import {Schedule} from "../schedule";
 import DisableMatch from "../disable-match/disable-match"
@@ -36,6 +41,7 @@ const recommended_feeds = [
     {
         title: 'Why Do We Need to Drink Water?',
         img: feedimg01,
+        imgPath: 'src/img/feed_img_1',
         description: 'Exercise can help in physical and mental health. Duration of exercise: at least 30 minutes a day and this can be done separately in three...',
         buttonText: 'Read More',
         link: "#"
@@ -43,6 +49,7 @@ const recommended_feeds = [
     {
         title: 'How to Start Exercisng At Home?',
         img: feedimg02,
+        imgPath: 'src/img/feed_img_2',
         description: 'We need water to survive. You will feel good, energetic and your skin will be supple when you are well hydrated. How much fluid do you need?',
         buttonText: 'Read More',
         link: "#"
@@ -50,6 +57,7 @@ const recommended_feeds = [
     {
         title: 'Well Balanced Meals?',
         img: feedimg03,
+        imgPath: 'src/img/feed_img_3',
         description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
         buttonText: 'Read More',
         link: "#"
@@ -60,6 +68,7 @@ const expecially_feeds = [
     {
         title: '(Special)Why Do We Need to Drink Water?',
         img: feedimg01,
+        imgPath: 'src/img/feed_img_1',
         description: 'Exercise can help in physical and mental health. Duration of exercise: at least 30 minutes a day and this can be done separately in three...',
         buttonText: 'Read More',
         link: "#"
@@ -67,6 +76,7 @@ const expecially_feeds = [
     {
         title: '(Special)How to Start Exercisng At Home?',
         img: feedimg02,
+        imgPath: 'src/img/feed_img_2',
         description: 'We need water to survive. You will feel good, energetic and your skin will be supple when you are well hydrated. How much fluid do you need?',
         buttonText: 'Read More',
         link: "#"
@@ -74,6 +84,7 @@ const expecially_feeds = [
     {
         title: '(Special)Well Balanced Meals?',
         img: feedimg03,
+        imgPath: 'src/img/feed_img_3',
         description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
         buttonText: 'Read More',
         link: "#"
@@ -98,46 +109,46 @@ const videos = [
 const android_games =[
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg01,
+        link: 'https://play.google.com/store/apps/details?id=com.relextro.anti.stress.games'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg02,
+        link: 'https://play.google.com/store/apps/details?id=com.jakub.barabasgmail.com.bubblewrap'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg03,
+        link: 'https://play.google.com/store/apps/details?id=com.bigduckgames.flow&hl=en_US'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg04,
+        link: 'https://play.google.com/store/apps/details?id=com.pixite.pigment&hl=en_US'
     }
 ]
 
 const ios_games =[
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg01,
+        link: 'https://apps.apple.com/us/app/antistress-anxiety-relief-game/id1438709018'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg02,
+        link: 'https://play.google.com/store/apps/details?id=com.jakub.barabasgmail.com.bubblewrap'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg03,
+        link: 'https://apps.apple.com/us/app/flow-free/id526641427'
     },
     {
         name: "game #1",
-        logo: 'https://source.unsplash.com/random',
-        link: '#'
+        logo: gameimg04,
+        link: 'https://apps.apple.com/us/app/pigment-adult-coloring-book/id1062006344'
     }
 ]
 

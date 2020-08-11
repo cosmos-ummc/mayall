@@ -37,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row',
         width: '40%'
     },
+    gamediv: {
+        bgcolor: 'background.paper',
+        borderColor: 'text.primary',
+        border: '0px solid white',
+        borderRadius: '16%',
+        style: { width: '5rem', height: '5rem' },
+    },
     img: {
         width: 50,
         margin: theme.spacing(0, 0.5),
@@ -59,11 +66,11 @@ export default function Game(props) {
                     <Grid container spacing={2} justify="space-evenly" alignItems="center">
                         {games.map((game) => (
                             <Grid item key={game.name} >
-                                <Box borderRadius={16}>
-                                    <a href={game.link}>
-                                        <img border="0" alt={game.name} src={game.logo} width="100" height="100" />
-                                    </a>
-                                </Box>
+                                <a href={game.link}>
+                                    <img className={classes.gamediv}
+                                         alt={game.name} src={game.logo}
+                                         width="100" height="100" />
+                                </a>
                             </Grid>
                         ))}
                     </Grid>
