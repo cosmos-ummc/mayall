@@ -20,11 +20,20 @@ import {Redirect} from "react-router-dom";
 import {Schedule} from "../schedule";
 import DisableMatch from "../disable-match/disable-match"
 import FoundMatch from "../found-match/found-match"
+import { Alert, AlertTitle } from '@material-ui/lab';
+
 
 
 
 const useStyles = makeStyles((theme) => ({
+    alertdiv: {
+        width: '100%',
+        position: 'fixed',
 
+    },
+    alert: {
+        margin: theme.spacing(0, 'auto', 0),
+    }
 }));
 
 
@@ -201,6 +210,13 @@ export default function Landing() {
             <CssBaseline />
 
             <Navbar />
+
+            <div className={classes.alertdiv}>
+                <Alert  onClose={() => {}} severity="info" className={classes.alert}>
+                    <AlertTitle>Avoid too much exposure to news.</AlertTitle>
+                    This is an info alert — <strong>check it out!</strong>
+                </Alert>
+            </div>
 
             <section id="home">
                 <Topview topimgs={topimgs}/>
