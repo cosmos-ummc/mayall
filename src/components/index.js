@@ -13,6 +13,7 @@ export { ScheduleNone } from "./schedule-none";
 export { Meetup } from "./meetup";
 export { Reschedule } from "./reschedule";
 export { DisableMatch } from "./disable-match";
+export { FoundMatch } from "./found-match";
 export { TimeSelect } from "./time-select";
 
 

@@ -19,6 +19,8 @@ import gameimg04 from "../../images/games/Pigment_Adult_Coloring_Book.png";
 import {Redirect} from "react-router-dom";
 import {Schedule} from "../schedule";
 import DisableMatch from "../disable-match/disable-match"
+import FoundMatch from "../found-match/found-match"
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -223,6 +225,7 @@ export default function Landing() {
             <Footer footer={footer}/>
 
             <DisableMatch isMatch={true}/>
+            <FoundMatch />
 
         </React.Fragment>
 
