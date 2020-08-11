@@ -8,6 +8,7 @@ import cyan from "@material-ui/core/colors/cyan";
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import search_img from "../../images/searchIcon.PNG";
 import {Box} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 
 
@@ -38,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
         width: '40%'
     },
     gamediv: {
+        margin: 0,
+        padding: 0,
+        borderRadius: '16%',
+        border: '0px solid white',
+    },
+    gameimg: {
         bgcolor: 'background.paper',
         borderColor: 'text.primary',
         border: '0px solid white',
@@ -66,11 +73,11 @@ export default function Game(props) {
                     <Grid container spacing={2} justify="space-evenly" alignItems="center">
                         {games.map((game) => (
                             <Grid item key={game.name} >
-                                <a href={game.link}>
-                                    <img className={classes.gamediv}
+                                <Button href={game.link} color="primary" variant="contained" className={classes.gamediv}>
+                                    <img className={classes.gameimg}
                                          alt={game.name} src={game.logo}
                                          width="100" height="100" />
-                                </a>
+                                </Button>
                             </Grid>
                         ))}
                     </Grid>
