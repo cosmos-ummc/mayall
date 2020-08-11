@@ -7,6 +7,7 @@ export { MainPage } from "./main-page"
 export { ChatBox } from "./chat-box";
 export { ChatList } from "./chat-list";
 export { ChatRoom } from "./chat-room";
+export { Chat } from "./chat";
 export { Schedule } from "./schedule";
 export { ScheduleNone } from "./schedule-none";
 export { Meetup } from "./meetup";

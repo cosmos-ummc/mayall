@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./service-worker";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import {Reschedule, Meetup, MainPage, Register, Login, ChatRoom, Schedule} from "./components";
+import {Chat, Reschedule, Meetup, MainPage, Register, Login, ChatRoom, Schedule} from "./components";
 import ScheduleNone from "./components/schedule-none/schedule-none";
 
 ReactDOM.render(
@@ -14,7 +14,8 @@ ReactDOM.render(
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/" component={MainPage} exact />
-          <Route path="/chat" component={ChatRoom} />
+          {/*<Route path="/chat" component={ChatRoom} />*/}
+          <Route path="/chat" component={Chat} />
           <Route path="/schedule" component={Schedule} />
           <Route path="/schedule-none" component={ScheduleNone} />
           <Route path="/meetup" component={Meetup} />
