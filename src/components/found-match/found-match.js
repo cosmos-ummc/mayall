@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
 import Button from "@material-ui/core/Button";
 import user_img from "../../images/user (3).png";
-import close_img from "../../images/close.png";
+import close_img from "../../images/close-black.png";
 import {Link} from "react-router-dom";
 
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 16
     },
     icon: {
-        margin: theme.spacing(5, 'auto', 2),
+        margin: theme.spacing(3, 'auto', 2),
         width: '50px'
     },
     icontitle1: {
@@ -49,6 +49,19 @@ const useStyles = makeStyles((theme) => ({
             border: '2px solid black'
         }
     },
+    closeBtn: {
+        float: 'right',
+        backgroundColor: '#5F7D95',
+        marginTop: theme.spacing(1.5),
+        padding: theme.spacing(1, 'auto'),
+        '&:hover' : {
+            backgroundColor: 'white',
+        }
+    },
+    closeicon: {
+        height: 20,
+        width: 20
+    },
 }));
 
 export default function FoundMatch(){
@@ -57,6 +70,11 @@ export default function FoundMatch(){
     return (
         <React.Fragment>
             <div className={classes.div}>
+                <div>
+                    <Button className={classes.closeBtn} color="primary">
+                        <img className={classes.closeicon} src={close_img}/>
+                    </Button>
+                </div>
                 <Grid container direction="column" justify="center" alignItems="center">
                     <Grid item>
                         <Grid container spacing={8} direction="row" justify="flex-end" alignItems="center">

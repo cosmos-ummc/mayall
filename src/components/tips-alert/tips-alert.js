@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexFlow: 'row',
         flex: '1 1 auto',
-        width: '85%',
+        width: '80%',
         margin: (2, 'auto'),
     },
     icon: {
@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     textdiv: {
         width: '100%',
         margin: (2, 'auto'),
-        marginLeft: 20
+        marginLeft: 20,
+        textAlign: 'center'
     }
 }));
 

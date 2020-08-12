@@ -16,6 +16,8 @@ export { DisableMatch } from "./disable-match";
 export { FoundMatch } from "./found-match";
 export { TimeSelect } from "./time-select";
 export { TipsAlert } from "./tips-alert";
+export { Complete } from "./complete";
+
 
 
 
