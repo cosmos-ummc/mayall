@@ -13,6 +13,7 @@ import FoundMatch from "../found-match/found-match"
 import TipsAlert from "../tips-alert/tips-alert";
 import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
+import BlockUser from "../block-user/block-user";
 
 const topimgs = [
     {
@@ -105,11 +106,11 @@ export default function Landing() {
         });
     }, []);
 
-    // if not logged in, navigate to login page
-    const token = localStorage.getItem("auth-token");
-    if (!token) {
-        return <Redirect to="/login"/>;
-    }
+    // // if not logged in, navigate to login page
+    // const token = localStorage.getItem("auth-token");
+    // if (!token) {
+    //     return <Redirect to="/login"/>;
+    // }
 
     return (
         <React.Fragment>
@@ -142,7 +143,8 @@ export default function Landing() {
             <Footer footer={footer}/>
 
             <DisableMatch isMatch={true}/>
-            <FoundMatch/>
+            <FoundMatch nameToMatch={'AnonymousABC'}/>
+            <BlockUser nameToBlock={'AnonymousXYZ'}/>
 
         </React.Fragment>
 

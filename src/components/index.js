@@ -13,6 +13,7 @@ export { Meetup } from "./meetup";
 export { Reschedule } from "./reschedule";
 export { DisableMatch } from "./disable-match";
 export { FoundMatch } from "./found-match";
+export { BlockUser } from "./block-user";
 export { TimeSelect } from "./time-select";
 export { TipsAlert } from "./tips-alert";
 export { Complete } from "./complete";

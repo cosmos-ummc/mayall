@@ -3,8 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Alert, AlertTitle} from "@material-ui/lab";
 import Collapse from "@material-ui/core/Collapse";
 import bulb_img from "../../images/idea (2).png";
-import Grid from "@material-ui/core/Grid";
-import user_img from "../../images/user (3).png";
 import Typography from "@material-ui/core/Typography";
 
 
