@@ -11,7 +11,7 @@ import {Redirect} from "react-router-dom";
 import DisableMatch from "../disable-match/disable-match"
 import FoundMatchModal from "../found-match-modal/found-match-modal"
 import TipsAlert from "../tips-alert/tips-alert";
-import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds} from "../../api/main";
+import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
 import BlockUserModal from "../block-user-modal/block-user-modal";
 
@@ -63,6 +63,7 @@ export default function Landing() {
     const [meditations, setMeditations] = useState([]);
     const [adrGames, setAdrGames] = useState([]);
     const [iosGames, setIosGames] = useState([]);
+    const [tips, setTips] = useState({});
 
     useEffect(() => {
         getRecommendedFeeds().then((data) => {
@@ -85,6 +86,11 @@ export default function Landing() {
                 item.src = item.link;
             });
             setMeditations(data);
+        });
+        getTips().then((data) => {
+            if(data.length === 1) {
+                setTips({title: data[0].title, description: data[0].description});
+            }
         });
         const tmpAdr = [];
         const tmpIos = [];
@@ -118,7 +124,7 @@ export default function Landing() {
 
             <Navbar/>
 
-            <TipsAlert/>
+            <TipsAlert title={tips.title} description={tips.description}/>
 
             <section id="home">
                 <Topview topimgs={topimgs}/>

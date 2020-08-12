@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import {Alert} from "@material-ui/lab";
 import Collapse from "@material-ui/core/Collapse";
 import bulb_img from "../../images/idea (2).png";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function TipsAlert(){
+export default function TipsAlert(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
 
@@ -44,7 +44,9 @@ export default function TipsAlert(){
             <div className={classes.alertdiv}>
                 <Collapse in={open}>
                     <Alert
-                        onClose={() => { setOpen(false)}}
+                        onClose={() => {
+                            setOpen(false)
+                        }}
                         variant="filled"
                         severity="info"
                         className={classes.alert}>
@@ -52,12 +54,10 @@ export default function TipsAlert(){
                         <div className={classes.div}>
                             <img className={classes.icon} src={bulb_img}/>
                             <div className={classes.textdiv}>
-                                <Typography component="h4" variant="h4">Avoid too much exposure to news.</Typography>
-                                <p>Reading, watching or listening to too much news on pandemic may be counter-productive or even upsetting and distressing. Take a break from the news sometimes.</p>
+                                <Typography component="h4" variant="h4">{props.title}</Typography>
+                                <p>{props.description}</p>
                             </div>
                         </div>
-
-
                     </Alert>
                 </Collapse>
             </div>

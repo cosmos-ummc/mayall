@@ -41,3 +41,13 @@ export const getGames = async () => {
         });
     });
 };
+
+export const getTips = async () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${apiUrl}/client/tips/1`).then(res => {
+            return resolve(res.data.data);
+        }).catch(err => {
+            return reject(err);
+        });
+    });
+};
