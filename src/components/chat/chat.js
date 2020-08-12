@@ -9,7 +9,6 @@ import DisableMatch from "../disable-match/disable-match";
 import user_img from "../../images/user (3).png";
 import close_img from "../../images/close.png";
 
-import TextContainer from './TextContainer/TextContainer';
 import Messages from './Messages/Messages';
 import InfoBar from './InfoBar/InfoBar';
 import Input from './Input/Input';
@@ -159,7 +158,6 @@ export default function Chat() {
                     <Messages messages={messages} name={name} />
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
                 </div>
-                <TextContainer users={users}/>
 
             </div>
 

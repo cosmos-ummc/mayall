@@ -106,11 +106,11 @@ export default function Landing() {
         });
     }, []);
 
-    // // if not logged in, navigate to login page
-    // const token = localStorage.getItem("auth-token");
-    // if (!token) {
-    //     return <Redirect to="/login"/>;
-    // }
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
+    }
 
     return (
         <React.Fragment>
