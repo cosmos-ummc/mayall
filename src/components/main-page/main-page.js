@@ -188,15 +188,12 @@ const footer = {
 
 
 export default function Landing() {
-
-    const classes = useStyles();
-
     // // if not logged in, navigate to login page
-    // const token = localStorage.getItem("auth-token");
-    // console.log(token);
-    // if (!token) {
-    //     return <Redirect to="/login" />;
-    // }
+    const token = localStorage.getItem("auth-token");
+    console.log(token);
+    if (!token) {
+        return <Redirect to="/login" />;
+    }
 
     return (
         <React.Fragment>

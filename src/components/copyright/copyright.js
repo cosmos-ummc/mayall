@@ -11,7 +11,7 @@ export default function Copyright(props) {
             <Typography variant="body2" color="inherit" align="center">
                 {'Copyright © '}
                 <Link color="inherit" href="https://material-ui.com/">
-                    MHPSS.com
+                    quaranteams.tk
                 </Link>{' '}
                 {new Date().getFullYear()}
                 {'.'}

@@ -1,3 +1,0 @@
-/*
-this is for js styles
-*/

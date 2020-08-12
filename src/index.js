@@ -11,9 +11,9 @@ ReactDOM.render(
     <BrowserRouter>
       <main>
         <Switch>
+          <Route path="/" component={MainPage} exact />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/" component={MainPage} exact />
           {/*<Route path="/chat" component={ChatRoom} />*/}
           <Route path="/chat" component={Chat} />
           <Route path="/schedule" component={Schedule} />

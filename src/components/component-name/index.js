@@ -1,3 +1,0 @@
-/*
-this is for exporting default component
-*/
