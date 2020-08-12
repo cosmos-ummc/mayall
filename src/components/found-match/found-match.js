@@ -3,14 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
-import enable_img from "../../images/enable-icon.PNG";
-import disable_img from "../../images/disable-icon.PNG";
-
 import Button from "@material-ui/core/Button";
 import user_img from "../../images/user (3).png";
 import close_img from "../../images/close.png";
 import {Link} from "react-router-dom";
-import cyan from "@material-ui/core/colors/cyan";
 
 
 const useStyles = makeStyles((theme) => ({
