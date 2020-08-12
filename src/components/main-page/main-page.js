@@ -13,7 +13,6 @@ import FoundMatchModal from "../found-match-modal/found-match-modal"
 import TipsAlert from "../tips-alert/tips-alert";
 import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
-import BlockUserModal from "../block-user-modal/block-user-modal";
 
 const topimgs = [
     {
@@ -88,7 +87,7 @@ export default function Landing() {
             setMeditations(data);
         });
         getTips().then((data) => {
-            if(data.length === 1) {
+            if (data.length === 1) {
                 setTips({title: data[0].title, description: data[0].description});
             }
         });
@@ -148,9 +147,8 @@ export default function Landing() {
 
             <Footer footer={footer}/>
 
-            <DisableMatch isMatch={true}/>
+            <DisableMatch/>
             <FoundMatchModal nameToMatch={'AnonymousABC'}/>
-            <BlockUserModal nameToBlock={'AnonymousXYZ'}/>
 
         </React.Fragment>
 

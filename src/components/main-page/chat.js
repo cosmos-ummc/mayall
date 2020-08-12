@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import search_img from "../../images/searchIcon.PNG";
@@ -12,8 +11,8 @@ const postfont = {
     fontFamily: 'Post-No-Bills-Jaffna-Regular',
     fontStyle: 'normal',
     fontWeight: 100,
-    src: `url(${post_font})`};
-
+    src: `url(${post_font})`
+};
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         flex: '1 1 auto'
 
     },
-    spacer:{
+    spacer: {
         flex: '1 1 auto'
     },
     icon: {
@@ -63,26 +62,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Chat(props) {
     const classes = useStyles();
-    const { title, buttonText } = props;
+    const {title, buttonText} = props;
 
     return (
         <React.Fragment>
-            <Paper className={classes.canvas} >
+            <Paper className={classes.canvas}>
 
-                    <div className={classes.div}>
-                        <div className={classes.icon}>
-                            <img className={classes.img} src={search_img}/>
-                            <Typography component="h3" variant="h4" color="inherit" gutterBottom className={classes.title}>
-                                {title}
-                            </Typography>
-                        </div>
-
-                        <div className={classes.spacer}/>
-                        <Button href="#" color="primary" variant="contained" className={classes.button}>
-                            {buttonText}
-                        </Button>
-
+                <div className={classes.div}>
+                    <div className={classes.icon}>
+                        <img className={classes.img} src={search_img}/>
+                        <Typography component="h3" variant="h4" color="inherit" gutterBottom className={classes.title}>
+                            {title}
+                        </Typography>
                     </div>
+
+                    <div className={classes.spacer}/>
+                    <Button href="#" color="primary" variant="contained" className={classes.button}>
+                        {buttonText}
+                    </Button>
+
+                </div>
 
             </Paper>
         </React.Fragment>

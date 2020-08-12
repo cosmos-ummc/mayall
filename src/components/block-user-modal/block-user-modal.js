@@ -1,14 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
 import Button from "@material-ui/core/Button";
 import user_img from "../../images/user (3).png";
 import close_img from "../../images/close-black.png";
-import {Link} from "react-router-dom";
-import Collapse from "@material-ui/core/Collapse";
-
 
 const useStyles = makeStyles((theme) => ({
     div: {
@@ -55,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#5F7D95',
         marginTop: theme.spacing(1.5),
         padding: theme.spacing(1, 'auto'),
-        '&:hover' : {
+        '&:hover': {
             backgroundColor: 'white',
         }
     },
@@ -65,26 +62,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function BlockUserModal(props){
+export default function BlockUserModal(props) {
     const classes = useStyles();
-    const {nameToBlock} = props;
-
-    const [open, setOpen] = React.useState({
-        isOpen : true,
-    });
-
-    const closeModal = () => {
-        console.log(open.isOpen)
-        setOpen({
-            isOpen: false,
-        });
-        console.log("clicked ", open.isOpen)
-    }
+    const {isOpen, closeModal} = props;
 
     return (
         <React.Fragment>
-            <div style={{display: open.isOpen? 'block' : 'none'}}>
-                <div className={classes.div} >
+            <div style={{display: isOpen ? 'block' : 'none'}}>
+                <div className={classes.div}>
                     <div>
                         <Button className={classes.closeBtn} color="primary" onClick={closeModal}>
                             <img className={classes.closeicon} src={close_img}/>
@@ -92,27 +77,27 @@ export default function BlockUserModal(props){
                     </div>
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item>
-                            <Grid item >
+                            <Grid item>
                                 <img className={classes.icon} src={user_img}/>
-                                <Typography className={classes.icontitle1}>{nameToBlock}</Typography>
+                                <Typography className={classes.icontitle1}>Anonymous Friend</Typography>
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.title} >
-                                {`Are you sure want to block '${nameToBlock}' ? This action cannot be undo.`}
+                            <Typography className={classes.title}>
+                                {`Are you sure want to block the selected friend? This action cannot be undone.`}
                             </Typography>
                         </Grid>
                         <Grid item>
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    color="primary"
-                                    href="#"
-                                    className={classes.button}
-                                    onClick={closeModal}
-                                >
-                                    Block
-                                </Button>
+                            <Button
+                                type="submit"
+                                variant="outlined"
+                                color="primary"
+                                href="#"
+                                className={classes.button}
+                                onClick={closeModal}
+                            >
+                                Block
+                            </Button>
                         </Grid>
                     </Grid>
                 </div>
