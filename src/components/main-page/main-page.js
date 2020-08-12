@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
 import Navbar from './navbar';
 import Topview from './topview';
 import Feed from './feed';
@@ -8,27 +7,12 @@ import Video from './video';
 import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
-import feedimg01 from "../../images/feeds/feed01.PNG";
-import feedimg02 from "../../images/feeds/feed02.PNG";
-import feedimg03 from "../../images/feeds/feed03.PNG";
-import gameimg01 from "../../images/games/AntiStress_Anxiety_Relief_Game.png";
-import gameimg02 from "../../images/games/bubblewrap_android.png";
-import gameimg03 from "../../images/games/flow_free.png";
-import gameimg04 from "../../images/games/Pigment_Adult_Coloring_Book.png";
-
 import {Redirect} from "react-router-dom";
-import {Schedule} from "../schedule";
 import DisableMatch from "../disable-match/disable-match"
 import FoundMatch from "../found-match/found-match"
 import TipsAlert from "../tips-alert/tips-alert";
-
-
-
-
-const useStyles = makeStyles((theme) => ({
-
-}));
-
+import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds} from "../../api/main";
+import {mapImage} from "../../utils/image-mapper";
 
 const topimgs = [
     {
@@ -39,122 +23,7 @@ const topimgs = [
         name: 'topview02',
         linkText: '../../images/topview02.jpg'
     }
-]
-
-const recommended_feeds = [
-    {
-        title: 'Why Do We Need to Drink Water?',
-        img: feedimg01,
-        imgPath: 'src/img/feed_img_1',
-        description: 'Exercise can help in physical and mental health. Duration of exercise: at least 30 minutes a day and this can be done separately in three...',
-        buttonText: 'Read More',
-        link: "#"
-    },
-    {
-        title: 'How to Start Exercisng At Home?',
-        img: feedimg02,
-        imgPath: 'src/img/feed_img_2',
-        description: 'We need water to survive. You will feel good, energetic and your skin will be supple when you are well hydrated. How much fluid do you need?',
-        buttonText: 'Read More',
-        link: "#"
-    },
-    {
-        title: 'Well Balanced Meals?',
-        img: feedimg03,
-        imgPath: 'src/img/feed_img_3',
-        description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
-        buttonText: 'Read More',
-        link: "#"
-    }
-]
-
-const expecially_feeds = [
-    {
-        title: '(Special)Why Do We Need to Drink Water?',
-        img: feedimg01,
-        imgPath: 'src/img/feed_img_1',
-        description: 'Exercise can help in physical and mental health. Duration of exercise: at least 30 minutes a day and this can be done separately in three...',
-        buttonText: 'Read More',
-        link: "#"
-    },
-    {
-        title: '(Special)How to Start Exercisng At Home?',
-        img: feedimg02,
-        imgPath: 'src/img/feed_img_2',
-        description: 'We need water to survive. You will feel good, energetic and your skin will be supple when you are well hydrated. How much fluid do you need?',
-        buttonText: 'Read More',
-        link: "#"
-    },
-    {
-        title: '(Special)Well Balanced Meals?',
-        img: feedimg03,
-        imgPath: 'src/img/feed_img_3',
-        description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
-        buttonText: 'Read More',
-        link: "#"
-    }
-]
-
-const videos = [
-    {
-        title: 'Medidation Video #1',
-        src: 'https://www.youtube.com/embed/W19PdslW7iw'
-    },
-    {
-        title: 'Medidation Video #2',
-        src: 'https://www.youtube.com/embed/inpok4MKVLM'
-    },
-    // {
-    //     title: 'Medidation Video #3',
-    //     src: 'https://www.youtube.com/embed/itZMM5gCboo'
-    // }
-]
-
-const android_games =[
-    {
-        name: "game #1",
-        logo: gameimg01,
-        link: 'https://play.google.com/store/apps/details?id=com.relextro.anti.stress.games'
-    },
-    {
-        name: "game #1",
-        logo: gameimg02,
-        link: 'https://play.google.com/store/apps/details?id=com.jakub.barabasgmail.com.bubblewrap'
-    },
-    {
-        name: "game #1",
-        logo: gameimg03,
-        link: 'https://play.google.com/store/apps/details?id=com.bigduckgames.flow&hl=en_US'
-    },
-    {
-        name: "game #1",
-        logo: gameimg04,
-        link: 'https://play.google.com/store/apps/details?id=com.pixite.pigment&hl=en_US'
-    }
-]
-
-const ios_games =[
-    {
-        name: "game #1",
-        logo: gameimg01,
-        link: 'https://apps.apple.com/us/app/antistress-anxiety-relief-game/id1438709018'
-    },
-    {
-        name: "game #1",
-        logo: gameimg02,
-        link: 'https://play.google.com/store/apps/details?id=com.jakub.barabasgmail.com.bubblewrap'
-    },
-    {
-        name: "game #1",
-        logo: gameimg03,
-        link: 'https://apps.apple.com/us/app/flow-free/id526641427'
-    },
-    {
-        name: "game #1",
-        logo: gameimg04,
-        link: 'https://apps.apple.com/us/app/pigment-adult-coloring-book/id1062006344'
-    }
-]
+];
 
 const footer = {
     banner: 'Enjoy Your Day!',
@@ -186,47 +55,94 @@ const footer = {
     phone: '15999',
 };
 
-
 export default function Landing() {
-    // // if not logged in, navigate to login page
+
+    const [recommendedFeeds, setRecommendedFeeds] = useState([]);
+    const [specialFeeds, setSpecialFeeds] = useState([]);
+    const [meditations, setMeditations] = useState([]);
+    const [adrGames, setAdrGames] = useState([]);
+    const [iosGames, setIosGames] = useState([]);
+
+    useEffect(() => {
+        getRecommendedFeeds().then((data) => {
+            data.forEach((item) => {
+                item.img = mapImage(data.imgPath);
+                item.buttonText = 'Read More';
+            });
+            setRecommendedFeeds(data);
+        });
+        getSpecialFeeds().then((data) => {
+            data.forEach((item) => {
+                item.img = mapImage(data.imgPath);
+                item.buttonText = 'Read More';
+            });
+            setSpecialFeeds(data);
+        });
+        getMeditations().then((data) => {
+            data.forEach((item) => {
+                item.title = item.id;
+                item.src = item.link;
+            });
+            setMeditations(data);
+        });
+        const tmpAdr = [];
+        const tmpIos = [];
+        getGames().then((data) => {
+            data.forEach((item) => {
+                tmpAdr.push({
+                    name: item.id + "adr",
+                    logo: mapImage(item.imgPathAdr),
+                    link: item.linkAdr,
+                });
+                tmpIos.push({
+                    name: item.id + "ios",
+                    logo: mapImage(item.imgPathIos),
+                    link: item.linkIos,
+                });
+            });
+            setAdrGames(tmpAdr);
+            setIosGames(tmpIos);
+        });
+    }, []);
+
+    // if not logged in, navigate to login page
     const token = localStorage.getItem("auth-token");
-    console.log(token);
     if (!token) {
-        return <Redirect to="/login" />;
+        return <Redirect to="/login"/>;
     }
 
     return (
         <React.Fragment>
-            <CssBaseline />
+            <CssBaseline/>
 
-            <Navbar />
+            <Navbar/>
 
-            <TipsAlert />
+            <TipsAlert/>
 
             <section id="home">
                 <Topview topimgs={topimgs}/>
             </section>
 
             <section id="feeds">
-                <Feed title="Recommended" feed={recommended_feeds} />
-                <Feed title="Expecially for You" feed={expecially_feeds} />
+                <Feed title="Recommended" feed={recommendedFeeds}/>
+                <Feed title="Expecially for You" feed={specialFeeds}/>
             </section>
 
             <section id="meditation">
-                <Video title="Meditation Video" videos={videos} />
+                <Video title="Meditation Video" videos={meditations}/>
             </section>
 
             <Chat title="Find New Friends to Chat With!" buttonText="Let's Explore"/>
 
             <section id="games">
-                <Game title="Suggested Games for Android Users" games={android_games} />
-                <Game title="Suggested Games for IOS Users" games={ios_games}/>
+                <Game title="Suggested Games for Android Users" games={adrGames}/>
+                <Game title="Suggested Games for IOS Users" games={iosGames}/>
             </section>
 
             <Footer footer={footer}/>
 
             <DisableMatch isMatch={true}/>
-            <FoundMatch />
+            <FoundMatch/>
 
         </React.Fragment>
 
