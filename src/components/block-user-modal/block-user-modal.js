@@ -23,21 +23,21 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 16
     },
     icon: {
-        margin: theme.spacing(3, 3, 2, 3),
+        margin: theme.spacing(3, 3, 1, 3),
         width: '50px'
+    },
+    icontitlediv: {
+        textAlign: 'center'
     },
     icontitle1: {
-        margin: theme.spacing(0, 4, 0, 4),
-        width: '50px'
-    },
-    icontitle2: {
         margin: theme.spacing(0),
         width: '50px'
     },
     title: {
         fontWeight: "bold",
-        fontSize: "32px",
+        fontSize: "20px",
         margin: theme.spacing(4, 'auto', 3),
+        textAlign: 'center'
     },
     button: {
         margin: theme.spacing(0, 1),
@@ -65,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FoundMatch(props){
+export default function BlockUserModal(props){
     const classes = useStyles();
-    const {nameToMatch} = props;
+    const {nameToBlock} = props;
 
     const [open, setOpen] = React.useState({
         isOpen : true,
@@ -92,34 +92,27 @@ export default function FoundMatch(props){
                     </div>
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item>
-                            <Grid container spacing={5} direction="row" justify="flex-end" alignItems="center">
-                                <Grid item>
-                                    <img className={classes.icon} src={user_img}/>
-                                    <p className={classes.icontitle1}>You</p>
-                                </Grid>
-                                <Grid item>
-                                    <img className={classes.icon} src={user_img}/>
-                                    <p className={classes.icontitle2}>{nameToMatch}</p>
-                                </Grid>
+                            <Grid item >
+                                <img className={classes.icon} src={user_img}/>
+                                <Typography className={classes.icontitle1}>{nameToBlock}</Typography>
                             </Grid>
                         </Grid>
                         <Grid item>
                             <Typography className={classes.title} >
-                                Found you a friend!
+                                {`Are you sure want to block '${nameToBlock}' ? This action cannot be undo.`}
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Link to={'/chat'} style={{ textDecoration: 'none'}}>
                                 <Button
                                     type="submit"
                                     variant="outlined"
                                     color="primary"
                                     href="#"
                                     className={classes.button}
+                                    onClick={closeModal}
                                 >
-                                    Let's start chatting
+                                    Block
                                 </Button>
-                            </Link>
                         </Grid>
                     </Grid>
                 </div>

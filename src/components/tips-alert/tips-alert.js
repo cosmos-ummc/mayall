@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Alert, AlertTitle} from "@material-ui/lab";
+import {Alert} from "@material-ui/lab";
 import Collapse from "@material-ui/core/Collapse";
 import bulb_img from "../../images/idea (2).png";
 import Typography from "@material-ui/core/Typography";
