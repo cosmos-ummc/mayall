@@ -9,6 +9,7 @@ export { ChatRoom } from "./chat-room";
 export { Chat } from "./chat";
 export { Schedule } from "./schedule";
 export { ScheduleNone } from "./schedule-none";
+export { ScheduledList } from "./scheduled-list";
 export { Meetup } from "./meetup";
 export { Reschedule } from "./reschedule";
 export { DisableMatch } from "./disable-match";
