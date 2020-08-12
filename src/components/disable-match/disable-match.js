@@ -1,5 +1,5 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, useEffect} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
@@ -7,6 +7,9 @@ import enable_img from "../../images/enable-icon.PNG";
 import disable_img from "../../images/disable-icon.PNG";
 
 import Button from "@material-ui/core/Button";
+import {getVisibility, setVisibility} from "../../api/visibility";
+import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
+import {mapImage} from "../../utils/image-mapper";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     instruction: {
         color: `${grey[500]}`,
         fontSize: 12,
+        textAlign: "center",
     },
     button: {
         marginTop: 10,
@@ -45,16 +49,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DisableMatch(){
+export default function DisableMatch() {
     const classes = useStyles();
 
-    const [state, setState] = React.useState({
-        isDisable : false,
-    })
-    function handleDisable(event) {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        getVisibility().then((v) => setVisible(v));
+    }, []);
+
+    function handleToggle(event) {
         event.preventDefault();
-        setState({
-            isDisable: !state.isDisable,
+        setVisibility(!visible).then(() => {
+            setVisible(!visible);
         });
     }
 
@@ -63,15 +70,15 @@ export default function DisableMatch(){
             <div className={classes.div}>
                 <Grid container direction="column" justify="center" alignItems="center">
                     <Grid item>
-                        <Typography className={classes.instruction} >
-                            Click to disable system to match friends to you.
+                        <Typography className={classes.instruction}>
+                            Click to {visible? "disable" : "enable"} system to match friends to you.
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Button href="#" color="primary" variant="contained"
-                                className={state.isDisable? classes.disable : classes.button}
-                                onClick={handleDisable}>
-                            <img className={classes.icon} src={state.isDisable? disable_img : enable_img}/>
+                                className={visible ? classes.button : classes.disable}
+                                onClick={handleToggle}>
+                            <img className={classes.icon} src={visible ? enable_img : disable_img} alt={"visibility"}/>
                         </Button>
                     </Grid>
                 </Grid>
