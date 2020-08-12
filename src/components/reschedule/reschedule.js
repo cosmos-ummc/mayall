@@ -11,46 +11,13 @@ import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
 import { Link } from 'react-router-dom';
 import TimeSelect from "../time-select/time-select";
-import notification_img from "../../images/notification.png";
-import logo_img from "../../images/logo9.png";
-
+import {ScheduledList} from "../scheduled-list";
 
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
         // backgroundColor: 'green',
         height: 500
-    },
-    leftdiv: {
-        height: 2000,
-        width: 250,
-        left: 0,
-        top: 0,
-        marginTop: theme.spacing(9),
-        margin: theme.spacing(0),
-        position: 'fixed',
-        // backgroundColor: 'grey',
-        borderRight: '2px solid grey'
-    },
-    slotdiv:{
-        height: 100,
-        width: 250,
-        left: 0,
-        top: 0,
-        margin: theme.spacing(0),
-        // backgroundColor: 'blue',
-        borderBottom: '2px solid grey',
-        paddingTop: 20
-    },
-    newslotdiv:{
-        height: 120,
-        width: 250,
-        left: 0,
-        top: 0,
-        margin: theme.spacing(0),
-        // backgroundColor: 'grey',
-        borderBottom: '2px solid grey',
-        paddingTop: 10
     },
     div: {
         marginLeft: 250,
@@ -60,22 +27,6 @@ const useStyles = makeStyles((theme) => ({
         height: 500,
         flexGrow: 1,
         textAlign: 'center',
-    },
-    icon: {
-        margin: theme.spacing(1, 1, 1, 0),
-        width: '30px'
-    },
-    timetitle: {
-        fontWeight: "bold",
-        fontSize: "15px",
-        margin: theme.spacing(2, 'auto'),
-        position: 'relative',
-    },
-    instruct: {
-        color: 'red',
-        fontSize: 17,
-        fontWeight: 'bold',
-        marginTop: 5
     },
     videoArea: {
         height: 300,
@@ -158,20 +109,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const scheduled_slots = [
-    {
-        time: '10 August 2020 2.00PM',
-        isNew: true,
-    },
-    {
-        time: '11 August 2020 2.00PM',
-        isNew: false,
-    },
-    {
-        time: '12 August 2020 2.00PM',
-        isNew: false,
-    },
-]
 
 export default function Schedule() {
     const classes = useStyles();
@@ -196,40 +133,7 @@ export default function Schedule() {
 
             <Container className={classes.canvas}>
 
-                <div className={classes.leftdiv}>
-                    {scheduled_slots.map((slot) => (
-                        <div className={slot.isNew? classes.newslotdiv : classes.slotdiv}>
-                            {slot.isNew?
-                                <div>
-                                    <Grid container direction="row" justify="center" alignItems="center">
-                                        <Grid item>
-                                            <img className={classes.icon} src={notification_img}/>
-                                        </Grid>
-                                        <Grid item>
-                                            <p className={classes.timetitle}>{slot.time}</p>
-                                        </Grid>
-                                    </Grid>
-                                    <Typography align="center" gutterBottom className={classes.instruct}>
-                                        NEW UPCOMING MEETING!
-                                    </Typography>
-                                </div>
-
-                                :
-                                <Grid container direction="row" justify="center" alignItems="center">
-                                    <Grid item>
-                                        <img className={classes.icon} src={notification_img}/>
-                                    </Grid>
-                                    <Grid item>
-                                        <p className={classes.timetitle}>{slot.time}</p>
-                                    </Grid>
-                                </Grid>
-                            }
-
-
-                        </div>
-                    ))}
-
-                </div>
+                <ScheduledList />
 
                 <div className={classes.div}>
 

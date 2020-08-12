@@ -9,10 +9,11 @@ import Game from './game';
 import Footer from './footer';
 import {Redirect} from "react-router-dom";
 import DisableMatch from "../disable-match/disable-match"
-import FoundMatch from "../found-match/found-match"
+import FoundMatchModal from "../found-match-modal/found-match-modal"
 import TipsAlert from "../tips-alert/tips-alert";
 import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
+import BlockUserModal from "../block-user-modal/block-user-modal";
 
 const topimgs = [
     {
@@ -105,11 +106,11 @@ export default function Landing() {
         });
     }, []);
 
-    // if not logged in, navigate to login page
-    const token = localStorage.getItem("auth-token");
-    if (!token) {
-        return <Redirect to="/login"/>;
-    }
+    // // if not logged in, navigate to login page
+    // const token = localStorage.getItem("auth-token");
+    // if (!token) {
+    //     return <Redirect to="/login"/>;
+    // }
 
     return (
         <React.Fragment>
@@ -142,7 +143,8 @@ export default function Landing() {
             <Footer footer={footer}/>
 
             <DisableMatch isMatch={true}/>
-            <FoundMatch/>
+            <FoundMatchModal nameToMatch={'AnonymousABC'}/>
+            <BlockUserModal nameToBlock={'AnonymousXYZ'}/>
 
         </React.Fragment>
 
