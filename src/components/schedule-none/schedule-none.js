@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
@@ -11,7 +11,9 @@ import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
 import {Redirect, useHistory} from "react-router-dom";
 import {getCompleted} from "../../api/complete";
-import {getHasMeeting} from "../../api/schedule";
+import {createMeeting, getHasMeeting} from "../../api/schedule";
+import TimeSelect from "../time-select/time-select";
+import {getPatient} from "../../api/patient";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,9 +74,23 @@ export default function ScheduleNone() {
     const history = useHistory();
 
     /* notify button */
-    const [state, setState] = React.useState({
-        isNotify: false
+    const [isNotify, setIsNotify] = useState(false);
+
+    /* Selection list */
+    const [state, setState] = useState({
+        age: '',
+        name: 'hai',
+        isChoosed: false
     });
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        setState({
+            ...state,
+            [name]: event.target.value,
+            isChoosed: true,
+        });
+    };
 
     useEffect(() => {
         getCompleted().then(completed => {
@@ -87,8 +103,14 @@ export default function ScheduleNone() {
 
     function handleNotify(event) {
         event.preventDefault();
-        setState({
-            isNotify: true,
+        getPatient().then(patient => {
+            const data = {
+                status: 4,
+                time: state.age,
+            };
+            createMeeting(data).then(()=>{
+                setIsNotify( true);
+            });
         });
     }
 
@@ -110,8 +132,10 @@ export default function ScheduleNone() {
                         Sorry, you have no meeting tomorrow.
                     </Typography>
 
+                    <TimeSelect giveInstruct={true} state={state} handleChange={handleChange}/>
+
                     <Typography className={classes.subtitle} >
-                        If you wish to get help, kindly press the button below. We will reach you as soon as possible.
+                        If you wish to get help, kindly select a slot and press the button below. We will reach you as soon as possible.
                     </Typography>
 
                     <Grid container direction="row" justify="center" alignItems="center">
@@ -128,7 +152,7 @@ export default function ScheduleNone() {
                             </Button>
                         </Grid>
                         <Grid item>
-                            <div className={state.isNotify? classes.instruction: classes.instructionnull}>
+                            <div className={isNotify? classes.instruction: classes.instructionnull}>
                                 <p>Consultant has been notified.</p>
                             </div>
                         </Grid>
