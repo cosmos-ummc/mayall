@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import DisableMatch from "../disable-match/disable-match";
@@ -16,9 +15,8 @@ import {block, createMessage, findMatch, getChatRooms, getMessages} from "../../
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
 import FoundMatchModal from "../found-match-modal/found-match-modal";
-import {useHistory} from "react-router-dom";
-import bee_img from "../../images/bee.png";
-import Typography from "@material-ui/core/Typography";
+import Avatar from 'react-avatar';
+
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -219,7 +217,7 @@ export default function Chat() {
     };
 
     const truncate = (str) => {
-        return str.length > 30 ? str.substring(0, 7) + "..." : str;
+        return str.length > 30 ? str.substring(0, 30) + "..." : str;
     }
 
     return (
@@ -236,7 +234,11 @@ export default function Chat() {
                             onSelectChatRoom(e, chatRoom.name, chatRoom.id);
                         }}>
                             <div className={classes.innerdiv}>
-                                <img className={classes.icon} src={user_img} alt={"user"}/>
+                                {/*<img className={classes.icon} src={user_img} alt={"user"}/>*/}
+                                <div className={classes.icon}>
+                                    <Avatar name={chatRoom.name} size='50px' round={true}/>
+                                </div>
+
                                 <div className={classes.textdiv}>
                                     <p className={classes.text} style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>
                                         {truncate(chatRoom.name)}
