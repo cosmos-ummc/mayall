@@ -17,6 +17,8 @@ import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
 import FoundMatchModal from "../found-match-modal/found-match-modal";
 import {useHistory} from "react-router-dom";
+import bee_img from "../../images/bee.png";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -40,11 +42,31 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         borderBottom: '2px solid grey',
         // borderRight: '2px solid grey',
-        paddingTop: 0,
+    },
+    innerdiv: {
+        color: theme.palette.common.black,
+        display: 'flex',
+        flexFlow: 'row',
+        flex: '1 1 auto',
+        width: '100%',
+        // margin: (4, 0, 0, 2),
+    },
+    textdiv: {
+        width: '100%',
+        margin: (2, 'auto', 4),
+        marginLeft: 20,
+        // textAlign: 'center'
+        verticalAlign: 'center'
     },
     icon: {
-        margin: theme.spacing(1, 1, 1, 0),
-        width: '30px'
+        margin: theme.spacing(2, 0, 2, 2),
+        width: 50,
+        height: 50
+    },
+    text: {
+        fontWeight: "bold",
+        fontSize: "15px",
+        verticalAlign: 'center',
     },
     hovereffect: {
         '&:hover': {
@@ -196,6 +218,10 @@ export default function Chat() {
         setIsOpenMatch(false);
     };
 
+    const truncate = (str) => {
+        return str.length > 30 ? str.substring(0, 7) + "..." : str;
+    }
+
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -206,23 +232,22 @@ export default function Chat() {
                     {chatRooms.map((chatRoom) => (
                         <div
                             key={chatRoom.id}
-                            className={`${classes.slotdiv} ${classes.hovereffect}`}>
-                            <Grid container direction="row" justify="center" alignItems="center" onClick={(e) => {
-                                onSelectChatRoom(e, chatRoom.name, chatRoom.id);
-                            }}>
-                                <Grid item>
-                                    <img className={classes.icon} src={user_img} alt={"user"}/>
-                                </Grid>
-                                <Grid item>
-                                    <p className={classes.timetitle}>{chatRoom.name}</p>
-                                </Grid>
-                                <Grid item>
-                                    <Button className={classes.closeBtn}
-                                            onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
-                                        <img className={classes.closeicon} src={close_img} alt={"user"}/>
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                            className={`${classes.slotdiv} ${classes.hovereffect}`} onClick={(e) => {
+                            onSelectChatRoom(e, chatRoom.name, chatRoom.id);
+                        }}>
+                            <div className={classes.innerdiv}>
+                                <img className={classes.icon} src={user_img} alt={"user"}/>
+                                <div className={classes.textdiv}>
+                                    <p className={classes.text} style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                        {truncate(chatRoom.name)}
+                                    </p>
+                                </div>
+                                <Button className={classes.closeBtn}
+                                        onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
+                                    <img className={classes.closeicon} src={close_img} alt={"user"}/>
+                                </Button>
+                            </div>
+
                         </div>
                     ))}
                 </div>
