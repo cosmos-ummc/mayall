@@ -12,29 +12,10 @@ import Messages from './Messages/Messages';
 import InfoBar from './InfoBar/InfoBar';
 import Input from './Input/Input';
 import './Chat.css';
-import {ChatModals} from "../chat-modals";
-import {getChatRooms} from "../../api/chat";
+import {block, createMessage, findMatch, getChatRooms, getMessages} from "../../api/chat";
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
-
-// mock rooms
-const mockRooms = [
-    {
-        id: "001",
-        name: 'Anonymous 1',
-        unwanted: false,
-    },
-    {
-        id: "002",
-        name: 'Anonymous 2',
-        unwanted: false,
-    },
-    {
-        id: "003",
-        name: 'Anonymous 3',
-        unwanted: false,
-    },
-];
+import FoundMatchModal from "../found-match-modal/found-match-modal";
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -88,55 +69,57 @@ export default function Chat() {
 
     const [chatRooms, setChatRooms] = useState([]);
     const [name, setName] = useState('');
-    const [room, setRoom] = useState('');
-    const [users, setUsers] = useState('');
+    const [nameToBlock, setNameToBlock] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [idsToBlock, setIdsToBlock] = useState([]);
-    const [activeChatRoomId, setActiveChatRoomId] = useState("");
+    const [isOpenMatch, setIsOpenMatch] = useState(false);
 
-    // mock messages
-    const [mockMessages, setMockMessages] = useState([
-        {
-            id: "001",
-            roomId: "0001",
-            senderId: localStorage.getItem("auth-token"),
-            content: 'Hi boss',
-            timestamp: 1597252129534,
-        },
-        {
-            id: "002",
-            roomId: "0001",
-            senderId: "xxx",
-            content: 'Heyyy',
-            timestamp: 1597252129535,
-        },
-        {
-            id: "003",
-            roomId: "0001",
-            senderId: localStorage.getItem("auth-token"),
-            content: "gud night",
-            timestamp: 1597252129564,
-        },
-    ]);
-
-    const closeModal = () => {
-        setIsOpen(false);
+    const getEverything = (reset) => {
+        // get all chatrooms
+        getChatRooms().then((c) => {
+            c.forEach((item, index) => {
+                item.name = `Anonymous ${index + 1}`;
+                if (localStorage.getItem("activeChatRoomId") === "" && index === 0) {
+                    // if no active chatroom, set the first as active and get everything needed
+                    setName(item.name);
+                    localStorage.setItem("activeChatRoomId", item.id);
+                    // get messages by chatroom
+                    getMessages(item.id).then((m) => {
+                        setMessages(m);
+                    });
+                }
+                // if the current room is active, get all its messages
+                if (localStorage.getItem("activeChatRoomId") === item.id) {
+                    setName(item.name);
+                    // get messages by chatroom
+                    getMessages(item.id).then((m) => {
+                        setMessages(m);
+                    });
+                }
+            });
+            setChatRooms(c);
+        });
     };
 
-    const blockChatRoomModal = (event, participantIds) => {
+    const blockUsers = () => {
+        block(idsToBlock).then(() => {
+            setIsOpen(false);
+        });
+    };
+
+    const blockChatRoomModal = (event, participantIds, name) => {
         event.preventDefault();
-        // show block modal
+        // show block modal;
+        setNameToBlock(name);
         setIsOpen(true);
         setIdsToBlock(participantIds);
     };
 
     useEffect(() => {
-
-        // temporary for testing
-        setName("Anonymous 1");
-
+        // set active room id "" first
+        localStorage.setItem("activeChatRoomId", "");
         // subscribe to public channel
         const pusher = new Pusher("ec07749c8ce28d32448a", {
             cluster: "ap1",
@@ -145,39 +128,60 @@ export default function Chat() {
         const channel = pusher.subscribe("general");
         channel.bind("message", () => {
             // when received, trigger update chatroom and messages event
+            getEverything();
         });
 
-        // get all chat rooms
-        getChatRooms().then((c) => {
-            c.forEach((item, index) => {
-                item.name = `Anonymous ${index + 1}`;
-                if (index === 0) {
-                    setName(item.name);
+        getEverything();
+
+        // scheduler to find match
+        const interval = setInterval(() => {
+            findMatch().then((u, r) => {
+                // show the modal
+                if (!!u && !!r && !!r.id) {
+                    console.log(u);
+                    console.log(r);
+                    setIsOpenMatch(true);
+                    localStorage.setItem("activeChatRoomId", r.id);
                 }
             });
-            setChatRooms(c);
-        });
+        }, 10000);
+        return () => clearInterval(interval);
     }, []);
 
     const sendMessage = (event) => {
         event.preventDefault();
 
         if (message) {
-            // push the mock messages for testing
-            setMockMessages([...mockMessages, {
-                id: "005",
-                roomId: "0001",
+            // create new message
+            const newMessage = {
+                roomId: localStorage.getItem("activeChatRoomId"),
                 senderId: localStorage.getItem("auth-token"),
                 content: message,
-                timestamp: 1597252129534,
-            }]);
-            setMessage("");
+                timestamp: +new Date(),
+            };
+            createMessage(newMessage).then(() => {
+                // get messages by chatroom
+                getMessages(localStorage.getItem("activeChatRoomId")).then((m) => {
+                    setMessages(m);
+                    setMessage("");
+                });
+            });
         }
     };
 
-    const onSelectChatRoom = (e, name) => {
+    const onSelectChatRoom = (e, name, roomId) => {
         e.preventDefault();
+        // set chatroom info
         setName(name);
+        localStorage.setItem("activeChatRoomId", roomId);
+        // get messages by chatroom
+        getMessages(roomId).then((m) => {
+            setMessages(m);
+        });
+    };
+
+    const chatWithNewPerson = () => {
+        window.location.reload();
     };
 
     return (
@@ -187,11 +191,12 @@ export default function Chat() {
             <div className={classes.outerContainer}>
 
                 <div className='listContainer'>
-                    {mockRooms.map((chatRoom) => (
+                    {chatRooms.map((chatRoom) => (
                         <div
+                            key={chatRoom.id}
                             className={`${classes.slotdiv} ${classes.hovereffect}`}>
                             <Grid container direction="row" justify="center" alignItems="center" onClick={(e) => {
-                                onSelectChatRoom(e, chatRoom.name);
+                                onSelectChatRoom(e, chatRoom.name, chatRoom.id);
                             }}>
                                 <Grid item>
                                     <img className={classes.icon} src={user_img}/>
@@ -201,7 +206,7 @@ export default function Chat() {
                                 </Grid>
                                 <Grid item>
                                     <Button className={classes.closeBtn}
-                                            onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds)}>
+                                            onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
                                         <img className={classes.closeicon} src={close_img}/>
                                     </Button>
                                 </Grid>
@@ -211,15 +216,13 @@ export default function Chat() {
                 </div>
                 <div className="container">
                     <InfoBar name={name}/>
-                    <Messages messages={mockMessages} name={name}/>
+                    <Messages messages={messages} name={name}/>
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                 </div>
             </div>
-
             <DisableMatch/>
-            <BlockUserModal nameToBlock={'AnonymousXYZ'} isOpen={isOpen} closeModal={closeModal}/>
-            <ChatModals />
-
+            <BlockUserModal nameToBlock={nameToBlock} isOpen={isOpen} closeModal={blockUsers}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={chatWithNewPerson}/>
         </React.Fragment>
     );
 }

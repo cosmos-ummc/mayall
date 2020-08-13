@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import grey from "@material-ui/core/colors/grey";
@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import user_img from "../../images/user (3).png";
 import close_img from "../../images/close-black.png";
 import {Link} from "react-router-dom";
-
 
 const useStyles = makeStyles((theme) => ({
     div: {
@@ -54,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#5F7D95',
         marginTop: theme.spacing(1.5),
         padding: theme.spacing(1, 'auto'),
-        '&:hover' : {
+        '&:hover': {
             backgroundColor: 'white',
         }
     },
@@ -64,51 +63,39 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FoundMatchModal(props){
+export default function FoundMatchModal(props) {
     const classes = useStyles();
-    const {nameToMatch} = props;
-
-    const [open, setOpen] = React.useState({
-        isOpen : true,
-    });
-
-    const closeModal = () => {
-        console.log(open.isOpen)
-        setOpen({
-            isOpen: false,
-        });
-        console.log("clicked ", open.isOpen)
-    }
+    const {nameToMatch, isOpen, closeModal} = props;
 
     return (
         <React.Fragment>
-            <div style={{display: open.isOpen? 'block' : 'none'}}>
-                <div className={classes.div} >
+            <div style={{display: isOpen ? 'block' : 'none'}}>
+                <div className={classes.div}>
                     <div>
                         <Button className={classes.closeBtn} color="primary" onClick={closeModal}>
-                            <img className={classes.closeicon} src={close_img}/>
+                            <img className={classes.closeicon} src={close_img} alt={"close"}/>
                         </Button>
                     </div>
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item>
                             <Grid container spacing={5} direction="row" justify="flex-end" alignItems="center">
                                 <Grid item>
-                                    <img className={classes.icon} src={user_img}/>
+                                    <img className={classes.icon} src={user_img} alt={"user"}/>
                                     <p className={classes.icontitle1}>You</p>
                                 </Grid>
                                 <Grid item>
-                                    <img className={classes.icon} src={user_img}/>
+                                    <img className={classes.icon} src={user_img} alt={"user"}/>
                                     <p className={classes.icontitle2}>{nameToMatch}</p>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Typography className={classes.title} >
+                            <Typography className={classes.title}>
                                 Found you a friend!
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Link to={'/chat'} style={{ textDecoration: 'none'}}>
+                            <Link to={'/chat'} style={{textDecoration: 'none'}}>
                                 <Button
                                     type="submit"
                                     variant="outlined"
