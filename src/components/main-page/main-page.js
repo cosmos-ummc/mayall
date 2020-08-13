@@ -15,6 +15,7 @@ import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips}
 import {mapImage} from "../../utils/image-mapper";
 import {findMatch} from "../../api/chat";
 import Pusher from "pusher-js";
+import {getCompleted} from "../../api/complete";
 
 
 const topimgs = [
@@ -79,6 +80,9 @@ export default function Landing() {
     };
 
     useEffect(() => {
+        getCompleted().then(completed => {
+            if(completed) history.push("/complete");
+        });
         // subscribe to public channel
         const pusher = new Pusher("ec07749c8ce28d32448a", {
             cluster: "ap1",

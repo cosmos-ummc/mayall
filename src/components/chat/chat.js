@@ -16,6 +16,8 @@ import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
 import FoundMatchModal from "../found-match-modal/found-match-modal";
 import Avatar from 'react-avatar';
+import {getCompleted} from "../../api/complete";
+import {useHistory} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,6 +89,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Chat() {
     const classes = useStyles();
+    const history = useHistory();
 
     const [chatRooms, setChatRooms] = useState([]);
     const [name, setName] = useState('');
@@ -150,6 +153,9 @@ export default function Chat() {
     };
 
     useEffect(() => {
+        getCompleted().then(completed => {
+            if(completed) history.push("/complete");
+        });
         // set active room id "" first
         localStorage.setItem("activeChatRoomId", "");
         // subscribe to public channel

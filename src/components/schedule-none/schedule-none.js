@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
@@ -9,7 +9,8 @@ import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
+import {getCompleted} from "../../api/complete";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,11 +68,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ScheduleNone() {
     const classes = useStyles();
+    const history = useHistory();
 
     /* notify button */
     const [state, setState] = React.useState({
         isNotify: false
     });
+
+    useEffect(() => {
+        getCompleted().then(completed => {
+            if(completed) history.push("/complete");
+        });
+    }, []);
 
     function handleNotify(event) {
         event.preventDefault();

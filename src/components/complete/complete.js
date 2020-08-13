@@ -22,6 +22,7 @@ import {Redirect, useHistory} from "react-router-dom";
 import CustomBarChart from "../visualization/custom-bar-chart";
 import {getReports} from "../../api/chart";
 import {getCompleted} from "../../api/complete";
+import {getPatient} from "../../api/patient";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -130,55 +131,49 @@ const reports = [
 export default function Complete() {
 
     const history = useHistory();
-    
     const [state, setState] = useState({
-        chartStressSeries: [0, 0],
-        chartDepressionSeries: [0, 0],
-        chartAnxietySeries: [0, 0],
-        chartPtsdSeries: [0, 0],
-        chartOptions: {
-            chart: {
-                id: "basic-bar"
-            },
-            xaxis: {
-                categories: ['First Assessment Score', 'Second Assessment Score']
-            }
-        },
-        comparisonSeries: [{
-            name: "Before Monitoring",
-            data: [0, 0, 0, 0],
-        }, {
-            name: "After Monitoring",
-            data: [0, 0, 0, 0],
-        }]
+        chartStressSeries: [],
+        chartDepressionSeries: [],
+        chartAnxietySeries: [],
+        chartPtsdSeries: [],
+        chartDailySeries: [],
+        chartStressStatuses: [],
+        chartDepressionStatuses: [],
+        chartAnxietyStatuses: [],
+        chartPtsdStatuses: [],
+        chartDailyStatuses: [],
+        chartDassCategories: [],
+        chartIesrCategories: [],
     });
 
     useEffect(() => {
         getCompleted().then(completed => {
             if(!completed) history.push("/");
         });
-        getReports().then((data) => {
-            // set stress series
-            setState({
-                chartStressSeries: [data.stressCount1, data.stressCount2],
-                chartDepressionSeries: [data.depressionCount1, data.depressionCount2],
-                chartAnxietySeries: [data.anxietyCount1, data.anxietyCount2],
-                chartPtsdSeries: [data.ptsdCount1, data.ptsdCount2],
-                chartOptions: {
-                    chart: {
-                        id: "basic-bar"
-                    },
-                    xaxis: {
-                        categories: ['First Assessment Score', 'Second Assessment Score']
-                    }
-                },
-                comparisonSeries: [{
-                    name: "Before Monitoring",
-                    data: [data.stressCount1, data.anxietyCount1, data.depressionCount1, data.ptsdCount1],
-                }, {
-                    name: "After Monitoring",
-                    data: [data.stressCount2, data.anxietyCount2, data.depressionCount2, data.ptsdCount2],
-                }]
+        getPatient().then(data => {
+            getReports(data.id).then((data) => {
+                console.log(data);
+                // set categories
+                const dassCategories = [];
+                const iesrCategories = [];
+                data.stressCounts.forEach((data, i) => {
+                    dassCategories.push("Test " + (i + 1));
+                });
+                data.ptsdCounts.forEach((data, i) => {
+                    iesrCategories.push("Test " + (i + 1));
+                });
+
+                setState({
+                    chartStressSeries: data.stressCounts,
+                    chartDepressionSeries: data.depressionCounts,
+                    chartAnxietySeries: data.anxietyCounts,
+                    chartPtsdSeries: data.ptsdCounts,
+                    chartDailySeries: data.dailyCounts,
+                    chartDassCategories: dassCategories,
+                    chartIesrCategories: iesrCategories,
+                });
+
+                console.log(state);
             });
         });
     }, []);
@@ -207,15 +202,54 @@ export default function Complete() {
 
                     <Grid container>
                         <CustomBarChart title={"DASS Stress Report"} propData={state.chartStressSeries}
-                                        propOption={state.chartOptions} description={"Scores"}/>
+                                        propOption={{
+                                            chart: {
+                                                id: "basic-bar"
+                                            },
+                                            xaxis: {
+                                                categories: state.chartDassCategories,
+                                            }
+                                        }} description={"Scores"}/>
                         <CustomBarChart title={"DASS Anxiety Report"} propData={state.chartAnxietySeries}
-                                        propOption={state.chartOptions} description={"Scores"}/>
+                                        propOption={{
+                                            chart: {
+                                                id: "basic-bar"
+                                            },
+                                            xaxis: {
+                                                categories: state.chartDassCategories,
+                                            }
+                                        }} description={"Scores"}/>
                     </Grid>
                     <Grid container>
                         <CustomBarChart title={"DASS Depression Report"} propData={state.chartDepressionSeries}
-                                        propOption={state.chartOptions} description={"Scores"}/>
-                        <CustomBarChart title={"DASS IES-R Report"} propData={state.chartPtsdSeries}
-                                        propOption={state.chartOptions} description={"Scores"}/>
+                                        propOption={{
+                                            chart: {
+                                                id: "basic-bar"
+                                            },
+                                            xaxis: {
+                                                categories: state.chartDassCategories,
+                                            }
+                                        }} description={"Scores"}/>
+                        <CustomBarChart title={"IES-R Report"} propData={state.chartPtsdSeries}
+                                        propOption={{
+                                            chart: {
+                                                id: "basic-bar"
+                                            },
+                                            xaxis: {
+                                                categories: state.chartIesrCategories,
+                                            }
+                                        }} description={"Scores"}/>
+                    </Grid>
+                    <Grid container>
+                        <CustomBarChart title={"Daily Care Report"} propData={state.chartDailySeries}
+                                        propOption={{
+                                            chart: {
+                                                id: "basic-bar"
+                                            },
+                                            xaxis: {
+                                                categories: state.chartIesrCategories,
+                                            }
+                                        }} description={"Scores"}/>
                     </Grid>
                 </Container>
 
