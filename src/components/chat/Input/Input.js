@@ -11,7 +11,7 @@ const Input = ({setMessage, sendMessage, message, isBlocked}) => (
             <input
                 className="input inputNone"
                 type="text"
-                placeholder="The chatroom is blocked!"
+                placeholder="The chat room is blocked. You are not not allowed to send any messages."
                 disabled={true}
                 value={message}
                 onChange={null}
