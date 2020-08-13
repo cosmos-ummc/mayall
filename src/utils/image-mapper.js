@@ -90,6 +90,151 @@ export const mapImage = (name) => {
     switch (name) {
         case "sad-businessman-sitting-head-hands-bed-dark-bedroom_41418-7.jpg":
             return f01;
+        case "puzzled-young-man-holding-forehead-while-feeling-stress_1262-18026.jpg":
+            return f02;
+        case "crazy-teen-playing-with-her-hair_1149-881.jpg":
+            return f03;
+        case "concerned-unhappy-people-feeling-anxiety_74855-5781.jpg":
+            return f04;
+        case "cropped-view-hands-typing-laptop_1262-3196.jpg":
+            return f05;
+
+        case "getenoughsleep.jpg":
+            return f06;
+        case "conversation-concept-illustration_114360-1102.jpg":
+            return f07;
+        case "portrait-student-girl-sitting-desk-biting-her-fist_1163-2568.jpg":
+            return f08;
+        case "woman-eating-sandwich_132075-20.jpg":
+            return f09;
+        case "young-soldier-clutched-fabric-military-uniform-second-world-war_76080-9480.jpg":
+            return f10;
+
+        case "finger-mobile-phone_1057-3277.jpg":
+            return f11;
+        case "post-traumatic-stress-disorder_34200-366.jpg":
+            return f12;
+        case "frustrated-young-dark-skinned-woman-with-shaggy-black-hair-frowning-looking-with-sad-unhappy-expression-while-going-through-hard-times-her-life-human-emotions-feelings_273609-1250.jpg":
+            return f13;
+        case "two-men-gossiping-cafe_10045-237.jpg":
+            return f14;
+        case "tired-sad-young-pretty-woman-sitting-table-working-laptop-co-working-office-wearing-glasses-stress-work-funny-emotion-student-class-room-frustration_285396-94.jpg":
+            return f15;
+
+        case "Progressive muscle relaxation.jpg":
+            return f16;
+        case "how-I-start-exercise.jpg":
+            return f17;
+        case "cute-brunette-student-woman-black-jacket-studying-reading-textbook-manual-university-library-having-hard-time-understanding-material-rolling-her-eyes-looking-bored-confused_273609-1133.jpg":
+            return f18;
+        case "post-traumatic-stress-disorder_34200-367.jpg":
+            return f19;
+        case "sad-man-holding-head-with-hand_1150-6345.jpg":
+            return f20;
+
+        case "hands-holding-red-heart_49149-185.jpg":
+            return f21;
+        case "fearful-young-caucasian-female-with-ginger-hair-dressed-white-blouse-having-confused-guilty-look-biting-her-lower-lip-feeling-sorry-doing-something-wrong-making-terrible-mistake_273609-48.jpg":
+            return f22;
+        case "close-up-sad-young-woman-holding-her-head_23-2147953216.jpg":
+            return f23;
+        case "deep-breath-exercise.jpg":
+            return f24;
+        case "feed01.PNG":
+            return f25;
+
+        case "side-tired-sad-office-worker-glasses-with-closed-eyes_74855-3294.jpg":
+            return f26;
+        case "asian-women-are-sitting-hugging-their-knees-bed_7191-888.jpg":
+            return f27;
+        case "Coping with stress.jpg":
+            return f28;
+        case "red-heart-with-stethoscope-mint-green-background_23-2148129629.jpg":
+            return f29;
+        case "feed03.PNG":
+            return f30;
+
+        case "distressed-tired-middle-aged-male-facepalm_176420-18609.jpg":
+            return f31;
+        case "asian-women-with-feelings-helplessness-hopelessness-white-bed-bedroom-either-insomnia-depression-symptoms-warning-signs-concept_41350-605.jpg":
+            return f32;
+        case "lonely-girl-suffering-from-depression_74855-5270.jpg":
+            return f33;
+        case "colorful-pills-plastic-bottle_23-2147983117.jpg":
+            return f34;
+        case "IMG_0236.jpg":
+            return f35;
+
+        case "ptsd-post-traumatic-stress-disorder_7547-467.jpg":
+            return f36;
+        case "sad-woman_137573-2204.jpg":
+            return f37;
+        case "Mental imagery relaxation.jpg":
+            return f38;
+        case "tired-man-working-laptop_23-2148594474.jpg":
+            return f39;
+        case "depression-stress-frustration-concept_140689-529.jpg":
+            return f40;
+
+        case "girl-with-glasses-is-experiencing-post-traumatic-depression_118478-3.jpg":
+            return f41;
+        case "young-woman-is-depressed-white-bed_1150-19255.jpg":
+            return f42;
+        case "3d-render-wrecking-ball-demolishing-wall_1048-5707.jpg":
+            return f43;
+
+
+        case "candy crush.png":
+            return ai01;
+        case "bubblewrap-ios.png":
+            return _i02;
+        case "Word Cross Puzzle.png":
+            return ai03;
+        case "bejeweled-ios.png":
+            return ai04;
+        case "wordscrape.png":
+            return ai05;
+
+        case "Harmony-Melody Mirror.png":
+            return ai06;
+        case "230x0w.png":
+            return _i07;
+        case "Pigment - Adult Coloring Book.png":
+            return ai08;
+        case "unnamed (2).png":
+            return a_09;
+        case "drop7.jpg":
+            return ai10;
+
+        case "AntiStress Anxiety Relief Game.png":
+            return ai11;
+        case "jigsaw.png":
+            return ai12;
+        case "Can Knockdown.png":
+            return ai13;
+        case "Breath of Light.png":
+            return _i14;
+        case "antistress.png":
+            return ai15;
+
+        case "super mario.png":
+            return ai16;
+        case "flow free.png":
+            return ai17;
+        case "tetris.png":
+            return ai18;
+        case "Thisissand.png":
+            return ai19;
+        case "unnamed (1).png":
+            return a_20;
+
+        case "blue.png":
+            return ai21;
+        case "bubblewrap-android.png":
+            return a_22;
+        case "Basketball Paper Office.png":
+            return ai23;
+
         default:
             return f16;
     }
