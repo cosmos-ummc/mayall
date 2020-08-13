@@ -7,6 +7,7 @@ export { ChatBox } from "./chat-box";
 export { ChatList } from "./chat-list";
 export { ChatRoom } from "./chat-room";
 export { Chat } from "./chat";
+export { ChatModals } from "./chat-modals";
 export { Schedule } from "./schedule";
 export { ScheduleNone } from "./schedule-none";
 export { ScheduledList } from "./scheduled-list";

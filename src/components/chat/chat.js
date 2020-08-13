@@ -12,6 +12,7 @@ import Messages from './Messages/Messages';
 import InfoBar from './InfoBar/InfoBar';
 import Input from './Input/Input';
 import './Chat.css';
+import {ChatModals} from "../chat-modals";
 import {getChatRooms} from "../../api/chat";
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
@@ -214,8 +215,10 @@ export default function Chat() {
                     <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                 </div>
             </div>
+
             <DisableMatch/>
             <BlockUserModal nameToBlock={'AnonymousXYZ'} isOpen={isOpen} closeModal={closeModal}/>
+            <ChatModals />
 
         </React.Fragment>
     );
