@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import DisableMatch from "../disable-match/disable-match";
@@ -16,7 +15,8 @@ import {block, createMessage, findMatch, getChatRooms, getMessages} from "../../
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
 import FoundMatchModal from "../found-match-modal/found-match-modal";
-import {useHistory} from "react-router-dom";
+import Avatar from 'react-avatar';
+
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -40,11 +40,31 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         borderBottom: '2px solid grey',
         // borderRight: '2px solid grey',
-        paddingTop: 0,
+    },
+    innerdiv: {
+        color: theme.palette.common.black,
+        display: 'flex',
+        flexFlow: 'row',
+        flex: '1 1 auto',
+        width: '100%',
+        // margin: (4, 0, 0, 2),
+    },
+    textdiv: {
+        width: '100%',
+        margin: (2, 'auto', 4),
+        marginLeft: 20,
+        // textAlign: 'center'
+        verticalAlign: 'center'
     },
     icon: {
-        margin: theme.spacing(1, 1, 1, 0),
-        width: '30px'
+        margin: theme.spacing(2, 0, 2, 2),
+        width: 50,
+        height: 50
+    },
+    text: {
+        fontWeight: "bold",
+        fontSize: "15px",
+        verticalAlign: 'center',
     },
     hovereffect: {
         '&:hover': {
@@ -76,6 +96,7 @@ export default function Chat() {
     const [isOpen, setIsOpen] = useState(false);
     const [idsToBlock, setIdsToBlock] = useState([]);
     const [isOpenMatch, setIsOpenMatch] = useState(false);
+    const [idsIsBlocked, setIdsIsBlocked] = useState(false);
 
     const navChatPage = async (event) => {
         event.preventDefault();
@@ -86,6 +107,7 @@ export default function Chat() {
         // get all chatrooms
         getChatRooms().then((c) => {
             c.forEach((item, index) => {
+                console.log(item)
                 if (localStorage.getItem("activeChatRoomId") === "" && index === 0) {
                     // if no active chatroom, set the first as active and get everything needed
                     setName(item.name);
@@ -115,6 +137,7 @@ export default function Chat() {
     const blockUsers = () => {
         block(idsToBlock).then(() => {
             setIsOpen(false);
+            setIdsIsBlocked(true);
         });
     };
 
@@ -196,6 +219,10 @@ export default function Chat() {
         setIsOpenMatch(false);
     };
 
+    const truncate = (str) => {
+        return str.length > 30 ? str.substring(0, 30) + "..." : str;
+    }
+
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -206,30 +233,33 @@ export default function Chat() {
                     {chatRooms.map((chatRoom) => (
                         <div
                             key={chatRoom.id}
-                            className={`${classes.slotdiv} ${classes.hovereffect}`}>
-                            <Grid container direction="row" justify="center" alignItems="center" onClick={(e) => {
-                                onSelectChatRoom(e, chatRoom.name, chatRoom.id);
-                            }}>
-                                <Grid item>
-                                    <img className={classes.icon} src={user_img} alt={"user"}/>
-                                </Grid>
-                                <Grid item>
-                                    <p className={classes.timetitle}>{chatRoom.name}</p>
-                                </Grid>
-                                <Grid item>
-                                    <Button className={classes.closeBtn}
-                                            onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
-                                        <img className={classes.closeicon} src={close_img} alt={"user"}/>
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                            className={`${classes.slotdiv} ${classes.hovereffect}`} onClick={(e) => {
+                            onSelectChatRoom(e, chatRoom.name, chatRoom.id);
+                        }}>
+                            <div className={classes.innerdiv}>
+                                {/*<img className={classes.icon} src={user_img} alt={"user"}/>*/}
+                                <div className={classes.icon}>
+                                    <Avatar name={chatRoom.name} size='50px' round={true}/>
+                                </div>
+
+                                <div className={classes.textdiv}>
+                                    <p className={classes.text} style={{overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                        {truncate(chatRoom.name)}
+                                    </p>
+                                </div>
+                                <Button className={classes.closeBtn}
+                                        onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
+                                    <img className={classes.closeicon} src={close_img} alt={"user"}/>
+                                </Button>
+                            </div>
+
                         </div>
                     ))}
                 </div>
                 <div className="container">
                     <InfoBar name={name}/>
                     <Messages messages={messages} name={name}/>
-                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage} isBlocked={idsIsBlocked}/>
                 </div>
             </div>
             <DisableMatch/>
