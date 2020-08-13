@@ -14,6 +14,7 @@ import TipsAlert from "../tips-alert/tips-alert";
 import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
 import BlockUserModal from "../block-user-modal/block-user-modal";
+import feedimg01 from "../../images/feeds/feed01.PNG"
 
 const topimgs = [
     {
@@ -55,6 +56,44 @@ const footer = {
     ],
     phone: '15999',
 };
+
+const expecially_feeds = [
+    {
+        title: '(Special)Why Do We Need to Drink Water?',
+        img: feedimg01,
+        description: 'Exercise can help in physical and mental health. Duration of exercise: at least 30 minutes a day and this can be done separately in three...',
+        buttonText: 'Read More',
+        link: "#"
+    },
+    {
+        title: '(Special)How to Start Exercisng At Home?',
+        img: feedimg01,
+        description: 'We need water to survive. You will feel good, energetic and your skin will be supple when you are well hydrated. How much fluid do you need?',
+        buttonText: 'Read More',
+        link: "#"
+    },
+    {
+        title: '(Special)Well Balanced Meals?',
+        img: feedimg01,
+        description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
+        buttonText: 'Read More',
+        link: "#"
+    },
+    {
+        title: '(Special)Well Balanced Meals?',
+        img: feedimg01,
+        description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
+        buttonText: 'Read More',
+        link: "#"
+    },
+    {
+        title: '(Special)Well Balanced Meals?',
+        img: feedimg01,
+        description: '“I feel Belly Happy” Well balanced meals are important for a healthy body and mind. It will make one feel energetic, focused in their... ',
+        buttonText: 'Read More',
+        link: "#"
+    }
+]
 
 export default function Landing() {
 
@@ -132,7 +171,7 @@ export default function Landing() {
 
             <section id="feeds">
                 <Feed title="Recommended" feed={recommendedFeeds}/>
-                <Feed title="Expecially for You" feed={specialFeeds}/>
+                <Feed title="Expecially for You" feed={expecially_feeds}/>
             </section>
 
             <section id="meditation">

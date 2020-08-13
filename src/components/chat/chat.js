@@ -14,6 +14,7 @@ import InfoBar from './InfoBar/InfoBar';
 import Input from './Input/Input';
 
 import './Chat.css';
+import {ChatModals} from "../chat-modals";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -162,6 +163,7 @@ export default function Chat() {
             </div>
 
             <DisableMatch isMatch={true}/>
+            <ChatModals />
 
         </React.Fragment>
     );
