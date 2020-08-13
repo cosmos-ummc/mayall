@@ -8,6 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ChatIcon from '@material-ui/icons/Chat';
 import PersonIcon from '@material-ui/icons/Person';
+import VideocamIcon from '@material-ui/icons/Videocam';
 import logo_img from "../../images/logo9.png";
 import cyan from "@material-ui/core/colors/cyan";
 import Scrollspy from 'react-scrollspy';
@@ -97,7 +98,7 @@ export const info_sections = [
 ];
 export const func_sections = [
     { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'MEETUP', url: 'meetup', icon: 'DateRangeIcon' },
+    { title: 'MEETUP', url: 'meetup', icon: 'VideocamIcon' },
     { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
     { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
 ];
@@ -105,7 +106,8 @@ export const func_sections = [
 const icons = {
     DateRangeIcon: DateRangeIcon,
     ChatIcon: ChatIcon,
-    PersonIcon: PersonIcon
+    PersonIcon: PersonIcon,
+    VideocamIcon: VideocamIcon
 }
 
 export default function Navbar(props) {
