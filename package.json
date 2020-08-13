@@ -24,7 +24,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-scroll-to-bottom": "^3.0.0",
-    "react-scrollspy": "^3.4.3"
+    "react-scrollspy": "^3.4.3",
+    "react-webcam": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

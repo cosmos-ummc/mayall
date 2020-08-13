@@ -8,11 +8,12 @@ import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
-import {Link, Redirect, useHistory} from 'react-router-dom';
+import {Redirect, useHistory} from 'react-router-dom';
 import {ScheduledList} from "../scheduled-list";
 import {getCompleted} from "../../api/complete";
 import {getPatient} from "../../api/patient";
 import {getMeetings} from "../../api/schedule";
+import Webcam from "react-webcam";
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
@@ -121,8 +122,7 @@ export default function Schedule() {
             <Container className={classes.canvas}>
                 <ScheduledList meetings={meetings}/>
                 <div className={classes.div}>
-                    <div className={classes.videoArea}>
-                    </div>
+                    <Webcam height="300" width="450"/>
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item>
                             <Button
