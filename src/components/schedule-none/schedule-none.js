@@ -11,6 +11,7 @@ import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
 import {Redirect, useHistory} from "react-router-dom";
 import {getCompleted} from "../../api/complete";
+import {getHasMeeting} from "../../api/schedule";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +80,9 @@ export default function ScheduleNone() {
         getCompleted().then(completed => {
             if(completed) history.push("/complete");
         });
+        getHasMeeting().then(hasMeeting => {
+            if(hasMeeting) history.push("/schedule");
+        });
     }, []);
 
     function handleNotify(event) {
@@ -86,7 +90,6 @@ export default function ScheduleNone() {
         setState({
             isNotify: true,
         });
-        console.log(state.isNotify)
     }
 
     // if not logged in, navigate to login page

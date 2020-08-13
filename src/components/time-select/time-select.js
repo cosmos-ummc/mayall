@@ -38,24 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TimeSelect(props) {
     const classes = useStyles();
-    const { giveInstruct } = props;
-
-    /* Selection list */
-    const [state, setState] = React.useState({
-        age: '',
-        name: 'hai',
-        isChoosed: false
-    });
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        setState({
-            ...state,
-            [name]: event.target.value,
-            isChoosed: true,
-        });
-    };
-
+    const { giveInstruct, state, handleChange } = props;
 
     return (
         <React.Fragment>

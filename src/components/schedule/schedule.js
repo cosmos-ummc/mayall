@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
 import {Container} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -16,7 +16,8 @@ import {Link, Redirect, useHistory} from 'react-router-dom';
 import TimeSelect from "../time-select/time-select";
 import {getCompleted} from "../../api/complete";
 import {getReports} from "../../api/chart";
-
+import {createMeeting, getCannotDeny, getHasMeeting} from "../../api/schedule";
+import {getPatient} from "../../api/patient";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -102,33 +103,55 @@ export default function Schedule() {
     const classes = useStyles();
     const history = useHistory();
 
-    /* yes button */
-    const [agreeState, setAgreeState] = React.useState({
-        isAgree: false
+    const [agree, setAgree] = useState(false);
+    const [canDeny, setCanDeny] = useState(false);
+
+    /* Selection list */
+    const [state, setState] = useState({
+        age: '',
+        name: 'hai',
+        isChoosed: false
     });
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        setState({
+            ...state,
+            [name]: event.target.value,
+            isChoosed: true,
+        });
+    };
 
     useEffect(() => {
         getCompleted().then(completed => {
-            if(completed) history.push("/complete");
+            if (completed) history.push("/complete");
+        });
+        getCannotDeny().then(cannotDeny => {
+            console.log(cannotDeny);
+            setCanDeny(!cannotDeny);
+            setAgree(true);
+        });
+        getHasMeeting().then(hasMeeting => {
+            if(!hasMeeting) history.push("/schedule-none");
         });
     }, []);
 
     function handleAgree(event) {
-        setAgreeState({
-            isAgree: true,
-        });
+        setAgree(true);
     }
 
-    /* save button */
-    const [saveState, setSaveState] = React.useState({
-        isSaved: false
-    });
+    const [save, setSave] = useState(false);
 
     function handleSave(event) {
-        setSaveState({
-            isSaved: true,
+        getPatient().then(patient => {
+            const data = {
+                status: 1,
+                time: state.age,
+            };
+            createMeeting(data).then(()=>{
+                setSave(true);
+            });
         });
-        console.log(saveState.isSaved)
     }
 
     // if not logged in, navigate to login page
@@ -139,71 +162,72 @@ export default function Schedule() {
 
     return (
         <React.Fragment>
-            <CssBaseline />
+            <CssBaseline/>
 
-            <Navbar />
+            <Navbar/>
 
             <Container className={classes.canvas}>
                 <div className={classes.div}>
-                    <Typography className={classes.title} >
-                        You are invited to a Google Meet session tomorrow. Going?
+                    <Typography className={classes.title}>
+                        You are invited to a Google Meet session tomorrow. {canDeny ? "Going?" : ""}
                     </Typography>
 
-                    <Grid container direction="row" justify="center" alignItems="center">
-                        <Grid item>
-                            <Button
-                                type="submit"
-                                variant="outlined"
-                                color="primary"
-                                href="#"
-                                className={classes.button1}
-                                onClick={handleAgree}
-                            >
-                                Yes
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Link to={'/schedule-none'} style={{ textDecoration: 'none'}}>
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    color="primary"
-                                    href="#"
-                                    className={classes.button2}
-                                >
-                                    No
-                                </Button>
-                            </Link>
-                        </Grid>
-                    </Grid>
-
-                    <Typography className={classes.subtitle} >
-                        If your answer is 'Yes', please choose the time you are available.
-                    </Typography>
-
-                    <TimeSelect giveInstruct={true}/>
-
-                    <Grid container direction="row" justify="center" alignItems="center">
-                        <Grid item>
-                            <Button
-                                type="submit"
-                                variant="outlined"
-                                color="primary"
-                                href="#"
-                                onClick={handleSave}
-                                className={classes.button3}
-                            >
-                                Save
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <div className={saveState.isSaved? classes.instruction2: classes.instruction2null}>
-                                <p>Your answer has been saved and sent to your consultant</p>
-                            </div>
-                        </Grid>
-                    </Grid>
-
-
+                    {canDeny ? <>
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <Grid item>
+                                    <Button
+                                        type="submit"
+                                        variant="outlined"
+                                        color="primary"
+                                        href="#"
+                                        className={classes.button1}
+                                        onClick={handleAgree}
+                                    >
+                                        Yes
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Link to={'/schedule-none'} style={{textDecoration: 'none'}}>
+                                        <Button
+                                            type="submit"
+                                            variant="outlined"
+                                            color="primary"
+                                            href="#"
+                                            className={classes.button2}
+                                        >
+                                            No
+                                        </Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </>
+                        : ""}
+                    {agree ? <>
+                            <Typography className={classes.subtitle}>
+                                Please choose the time you are available.
+                            </Typography>
+                            <TimeSelect giveInstruct={true} state={state} handleChange={handleChange}/>
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <Grid item>
+                                    <Button
+                                        type="submit"
+                                        variant="outlined"
+                                        color="primary"
+                                        href="#"
+                                        onClick={handleSave}
+                                        className={classes.button3}
+                                    >
+                                        Save
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <div className={save ? classes.instruction2 : classes.instruction2null}>
+                                        <p>Your answer has been saved and sent to your consultant</p>
+                                    </div>
+                                </Grid>
+                            </Grid>
+                        </>
+                        : ""}
                 </div>
             </Container>
 
