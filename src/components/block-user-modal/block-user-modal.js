@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BlockUserModal(props) {
     const classes = useStyles();
-    const {isOpen, closeModal} = props;
+    const {isOpen, closeModal, block} = props;
 
     return (
         <React.Fragment>
@@ -94,7 +94,7 @@ export default function BlockUserModal(props) {
                                 color="primary"
                                 href="#"
                                 className={classes.button}
-                                onClick={closeModal}
+                                onClick={block}
                             >
                                 Block
                             </Button>

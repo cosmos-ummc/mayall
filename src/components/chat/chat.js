@@ -103,6 +103,10 @@ export default function Chat() {
         });
     };
 
+    const closeBlockModal = () => {
+        setIsOpen(false);
+    };
+
     const blockUsers = () => {
         block(idsToBlock).then(() => {
             setIsOpen(false);
@@ -135,13 +139,10 @@ export default function Chat() {
 
         // scheduler to find match
         const interval = setInterval(() => {
-            findMatch().then((u, r) => {
+            findMatch().then((ok) => {
                 // show the modal
-                if (!!u && !!r && !!r.id) {
-                    console.log(u);
-                    console.log(r);
+                if (ok) {
                     setIsOpenMatch(true);
-                    localStorage.setItem("activeChatRoomId", r.id);
                 }
             });
         }, 10000);
@@ -180,8 +181,8 @@ export default function Chat() {
         });
     };
 
-    const chatWithNewPerson = () => {
-        window.location.reload();
+    const closeMatchModal = () => {
+        setIsOpenMatch(false);
     };
 
     return (
@@ -221,8 +222,8 @@ export default function Chat() {
                 </div>
             </div>
             <DisableMatch/>
-            <BlockUserModal nameToBlock={nameToBlock} isOpen={isOpen} closeModal={blockUsers}/>
-            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={chatWithNewPerson}/>
+            <BlockUserModal nameToBlock={nameToBlock} isOpen={isOpen} closeModal={closeBlockModal} block={blockUsers}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}/>
         </React.Fragment>
     );
 }

@@ -53,7 +53,9 @@ export const findMatch = async () => {
         axios.post(`${apiUrl}/client/newmatch`, {
             id: id,
         }).then(res => {
-            return resolve(res.data.user, res.data.chatRoom);
+            let ok = false;
+            if (!!res.data.user) ok = true;
+            return resolve(ok);
         }).catch(err => {
             return reject();
         });

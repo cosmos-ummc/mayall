@@ -7,14 +7,14 @@ import Video from './video';
 import Chat from './chat';
 import Game from './game';
 import Footer from './footer';
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import DisableMatch from "../disable-match/disable-match"
 import FoundMatchModal from "../found-match-modal/found-match-modal"
 import TipsAlert from "../tips-alert/tips-alert";
 import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
 import {mapImage} from "../../utils/image-mapper";
-import BlockUserModal from "../block-user-modal/block-user-modal";
 import feedimg01 from "../../images/feeds/feed01.PNG"
+import {findMatch} from "../../api/chat";
 
 
 const topimgs = [
@@ -94,7 +94,7 @@ const expecially_feeds = [
         buttonText: 'Read More',
         link: "#"
     }
-]
+];
 
 export default function Landing() {
 
@@ -104,6 +104,11 @@ export default function Landing() {
     const [adrGames, setAdrGames] = useState([]);
     const [iosGames, setIosGames] = useState([]);
     const [tips, setTips] = useState({});
+    const [isOpenMatch, setIsOpenMatch] = useState(false);
+
+    const closeMatchModal = () => {
+        setIsOpenMatch(false);
+    };
 
     useEffect(() => {
         getRecommendedFeeds().then((data) => {
@@ -150,6 +155,16 @@ export default function Landing() {
             setAdrGames(tmpAdr);
             setIosGames(tmpIos);
         });
+        // scheduler to find match
+        const interval = setInterval(() => {
+            findMatch().then((ok) => {
+                // show the modal
+                if (ok) {
+                    setIsOpenMatch(true);
+                }
+            });
+        }, 10000);
+        return () => clearInterval(interval);
     }, []);
 
     // if not logged in, navigate to login page
@@ -189,7 +204,7 @@ export default function Landing() {
             <Footer footer={footer}/>
 
             <DisableMatch/>
-            <FoundMatchModal nameToMatch={'AnonymousABC'}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}/>
 
         </React.Fragment>
 
