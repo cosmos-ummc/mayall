@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 16
     },
     icon: {
-        margin: theme.spacing(3, 3, 1, 3),
+        margin: theme.spacing(0, 3, 1,5),
         width: '50px'
     },
     icontitlediv: {
@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
     icontitle1: {
         margin: theme.spacing(0),
-        width: '50px'
     },
     title: {
         fontWeight: "bold",
         fontSize: "20px",
         margin: theme.spacing(4, 'auto', 3),
-        textAlign: 'center'
+        textAlign: 'center',
+        width: '90%',
     },
     button: {
         margin: theme.spacing(0, 1),
