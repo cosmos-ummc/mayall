@@ -91,16 +91,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const info_sections = [
-    { title: "Home", url: '/' },
-    { title: "Health's Feed", url: '#feeds' },
-    { title: 'Meditation', url: '#meditation' },
-    { title: 'Games', url: '#games' },
+    {title: "Home", url: '/'},
+    {title: "Health's Feed", url: '#feeds'},
+    {title: 'Meditation', url: '#meditation'},
+    {title: 'Games', url: '#games'},
 ];
 export const func_sections = [
-    { title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon' },
-    { title: 'MEETUP', url: 'meetup', icon: 'VideocamIcon' },
-    { title: 'CHAT', url: 'chat', icon: 'ChatIcon' },
-    { title: 'PROFILE', url: '#', icon: 'PersonIcon' }
+    {title: 'SCHEDULE', url: 'schedule', icon: 'DateRangeIcon'},
+    {title: 'MEETUP', url: 'meetup', icon: 'VideocamIcon'},
+    {title: 'CHAT', url: 'chat', icon: 'ChatIcon'},
+    {title: 'PROFILE', url: '#', icon: 'PersonIcon'}
 ];
 
 const icons = {
@@ -113,8 +113,8 @@ const icons = {
 export default function Navbar(props) {
     const classes = useStyles();
 
-
-    {/* Handle Profile Menu */}
+    {/* Handle Profile Menu */
+    }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -155,17 +155,17 @@ export default function Navbar(props) {
                     <div className={classes.spacer}/>
 
                     <nav className="nav">
-                        <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
-                                   currentClassName={classes.active}
-                                   style={{
-                                       fontWeight: 300
-                                   }}
-                                   offset={-150}
-                                   onUpdate={
-                                       (el) => {
-                                           console.log(el)
-                                       }
-                                   }>
+                        {props.home? <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
+                            currentClassName={classes.active}
+                            style={{
+                            fontWeight: 300
+                        }}
+                            offset={-150}
+                            onUpdate={
+                            (el) => {
+                                console.log(el)
+                            }
+                        }>
                             {info_sections.map((section) => (
                                 <Link
                                     color="textPrimary"
@@ -178,7 +178,16 @@ export default function Navbar(props) {
                                     {section.title}
                                 </Link>
                             ))}
-                        </Scrollspy>
+                        </Scrollspy> : <Link
+                            color="textPrimary"
+                            noWrap
+                            key={"home"}
+                            variant="button"
+                            href={"/"}
+                            className={classes.link}
+                        >
+                            HOME
+                        </Link>}
                     </nav>
 
                     <div className={classes.divider}/>
@@ -195,22 +204,8 @@ export default function Navbar(props) {
                             className={classes.button}
                         >
                             {/*<Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>*/}
-                                {React.createElement(icons[func_sections[0].icon], {className: `${classes.icon}`})}
+                            {React.createElement(icons[func_sections[0].icon], {className: `${classes.icon}`})}
                             {/*</Badge>*/}
-
-                        </Button>
-
-                        {/* Scheduled Meetup */}
-                        <Button
-                            color="primary"
-                            key={func_sections[1].title}
-                            variant="outlined"
-                            href={func_sections[1].url}
-                            className={classes.button}
-                        >
-                            <Badge color="secondary" overlap="circle" badgeContent=" " variant='dot'>
-                                {React.createElement(icons[func_sections[1].icon], {className: `${classes.icon}`})}
-                            </Badge>
                         </Button>
 
                         {/* Chat */}

@@ -90,8 +90,6 @@ export default function Landing() {
         });
         const channel = pusher.subscribe("general");
         channel.bind("chatroom", (data) => {
-            console.log("event received");
-            console.log(data);
             const ids = data.split(",");
             // if user is in the chatroom, trigger open match modal
             if(ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
@@ -159,7 +157,7 @@ export default function Landing() {
         <React.Fragment>
             <CssBaseline/>
 
-            <Navbar/>
+            <Navbar home={true}/>
 
             <TipsAlert title={tips.title} description={tips.description}/>
 

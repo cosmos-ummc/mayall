@@ -14,6 +14,8 @@ import {getCompleted} from "../../api/complete";
 import {getPatient} from "../../api/patient";
 import {getMeetings} from "../../api/schedule";
 import Webcam from "react-webcam";
+import Pusher from "pusher-js";
+import FoundMatchModal from "../found-match-modal/found-match-modal";
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
@@ -86,11 +88,16 @@ export default function Schedule() {
     const history = useHistory();
 
     const [meetings, setMeetings] = useState([]);
-    const [state, setState] = useState({
-        age: '',
-        name: 'hai',
-        isChoosed: false
-    });
+    const [isOpenMatch, setIsOpenMatch] = useState(false);
+
+    const closeMatchModal = () => {
+        setIsOpenMatch(false);
+    };
+
+    const navChatPage = async (event) => {
+        event.preventDefault();
+        history.push("/chat");
+    };
 
     useEffect(() => {
         getCompleted().then(completed => {
@@ -106,6 +113,19 @@ export default function Schedule() {
 
                 setMeetings(m);
             }));
+        });
+        // subscribe to public channel
+        const pusher = new Pusher("ec07749c8ce28d32448a", {
+            cluster: "ap1",
+            encrypted: true,
+        });
+        const channel = pusher.subscribe("general");
+        channel.bind("chatroom", (data) => {
+            const ids = data.split(",");
+            // if user is in the chatroom, trigger open match modal
+            if (ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
+                setIsOpenMatch(true);
+            }
         });
     }, []);
 
@@ -139,6 +159,8 @@ export default function Schedule() {
                 </div>
             </Container>
             <DisableMatch isMatch={true}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}
+                             navChatPage={navChatPage}/>
         </React.Fragment>
     );
 }
