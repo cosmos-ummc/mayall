@@ -21,6 +21,7 @@ import contact_img from "../../images/contact.PNG";
 import {Redirect, useHistory} from "react-router-dom";
 import CustomBarChart from "../visualization/custom-bar-chart";
 import {getReports} from "../../api/chart";
+import {getCompleted} from "../../api/complete";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -129,16 +130,7 @@ const reports = [
 export default function Complete() {
 
     const history = useHistory();
-
-    const closeMatchModal = () => {
-        setIsOpenMatch(false);
-    };
-
-    const navChatPage = async (event) => {
-        event.preventDefault();
-        history.push("/chat");
-    };
-
+    
     const [state, setState] = useState({
         chartStressSeries: [0, 0],
         chartDepressionSeries: [0, 0],
@@ -162,6 +154,9 @@ export default function Complete() {
     });
 
     useEffect(() => {
+        getCompleted().then(completed => {
+            if(!completed) history.push("/");
+        });
         getReports().then((data) => {
             // set stress series
             setState({
