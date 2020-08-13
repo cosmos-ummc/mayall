@@ -100,14 +100,14 @@ export default function Landing() {
         });
         getRecommendedFeeds().then((data) => {
             data.forEach((item) => {
-                item.img = mapImage(data.imgPath);
+                item.img = mapImage(item.imgPath);
                 item.buttonText = 'Read More';
             });
             setRecommendedFeeds(data);
         });
         getSpecialFeeds().then((data) => {
             data.forEach((item) => {
-                item.img = mapImage(data.imgPath);
+                item.img = mapImage(item.imgPath);
                 item.buttonText = 'Read More';
             });
             setSpecialFeeds(data);
