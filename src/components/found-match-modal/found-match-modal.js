@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FoundMatchModal(props) {
     const classes = useStyles();
-    const {nameToMatch, isOpen, closeModal} = props;
+    const {nameToMatch, isOpen, closeModal, navChatPage} = props;
 
     return (
         <React.Fragment>
@@ -95,17 +95,16 @@ export default function FoundMatchModal(props) {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Link to={'/chat'} style={{textDecoration: 'none'}}>
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    color="primary"
-                                    href="#"
-                                    className={classes.button}
-                                >
-                                    Let's start chatting
-                                </Button>
-                            </Link>
+                            <Button
+                                type="submit"
+                                variant="outlined"
+                                color="primary"
+                                href="#"
+                                className={classes.button}
+                                onClick={navChatPage}
+                            >
+                                Let's start chatting
+                            </Button>
                         </Grid>
                     </Grid>
                 </div>

@@ -16,6 +16,7 @@ import {block, createMessage, findMatch, getChatRooms, getMessages} from "../../
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import Pusher from "pusher-js";
 import FoundMatchModal from "../found-match-modal/found-match-modal";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     outerContainer: {
@@ -76,11 +77,15 @@ export default function Chat() {
     const [idsToBlock, setIdsToBlock] = useState([]);
     const [isOpenMatch, setIsOpenMatch] = useState(false);
 
-    const getEverything = (reset) => {
+    const navChatPage = async (event) => {
+        event.preventDefault();
+        window.location.reload(true);
+    };
+
+    const getEverything = () => {
         // get all chatrooms
         getChatRooms().then((c) => {
             c.forEach((item, index) => {
-                item.name = `Anonymous ${index + 1}`;
                 if (localStorage.getItem("activeChatRoomId") === "" && index === 0) {
                     // if no active chatroom, set the first as active and get everything needed
                     setName(item.name);
@@ -134,18 +139,24 @@ export default function Chat() {
             // when received, trigger update chatroom and messages event
             getEverything();
         });
+        channel.bind("block", () => {
+            // when received, trigger update chatroom and messages event
+            getEverything();
+        });
+        channel.bind("chatroom", (data) => {
+            const ids = data.split(",");
+            // if user is in the chatroom, trigger open match modal
+            if(ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
+                setIsOpenMatch(true);
+            }
+        });
 
         getEverything();
 
         // scheduler to find match
         const interval = setInterval(() => {
-            findMatch().then((ok) => {
-                // show the modal
-                if (ok) {
-                    setIsOpenMatch(true);
-                }
-            });
-        }, 10000);
+            findMatch();
+        }, 60000);
         return () => clearInterval(interval);
     }, []);
 
@@ -200,7 +211,7 @@ export default function Chat() {
                                 onSelectChatRoom(e, chatRoom.name, chatRoom.id);
                             }}>
                                 <Grid item>
-                                    <img className={classes.icon} src={user_img}/>
+                                    <img className={classes.icon} src={user_img} alt={"user"}/>
                                 </Grid>
                                 <Grid item>
                                     <p className={classes.timetitle}>{chatRoom.name}</p>
@@ -208,7 +219,7 @@ export default function Chat() {
                                 <Grid item>
                                     <Button className={classes.closeBtn}
                                             onClick={(e) => blockChatRoomModal(e, chatRoom.participantIds, chatRoom.name)}>
-                                        <img className={classes.closeicon} src={close_img}/>
+                                        <img className={classes.closeicon} src={close_img} alt={"user"}/>
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -223,7 +234,7 @@ export default function Chat() {
             </div>
             <DisableMatch/>
             <BlockUserModal nameToBlock={nameToBlock} isOpen={isOpen} closeModal={closeBlockModal} block={blockUsers}/>
-            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal} navChatPage={navChatPage}/>
         </React.Fragment>
     );
 }

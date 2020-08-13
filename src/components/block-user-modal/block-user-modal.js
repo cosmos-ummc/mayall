@@ -72,13 +72,13 @@ export default function BlockUserModal(props) {
                 <div className={classes.div}>
                     <div>
                         <Button className={classes.closeBtn} color="primary" onClick={closeModal}>
-                            <img className={classes.closeicon} src={close_img}/>
+                            <img className={classes.closeicon} src={close_img} alt={"close"}/>
                         </Button>
                     </div>
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Grid item>
                             <Grid item>
-                                <img className={classes.icon} src={user_img}/>
+                                <img className={classes.icon} src={user_img} alt={"user"}/>
                                 <Typography className={classes.icontitle1}>Anonymous Friend</Typography>
                             </Grid>
                         </Grid>

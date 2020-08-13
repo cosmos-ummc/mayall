@@ -15,6 +15,8 @@ import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips}
 import {mapImage} from "../../utils/image-mapper";
 import feedimg01 from "../../images/feeds/feed01.PNG"
 import {findMatch} from "../../api/chat";
+import Pusher from "pusher-js";
+import {logout} from "../../api/auth";
 
 
 const topimgs = [
@@ -105,12 +107,33 @@ export default function Landing() {
     const [iosGames, setIosGames] = useState([]);
     const [tips, setTips] = useState({});
     const [isOpenMatch, setIsOpenMatch] = useState(false);
+    const history = useHistory();
 
     const closeMatchModal = () => {
         setIsOpenMatch(false);
     };
 
+    const navChatPage = async (event) => {
+        event.preventDefault();
+        history.push("/chat");
+    };
+
     useEffect(() => {
+        // subscribe to public channel
+        const pusher = new Pusher("ec07749c8ce28d32448a", {
+            cluster: "ap1",
+            encrypted: true,
+        });
+        const channel = pusher.subscribe("general");
+        channel.bind("chatroom", (data) => {
+            console.log("event received");
+            console.log(data);
+            const ids = data.split(",");
+            // if user is in the chatroom, trigger open match modal
+            if(ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
+                setIsOpenMatch(true);
+            }
+        });
         getRecommendedFeeds().then((data) => {
             data.forEach((item) => {
                 item.img = mapImage(data.imgPath);
@@ -157,13 +180,8 @@ export default function Landing() {
         });
         // scheduler to find match
         const interval = setInterval(() => {
-            findMatch().then((ok) => {
-                // show the modal
-                if (ok) {
-                    setIsOpenMatch(true);
-                }
-            });
-        }, 10000);
+            findMatch();
+        }, 60000);
         return () => clearInterval(interval);
     }, []);
 
@@ -204,7 +222,7 @@ export default function Landing() {
             <Footer footer={footer}/>
 
             <DisableMatch/>
-            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal} navChatPage={navChatPage}/>
 
         </React.Fragment>
 
