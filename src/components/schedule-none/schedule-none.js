@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
+import {Redirect} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -78,6 +79,12 @@ export default function ScheduleNone() {
             isNotify: true,
         });
         console.log(state.isNotify)
+    }
+
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
     }
 
     return (

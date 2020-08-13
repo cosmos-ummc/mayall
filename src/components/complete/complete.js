@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -18,7 +18,9 @@ import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import Copyright from "../copyright/copyright";
 import contact_img from "../../images/contact.PNG";
-
+import {Redirect, useHistory} from "react-router-dom";
+import CustomBarChart from "../visualization/custom-bar-chart";
+import {getReports} from "../../api/chart";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         maxWidth: 360,
         // borderRadius: 0,
-        backgroundColor:  `${cyan[200]}`,
+        backgroundColor: `${cyan[200]}`,
         // color: theme.palette.primary.contrastText,
         // boxShadow: "none"
         display: "flex",
@@ -122,66 +124,104 @@ const reports = [
         imgPath: 'src/img/feed_img_3',
         description: 'Write about the consequence of result',
     }
-]
-
+];
 
 export default function Complete() {
 
+    const history = useHistory();
+
+    const closeMatchModal = () => {
+        setIsOpenMatch(false);
+    };
+
+    const navChatPage = async (event) => {
+        event.preventDefault();
+        history.push("/chat");
+    };
+
+    const [state, setState] = useState({
+        chartStressSeries: [0, 0],
+        chartDepressionSeries: [0, 0],
+        chartAnxietySeries: [0, 0],
+        chartPtsdSeries: [0, 0],
+        chartOptions: {
+            chart: {
+                id: "basic-bar"
+            },
+            xaxis: {
+                categories: ['First Assessment Score', 'Second Assessment Score']
+            }
+        },
+        comparisonSeries: [{
+            name: "Before Monitoring",
+            data: [0, 0, 0, 0],
+        }, {
+            name: "After Monitoring",
+            data: [0, 0, 0, 0],
+        }]
+    });
+
+    useEffect(() => {
+        getReports().then((data) => {
+            // set stress series
+            setState({
+                chartStressSeries: [data.stressCount1, data.stressCount2],
+                chartDepressionSeries: [data.depressionCount1, data.depressionCount2],
+                chartAnxietySeries: [data.anxietyCount1, data.anxietyCount2],
+                chartPtsdSeries: [data.ptsdCount1, data.ptsdCount2],
+                chartOptions: {
+                    chart: {
+                        id: "basic-bar"
+                    },
+                    xaxis: {
+                        categories: ['First Assessment Score', 'Second Assessment Score']
+                    }
+                },
+                comparisonSeries: [{
+                    name: "Before Monitoring",
+                    data: [data.stressCount1, data.anxietyCount1, data.depressionCount1, data.ptsdCount1],
+                }, {
+                    name: "After Monitoring",
+                    data: [data.stressCount2, data.anxietyCount2, data.depressionCount2, data.ptsdCount2],
+                }]
+            });
+        });
+    }, []);
+
     const classes = useStyles();
 
-
-
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
+    }
 
     return (
         <React.Fragment>
-            <CssBaseline />
-
-
-
+            <CssBaseline/>
             <div className={classes.withfooterdiv}>
 
-                <Navbar />
+                <Navbar/>
 
                 <Container component="main" className={classes.heroContent}>
-                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.header}>
+                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom
+                                className={classes.header}>
                         Congratulations! You have completed 14-day quarantine!
                     </Typography>
                     <div className={classes.divider}></div>
 
-                    <Grid container spacing={2} alignItems="stretch">
-                        {reports.map((report) => (
-                            <Grid item key={report.title} xs={12} sm={6} md={3}>
-                                <Card className={classes.card}>
-                                    <CardMedia
-                                        className={classes.chart}
-                                        image={report.img}
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h8" component="h3" className={classes.cardHeader}>
-                                            {report.title}
-                                        </Typography>
-                                        <Typography color="textSecondary" component="p">
-                                            {report.description}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-
-                                    </CardActions>
-                                </Card>
-                            </Grid>
-                        ))}
+                    <Grid container>
+                        <CustomBarChart title={"DASS Stress Report"} propData={state.chartStressSeries}
+                                        propOption={state.chartOptions} description={"Scores"}/>
+                        <CustomBarChart title={"DASS Anxiety Report"} propData={state.chartAnxietySeries}
+                                        propOption={state.chartOptions} description={"Scores"}/>
                     </Grid>
-                    <div className={classes.buttondiv}>
-                        <Button
-                            type="submit"
-                            variant="outlined"
-                            color="primary"
-                            className={classes.button}
-                        >
-                            Download
-                        </Button>
-                    </div>
-
+                    <Grid container>
+                        <CustomBarChart title={"DASS Depression Report"} propData={state.chartDepressionSeries}
+                                        propOption={state.chartOptions} description={"Scores"}/>
+                        <CustomBarChart title={"DASS IES-R Report"} propData={state.chartPtsdSeries}
+                                        propOption={state.chartOptions} description={"Scores"}/>
+                    </Grid>
                 </Container>
 
                 <footer className={classes.footer}>
@@ -191,7 +231,8 @@ export default function Complete() {
                         </div>
 
                         <Typography variant="body1">
-                            Welcome to contact QUARANTEAM via 011-1111111 if you are not feeling well after the quarantine period. We are here to help you.
+                            Welcome to contact QUARANTEAMS via 011-1111111 if you are not feeling well after the
+                            quarantine period. We are here to help you.
                         </Typography>
                         <br/>
                         {/*<Copyright />*/}

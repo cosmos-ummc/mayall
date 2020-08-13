@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
 import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
@@ -8,9 +8,8 @@ import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {ScheduledList} from "../scheduled-list";
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -95,6 +94,12 @@ export default function Schedule() {
         console.log(saveState.isSaved)
     }
 
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
+    }
+
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -103,7 +108,7 @@ export default function Schedule() {
 
             <Container className={classes.canvas}>
 
-                <ScheduledList />
+                <ScheduledList/>
 
                 <div className={classes.div}>
 

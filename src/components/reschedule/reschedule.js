@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
 import {Container} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import cyan from "@material-ui/core/colors/cyan";
 import grey from "@material-ui/core/colors/grey";
 import DisableMatch from "../disable-match/disable-match";
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import TimeSelect from "../time-select/time-select";
 import {ScheduledList} from "../scheduled-list";
 
@@ -125,6 +125,12 @@ export default function Schedule() {
         console.log(saveState.isSaved)
     }
 
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
+    }
+
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -133,7 +139,7 @@ export default function Schedule() {
 
             <Container className={classes.canvas}>
 
-                <ScheduledList />
+                <ScheduledList/>
 
                 <div className={classes.div}>
 
@@ -154,24 +160,25 @@ export default function Schedule() {
                         </Grid>
                         <Grid item>
                             {/*<Link to={'/reschedule'} style={{textDecoration: 'none'}}>*/}
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    color="primary"
-                                    href="#"
-                                    className={classes.button2}
-                                >
-                                    Reschedule the Meeting
-                                </Button>
+                            <Button
+                                type="submit"
+                                variant="outlined"
+                                color="primary"
+                                href="#"
+                                className={classes.button2}
+                            >
+                                Reschedule the Meeting
+                            </Button>
                             {/*</Link>*/}
                         </Grid>
                     </Grid>
 
-                    <Typography className={classes.subtitle} >
-                        To reschedule the meething, please choose a time from the options below. Please note that you can only change the session time a day before meeting.
+                    <Typography className={classes.subtitle}>
+                        To reschedule the meething, please choose a time from the options below. Please note that you
+                        can only change the session time a day before meeting.
                     </Typography>
 
-                    <TimeSelect giveInstruct={false} />
+                    <TimeSelect giveInstruct={false}/>
 
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item>
@@ -187,7 +194,7 @@ export default function Schedule() {
                             </Button>
                         </Grid>
                         <Grid item>
-                            <div className={saveState.isSaved? classes.instruction2: classes.instruction2null}>
+                            <div className={saveState.isSaved ? classes.instruction2 : classes.instruction2null}>
                                 <p>Your answer has been saved and sent to your consultant</p>
                             </div>
                         </Grid>

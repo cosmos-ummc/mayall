@@ -13,18 +13,22 @@ import f10 from "../images/feeds/young-soldier-clutched-fabric-military-uniform-
 
 import f11 from "../images/feeds/finger-mobile-phone_1057-3277.jpg";
 import f12 from "../images/feeds/post-traumatic-stress-disorder_34200-366.jpg";
-import f13 from "../images/feeds/frustrated-young-dark-skinned-woman-with-shaggy-black-hair-frowning-looking-with-sad-unhappy-expression-while-going-through-hard-times-her-life-human-emotions-feelings_273609-1250.jpg";
+import f13
+    from "../images/feeds/frustrated-young-dark-skinned-woman-with-shaggy-black-hair-frowning-looking-with-sad-unhappy-expression-while-going-through-hard-times-her-life-human-emotions-feelings_273609-1250.jpg";
 import f14 from "../images/feeds/two-men-gossiping-cafe_10045-237.jpg";
-import f15 from "../images/feeds/tired-sad-young-pretty-woman-sitting-table-working-laptop-co-working-office-wearing-glasses-stress-work-funny-emotion-student-class-room-frustration_285396-94.jpg";
+import f15
+    from "../images/feeds/tired-sad-young-pretty-woman-sitting-table-working-laptop-co-working-office-wearing-glasses-stress-work-funny-emotion-student-class-room-frustration_285396-94.jpg";
 
 import f16 from "../images/feeds/Progressive muscle relaxation.jpg";
 import f17 from "../images/feeds/how-I-start-exercise.jpg";
-import f18 from "../images/feeds/cute-brunette-student-woman-black-jacket-studying-reading-textbook-manual-university-library-having-hard-time-understanding-material-rolling-her-eyes-looking-bored-confused_273609-1133.jpg";
+import f18
+    from "../images/feeds/cute-brunette-student-woman-black-jacket-studying-reading-textbook-manual-university-library-having-hard-time-understanding-material-rolling-her-eyes-looking-bored-confused_273609-1133.jpg";
 import f19 from "../images/feeds/post-traumatic-stress-disorder_34200-367.jpg";
 import f20 from "../images/feeds/sad-man-holding-head-with-hand_1150-6345.jpg";
 
 import f21 from "../images/feeds/hands-holding-red-heart_49149-185.jpg";
-import f22 from "../images/feeds/fearful-young-caucasian-female-with-ginger-hair-dressed-white-blouse-having-confused-guilty-look-biting-her-lower-lip-feeling-sorry-doing-something-wrong-making-terrible-mistake_273609-48.jpg";
+import f22
+    from "../images/feeds/fearful-young-caucasian-female-with-ginger-hair-dressed-white-blouse-having-confused-guilty-look-biting-her-lower-lip-feeling-sorry-doing-something-wrong-making-terrible-mistake_273609-48.jpg";
 import f23 from "../images/feeds/close-up-sad-young-woman-holding-her-head_23-2147953216.jpg";
 import f24 from "../images/feeds/deep-breath-exercise.jpg";
 import f25 from "../images/feeds/feed01.PNG";
@@ -36,7 +40,8 @@ import f29 from "../images/feeds/red-heart-with-stethoscope-mint-green-backgroun
 import f30 from "../images/feeds/feed03.PNG";
 
 import f31 from "../images/feeds/distressed-tired-middle-aged-male-facepalm_176420-18609.jpg";
-import f32 from "../images/feeds/asian-women-with-feelings-helplessness-hopelessness-white-bed-bedroom-either-insomnia-depression-symptoms-warning-signs-concept_41350-605.jpg";
+import f32
+    from "../images/feeds/asian-women-with-feelings-helplessness-hopelessness-white-bed-bedroom-either-insomnia-depression-symptoms-warning-signs-concept_41350-605.jpg";
 import f33 from "../images/feeds/lonely-girl-suffering-from-depression_74855-5270.jpg";
 import f34 from "../images/feeds/colorful-pills-plastic-bottle_23-2147983117.jpg";
 import f35 from "../images/feeds/IMG_0236.jpg";
@@ -82,7 +87,9 @@ import ai23 from "../images/games/Basketball Paper Office.png";
 
 
 export const mapImage = (name) => {
-    switch(name){
+    switch (name) {
+        case "sad-businessman-sitting-head-hands-bed-dark-bedroom_41418-7.jpg":
+            return f01;
         default:
             return f16;
     }

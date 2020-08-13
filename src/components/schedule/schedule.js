@@ -12,7 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import DisableMatch from "../disable-match/disable-match";
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import TimeSelect from "../time-select/time-select";
 
 
@@ -120,6 +120,12 @@ export default function Schedule() {
             isSaved: true,
         });
         console.log(saveState.isSaved)
+    }
+
+    // if not logged in, navigate to login page
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+        return <Redirect to="/login"/>;
     }
 
     return (
