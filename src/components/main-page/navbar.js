@@ -272,39 +272,9 @@ export default function Navbar(props) {
                             onClose={handleClose}
                             className={classes.menu}
                         >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         </Menu>
                     </div>
-
-                    {/*<div>*/}
-                    {/*    {func_sections.map((section) => (*/}
-                    {/*        <Button*/}
-                    {/*            color="primary"*/}
-                    {/*            key={section.title}*/}
-                    {/*            variant="outlined"*/}
-                    {/*            href={section.url}*/}
-                    {/*            className={classes.button}*/}
-                    {/*            aria-controls={`${section.title}` === 'PROFILE' ? "simple-menu" : null}*/}
-                    {/*            aria-haspopup={`${section.title}` === 'PROFILE' ? true : false}*/}
-                    {/*            onClick={`${section.title}` === 'PROFILE' ? handleClick : null}*/}
-                    {/*        >*/}
-                    {/*            {React.createElement(icons[section.icon], {className: `${classes.icon}`})}*/}
-                    {/*        </Button>*/}
-
-                    {/*    ))}*/}
-                    {/*    <Menu*/}
-                    {/*        id="simple-menu"*/}
-                    {/*        anchorEl={anchorEl}*/}
-                    {/*        keepMounted*/}
-                    {/*        open={Boolean(anchorEl)}*/}
-                    {/*        onClose={handleClose}*/}
-                    {/*        className={classes.menu}*/}
-                    {/*    >*/}
-                    {/*        <MenuItem onClick={handleClose}>Profile</MenuItem>*/}
-                    {/*        <MenuItem onClick={handleClose}>Logout</MenuItem>*/}
-                    {/*    </Menu>*/}
-                    {/*</div>*/}
                 </Toolbar>
             </AppBar>
         </React.Fragment>

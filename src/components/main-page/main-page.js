@@ -16,6 +16,7 @@ import {mapImage} from "../../utils/image-mapper";
 import BlockUserModal from "../block-user-modal/block-user-modal";
 import feedimg01 from "../../images/feeds/feed01.PNG"
 
+
 const topimgs = [
     {
         name: 'topview01',
@@ -127,7 +128,7 @@ export default function Landing() {
             setMeditations(data);
         });
         getTips().then((data) => {
-            if(data.length === 1) {
+            if (data.length === 1) {
                 setTips({title: data[0].title, description: data[0].description});
             }
         });
@@ -187,9 +188,8 @@ export default function Landing() {
 
             <Footer footer={footer}/>
 
-            <DisableMatch isMatch={true}/>
+            <DisableMatch/>
             <FoundMatchModal nameToMatch={'AnonymousABC'}/>
-            <BlockUserModal nameToBlock={'AnonymousXYZ'}/>
 
         </React.Fragment>
 
