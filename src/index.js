@@ -14,10 +14,10 @@ ReactDOM.render(
                     <Route path="/" component={MainPage} exact/>
                     <Route path="/login" component={Login}/>
                     <Route path="/chat" component={Chat}/>
-                    <Route path="/schedule" component={Schedule}/>
-                    <Route path="/schedule-none" component={ScheduleNone}/>
+                    <Route path="/schedule" component={Schedule} exact/>
+                    <Route path="/schedule-none" component={ScheduleNone} exact/>
                     <Route path="/meetup" component={Meetup}/>
-                    <Route path="/reschedule" component={Reschedule}/>
+                    <Route path="/reschedule" component={Reschedule} exact/>
                     <Route path="/complete" component={Complete}/>
                 </Switch>
             </main>

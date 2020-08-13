@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
@@ -115,6 +115,22 @@ export default function Schedule() {
     const classes = useStyles();
     const history = useHistory();
 
+    /* Selection list */
+    const [state, setState] = useState({
+        age: '',
+        name: 'hai',
+        isChoosed: false
+    });
+
+    const handleChange = (event) => {
+        const name = event.target.name;
+        setState({
+            ...state,
+            [name]: event.target.value,
+            isChoosed: true,
+        });
+    };
+
     useEffect(() => {
         getCompleted().then(completed => {
             if(completed) history.push("/complete");
@@ -186,7 +202,7 @@ export default function Schedule() {
                         can only change the session time a day before meeting.
                     </Typography>
 
-                    <TimeSelect giveInstruct={false}/>
+                    <TimeSelect giveInstruct={false} state={state} handleChange={handleChange}/>
 
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item>

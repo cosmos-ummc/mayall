@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {makeStyles} from '@material-ui/core/styles';
 import Navbar from '../main-page/navbar';
@@ -11,7 +11,8 @@ import DisableMatch from "../disable-match/disable-match";
 import {Link, Redirect, useHistory} from 'react-router-dom';
 import {ScheduledList} from "../scheduled-list";
 import {getCompleted} from "../../api/complete";
-
+import {getPatient} from "../../api/patient";
+import {getMeetings} from "../../api/schedule";
 
 const useStyles = makeStyles((theme) => ({
     canvas: {
@@ -79,28 +80,33 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
 export default function Schedule() {
     const classes = useStyles();
     const history = useHistory();
 
-    useEffect(() => {
-        getCompleted().then(completed => {
-            if(completed) history.push("/complete");
-        });
-    }, []);
-
-    /* save button */
-    const [saveState, setSaveState] = React.useState({
-        isSaved: false
+    const [meetings, setMeetings] = useState([]);
+    const [state, setState] = useState({
+        age: '',
+        name: 'hai',
+        isChoosed: false
     });
 
-    function handleSave(event) {
-        setSaveState({
-            isSaved: true,
+    useEffect(() => {
+        getCompleted().then(completed => {
+            if (completed) history.push("/complete");
         });
-        console.log(saveState.isSaved)
-    }
+        // get meetings
+        getPatient().then((data) => {
+            getMeetings(data.id).then((m => {
+
+                m.forEach((x, i) => {
+                    x.isNew = i === 0;
+                });
+
+                setMeetings(m);
+            }));
+        });
+    }, []);
 
     // if not logged in, navigate to login page
     const token = localStorage.getItem("auth-token");
@@ -111,54 +117,28 @@ export default function Schedule() {
     return (
         <React.Fragment>
             <CssBaseline/>
-
             <Navbar/>
-
             <Container className={classes.canvas}>
-
-                <ScheduledList/>
-
+                <ScheduledList meetings={meetings}/>
                 <div className={classes.div}>
-
                     <div className={classes.videoArea}>
-
                     </div>
-
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item>
                             <Button
                                 type="submit"
                                 variant="outlined"
                                 color="primary"
-                                href="#"
+                                href="https://chat.quaranteams.tk/"
                                 className={classes.button1}
-                                // onClick={handleAgree}
                             >
                                 Join the Meeting
                             </Button>
                         </Grid>
-                        <Grid item>
-                            <Link to={'/reschedule'} style={{textDecoration: 'none'}}>
-                                <Button
-                                    type="submit"
-                                    variant="outlined"
-                                    color="primary"
-                                    href="#"
-                                    className={classes.button2}
-                                >
-                                    Reschedule the Meeting
-                                </Button>
-                            </Link>
-                        </Grid>
                     </Grid>
-
                 </div>
-
             </Container>
-
             <DisableMatch isMatch={true}/>
-
         </React.Fragment>
     );
-
 }

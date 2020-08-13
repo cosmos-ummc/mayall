@@ -1,11 +1,10 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import cyan from "@material-ui/core/colors/cyan";
 import notification_img from "../../images/notification.png";
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         // backgroundColor: 'grey',
         borderRight: '2px solid grey'
     },
-    slotdiv:{
+    slotdiv: {
         height: 100,
         width: 250,
         left: 0,
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         borderRight: '2px solid grey',
         paddingTop: 20
     },
-    newslotdiv:{
+    newslotdiv: {
         height: 120,
         width: 250,
         left: 0,
@@ -78,47 +77,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const scheduled_slots = [
-    {
-        time: '10 August 2020 2.00PM',
-        isNew: true,
-    },
-    {
-        time: '11 August 2020 2.00PM',
-        isNew: false,
-    },
-    {
-        time: '12 August 2020 2.00PM',
-        isNew: false,
-    },
-]
-
-export default function ScheduledList() {
+export default function ScheduledList(props) {
     const classes = useStyles();
 
     return (
         <React.Fragment>
             <CssBaseline/>
-
-                <div className={classes.leftdiv}>
-                    {scheduled_slots.map((slot) => (
-                        <div className={`${slot.isNew? classes.newslotdiv : classes.slotdiv} ${classes.hovereffect}` }>
-                            {slot.isNew?
-                                <div>
-                                    <Grid container direction="row" justify="center" alignItems="center">
-                                        <Grid item>
-                                            <img className={classes.icon} src={notification_img}/>
-                                        </Grid>
-                                        <Grid item>
-                                            <p className={classes.timetitle}>{slot.time}</p>
-                                        </Grid>
-                                    </Grid>
-                                    <Typography align="center" gutterBottom className={classes.instruct}>
-                                        NEW UPCOMING MEETING!
-                                    </Typography>
-                                </div>
-
-                                :
+            <div className={classes.leftdiv}>
+                {props.meetings.map((slot) => (
+                    <div className={`${slot.isNew ? classes.newslotdiv : classes.slotdiv} ${classes.hovereffect}`}>
+                        {slot.isNew ?
+                            <div>
                                 <Grid container direction="row" justify="center" alignItems="center">
                                     <Grid item>
                                         <img className={classes.icon} src={notification_img}/>
@@ -127,14 +96,23 @@ export default function ScheduledList() {
                                         <p className={classes.timetitle}>{slot.time}</p>
                                     </Grid>
                                 </Grid>
-                            }
-
-
-                        </div>
-                    ))}
-
-                </div>
-
+                                <Typography align="center" gutterBottom className={classes.instruct}>
+                                    NEW UPCOMING MEETING!
+                                </Typography>
+                            </div>
+                            :
+                            <Grid container direction="row" justify="center" alignItems="center">
+                                <Grid item>
+                                    <img className={classes.icon} src={notification_img}/>
+                                </Grid>
+                                <Grid item>
+                                    <p className={classes.timetitle}>{slot.time}</p>
+                                </Grid>
+                            </Grid>
+                        }
+                    </div>
+                ))}
+            </div>
         </React.Fragment>
     );
 

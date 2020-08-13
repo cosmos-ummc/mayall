@@ -31,3 +31,13 @@ export const createMeeting = async (data) => {
         });
     });
 };
+
+export const getMeetings = async (id) => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${apiUrl}/meetings?item=time&order=DESC&filterItem=patientId&filterValue=${id}`).then(res => {
+            return resolve(res.data.data);
+        }).catch(err => {
+            return reject();
+        });
+    });
+};
