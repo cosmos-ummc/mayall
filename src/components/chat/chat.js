@@ -96,6 +96,7 @@ export default function Chat() {
     const [isOpen, setIsOpen] = useState(false);
     const [idsToBlock, setIdsToBlock] = useState([]);
     const [isOpenMatch, setIsOpenMatch] = useState(false);
+    const [idsIsBlocked, setIdsIsBlocked] = useState(false);
 
     const navChatPage = async (event) => {
         event.preventDefault();
@@ -106,6 +107,7 @@ export default function Chat() {
         // get all chatrooms
         getChatRooms().then((c) => {
             c.forEach((item, index) => {
+                console.log(item)
                 if (localStorage.getItem("activeChatRoomId") === "" && index === 0) {
                     // if no active chatroom, set the first as active and get everything needed
                     setName(item.name);
@@ -135,6 +137,7 @@ export default function Chat() {
     const blockUsers = () => {
         block(idsToBlock).then(() => {
             setIsOpen(false);
+            setIdsIsBlocked(true);
         });
     };
 
@@ -256,7 +259,7 @@ export default function Chat() {
                 <div className="container">
                     <InfoBar name={name}/>
                     <Messages messages={messages} name={name}/>
-                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage} isBlocked={idsIsBlocked}/>
                 </div>
             </div>
             <DisableMatch/>
