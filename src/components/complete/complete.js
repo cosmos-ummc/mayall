@@ -260,7 +260,7 @@ export default function Complete() {
                         </div>
 
                         <Typography variant="body1">
-                            Welcome to contact QUARANTEAMS via 011-1111111 if you are not feeling well after the
+                            Welcome to contact Quaranteam via 011-1111111 if you are not feeling well after the
                             quarantine period. We are here to help you.
                         </Typography>
                         <br/>
