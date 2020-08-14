@@ -259,10 +259,13 @@ export default function Complete() {
                             <img className={classes.icon} src={contact_img}/>
                         </div>
 
-                        <Typography variant="body1">
-                            Welcome to contact Quaranteam via 011-1111111 if you are not feeling well after the
-                            quarantine period. We are here to help you.
-                        </Typography>
+                        <div style={{textAlign: 'center'}}>
+                            <Typography variant="body1">
+                                Welcome to contact Quaranteam via 011-1111111 if you are not feeling well after the
+                                quarantine period. We are here to help you.
+                            </Typography>
+                        </div>
+
                         <br/>
                         {/*<Copyright />*/}
                     </Container>
