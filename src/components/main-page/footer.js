@@ -53,7 +53,9 @@ export default function Game(props) {
             <Paper className={classes.canvas} >
                 <div className={classes.div}>
                     <Typography component="h1" variant="h3" color="inherit" gutterBottom>
-                        {footer.banner}
+                        <Box fontFamily="Monospace" m={1}>
+                            {footer.banner}
+                        </Box>
                     </Typography>
                 </div>
             </Paper>
