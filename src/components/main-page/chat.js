@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import search_img from "../../images/searchIcon.PNG";
 import post_font from '../../fonts/Post-No-Bills-Jaffna-Regular-400.ttf';
+import Box from "@material-ui/core/Box";
 
 const postfont = {
     fontFamily: 'Post-No-Bills-Jaffna-Regular',
@@ -72,7 +73,10 @@ export default function Chat(props) {
                     <div className={classes.icon}>
                         <img className={classes.img} src={search_img}/>
                         <Typography component="h3" variant="h4" color="inherit" gutterBottom className={classes.title}>
-                            {title}
+
+                            <Box fontFamily="Monospace" m={1}>
+                                {title}
+                            </Box>
                         </Typography>
                     </div>
 
