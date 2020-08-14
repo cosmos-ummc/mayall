@@ -37,11 +37,14 @@ export const getMeetings = async (id) => {
         axios.get(`${apiUrl}/meetings?item=time&order=DESC&filterItem=patientId&filterValue=${id}`).then(res => {
             const meetings = [];
             res.data.data.forEach(item => {
-                if(!isPastDate(item.time)) {
-                    if (item.status === "1" || item.status === "2" || item.status === "4") {
-                        meetings.push(item);
-                    }
+                if (item.status === "1" || item.status === "2" || item.status === "4") {
+                    meetings.push(item);
                 }
+                // if(!isPastDate(item.time)) {
+                //     if (item.status === "1" || item.status === "2" || item.status === "4") {
+                //         meetings.push(item);
+                //     }
+                // }
             });
             return resolve(meetings);
         }).catch(err => {
