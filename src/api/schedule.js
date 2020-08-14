@@ -35,7 +35,13 @@ export const createMeeting = async (data) => {
 export const getMeetings = async (id) => {
     return new Promise((resolve, reject) => {
         axios.get(`${apiUrl}/meetings?item=time&order=DESC&filterItem=patientId&filterValue=${id}`).then(res => {
-            return resolve(res.data.data);
+            const meetings = [];
+            res.data.data.forEach(item => {
+                if(item.status === "1" || item.status === "2" || item.status==="4"){
+                    meetings.push(item);
+                }
+            });
+            return resolve(meetings);
         }).catch(err => {
             return reject();
         });

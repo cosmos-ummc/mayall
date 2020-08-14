@@ -107,8 +107,15 @@ export default function Schedule() {
         getPatient().then((data) => {
             getMeetings(data.id).then((m => {
 
+                if(m.length === 0) {
+                    history.push("/schedule");
+                }
+
                 m.forEach((x, i) => {
                     x.isNew = i === 0;
+                    if(x.status === "1") x.status = "Pending";
+                    else if(x.status === "2") x.status = "Accepted";
+                    else if (x.status === "4") x.status = "Self Notified";
                 });
 
                 setMeetings(m);

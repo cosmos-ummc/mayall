@@ -141,6 +141,7 @@ export default function ScheduleNone() {
             };
             createMeeting(data).then(() => {
                 setIsNotify(true);
+                history.push("/meetup");
             });
         });
     }

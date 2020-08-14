@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         borderRight: '2px solid grey'
     },
     slotdiv: {
-        height: 100,
+        height: 120,
         width: 250,
         left: 0,
         top: 0,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: 20
     },
     newslotdiv: {
-        height: 120,
+        height: 140,
         width: 250,
         left: 0,
         top: 0,
@@ -99,6 +99,9 @@ export default function ScheduledList(props) {
                                 <Typography align="center" gutterBottom className={classes.instruct}>
                                     NEW UPCOMING MEETING!
                                 </Typography>
+                                <Typography align="center">
+                                    Status: {slot.status}
+                                </Typography>
                             </div>
                             :
                             <Grid container direction="row" justify="center" alignItems="center">
@@ -108,6 +111,9 @@ export default function ScheduledList(props) {
                                 <Grid item>
                                     <p className={classes.timetitle}>{slot.time}</p>
                                 </Grid>
+                                <Typography align="center">
+                                    Status: {slot.status}
+                                </Typography>
                             </Grid>
                         }
                     </div>

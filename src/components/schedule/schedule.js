@@ -181,6 +181,7 @@ export default function Schedule() {
             };
             createMeeting(data).then(() => {
                 setSave(true);
+                history.push("/meetup");
             });
         });
     }
