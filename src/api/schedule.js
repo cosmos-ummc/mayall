@@ -37,8 +37,10 @@ export const getMeetings = async (id) => {
         axios.get(`${apiUrl}/meetings?item=time&order=DESC&filterItem=patientId&filterValue=${id}`).then(res => {
             const meetings = [];
             res.data.data.forEach(item => {
-                if(item.status === "1" || item.status === "2" || item.status==="4"){
-                    meetings.push(item);
+                if(!isPastDate(item.time)) {
+                    if (item.status === "1" || item.status === "2" || item.status === "4") {
+                        meetings.push(item);
+                    }
                 }
             });
             return resolve(meetings);
@@ -47,3 +49,22 @@ export const getMeetings = async (id) => {
         });
     });
 };
+
+const isPastDate = (meetDate) => {
+    //format : 14 August 2020, 10:00AM
+    const arr = meetDate.split(",");
+    let date = arr[0];
+    let time = arr[1].trim();
+    let dateToCompare = new Date(date);  // https://www.toptal.com/software/definitive-guide-to-datetime-manipulation
+    if(time.slice(-2) === "AM"){
+        dateToCompare.setHours(Number(time.slice(0, 2)));
+    }else{
+        dateToCompare.setHours(Number(time.slice(0, 2))*2);
+    }
+    // console.log(meetDate)
+    // console.log(dateToCompare)
+
+    //compare with today
+    const currentDate = new Date();
+    return dateToCompare > currentDate;
+}
