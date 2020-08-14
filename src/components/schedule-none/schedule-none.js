@@ -118,8 +118,8 @@ export default function ScheduleNone() {
             }));
         });
         // subscribe to public channel
-        const pusher = new Pusher("ec07749c8ce28d32448a", {
-            cluster: "ap1",
+        const pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+            cluster: process.env.REACT_APP_PUSHER_CLUSTER,
             encrypted: true,
         });
         const channel = pusher.subscribe("general");
