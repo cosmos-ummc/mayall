@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         // margin: theme.spacing(0, 'auto', 0),
         backgroundColor: '#00649D',
+        zIndex: "10",
+        opacity: "0.9",
     },
     div: {
         color: theme.palette.common.white,
@@ -59,7 +61,7 @@ export default function TipsAlert(props) {
 
     const handleClose = () => {
         setOpen(false);
-    }
+    };
     return (
         <React.Fragment>
             <div style={{display: open ? 'block' : 'none'}}>
@@ -72,7 +74,7 @@ export default function TipsAlert(props) {
                             </Button>
                         </div>
                         <div className={classes.contentdiv}>
-                            <img className={classes.icon} src={bulb_img}/>
+                            <img className={classes.icon} src={bulb_img} alt={"bulb"}/>
                             <div className={classes.textdiv}>
                                 <Typography component="h4" variant="h4">{props.title}</Typography>
                                 <p>{props.description}</p>

@@ -1,10 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import grey from "@material-ui/core/colors/grey";
 import Button from "@material-ui/core/Button";
 import bee_img from "../../images/bee.png";
-
 
 const useStyles = makeStyles((theme) => ({
     div: {
@@ -67,32 +66,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SecondModal(){
+export default function SecondModal(props) {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState({
-        isOpen : true,
-    });
-
-    const closeModal = () => {
-        console.log(open.isOpen)
-        setOpen({
-            isOpen: false,
-        });
-        console.log("clicked ", open.isOpen)
-    }
 
     return (
         <React.Fragment>
-            <div style={{display: open.isOpen? 'block' : 'none'}}>
-                <div className={classes.div} >
+            <div style={{display: props.openSecond ? 'block' : 'none'}}>
+                <div className={classes.div}>
                     <div className={classes.innerdiv}>
                         <img className={classes.icon} src={bee_img}/>
                         <div className={classes.textdiv}>
-                            <Typography className={classes.text} >
+                            <Typography className={classes.text}>
                                 Make yourself visible so we can match you with someone with similar interest
                                 as you. You can always change your status to invisible using the toggle button
-                                at thhe bottom right part of screen.
+                                at the bottom left part of screen.
                             </Typography>
 
                             <Button
@@ -101,7 +88,7 @@ export default function SecondModal(){
                                 color="primary"
                                 href="#"
                                 className={classes.button}
-                                onClick={closeModal}
+                                onClick={(e) => props.closeSecond(e, true)}
                             >
                                 Yes
                             </Button>
@@ -111,13 +98,12 @@ export default function SecondModal(){
                                 color="primary"
                                 href="#"
                                 className={classes.button2}
-                                onClick={closeModal}
+                                onClick={(e) => props.closeSecond(e, false)}
                             >
                                 No
                             </Button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </React.Fragment>

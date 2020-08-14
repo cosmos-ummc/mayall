@@ -18,6 +18,7 @@ import FoundMatchModal from "../found-match-modal/found-match-modal";
 import Avatar from 'react-avatar';
 import {getCompleted} from "../../api/complete";
 import {useHistory} from "react-router-dom";
+import ChatModals from "../chat-modals/chat-modals";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -156,7 +157,7 @@ export default function Chat() {
 
     useEffect(() => {
         getCompleted().then(completed => {
-            if(completed) history.push("/complete");
+            if (completed) history.push("/complete");
         });
         // set active room id "" first
         localStorage.setItem("activeChatRoomId", "");
@@ -177,7 +178,7 @@ export default function Chat() {
         channel.bind("chatroom", (data) => {
             const ids = data.split(",");
             // if user is in the chatroom, trigger open match modal
-            if(ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
+            if (ids.length === 2 && (ids[0] === localStorage.getItem("auth-token") || ids[1] === localStorage.getItem("auth-token"))) {
                 setIsOpenMatch(true);
             }
         });
@@ -224,7 +225,7 @@ export default function Chat() {
 
     const truncate = (str) => {
         return str.length > 30 ? str.substring(0, 30) + "..." : str;
-    }
+    };
 
     return (
         <React.Fragment>
@@ -262,12 +263,15 @@ export default function Chat() {
                 <div className="container">
                     <InfoBar name={name}/>
                     <Messages messages={messages} name={name}/>
-                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage} isBlocked={roomIsBlocked}/>
+                    <Input message={message} setMessage={setMessage} sendMessage={sendMessage}
+                           isBlocked={roomIsBlocked}/>
                 </div>
             </div>
             <DisableMatch/>
             <BlockUserModal nameToBlock={nameToBlock} isOpen={isOpen} closeModal={closeBlockModal} block={blockUsers}/>
-            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal} navChatPage={navChatPage}/>
+            <FoundMatchModal nameToMatch={'Anonymous'} isOpen={isOpenMatch} closeModal={closeMatchModal}
+                             navChatPage={navChatPage}/>
+            <ChatModals/>
         </React.Fragment>
     );
 }

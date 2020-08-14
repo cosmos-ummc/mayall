@@ -1,21 +1,45 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect, useState} from 'react';
 import FirstModal from "./first-modal";
 import SecondModal from "./second-modal";
-import {FoundMatchModal} from "../found-match-modal";
+import {setVisibility} from "../../api/visibility";
+import {getIsFirstTimeChat, setNotFirstTimeChat} from "../../api/chat";
 
-const useStyles = makeStyles((theme) => ({
+export default function ChatModals() {
+    const [openFirst, setOpenFirst] = useState(true);
+    const [openSecond, setOpenSecond] = useState(false);
+    const [visible, setVisible] = useState(false);
 
-}));
+    useEffect(() => {
+        // check if first time chat
+        getIsFirstTimeChat().then(res => {
+            setVisible(res);
+        });
+    }, []);
 
-export default function ChatModals(){
-    const classes = useStyles();
+    const closeFirst = () => {
+        setOpenFirst(false);
+        setOpenSecond(true);
+    };
+
+    const closeSecond = (e, visible) => {
+        e.preventDefault();
+        setOpenSecond(false);
+        setVisibility(visible).then(() => {
+            // set not first time
+            setNotFirstTimeChat().then(() => {
+                window.location.reload(true);
+            });
+        });
+    };
+
+    if (!visible) {
+        return <></>;
+    }
 
     return (
         <React.Fragment>
-            <FoundMatchModal />
-            <SecondModal />
-            <FirstModal />
+            <FirstModal openFirst={openFirst} closeFirst={closeFirst}/>
+            <SecondModal openSecond={openSecond} closeSecond={closeSecond}/>
         </React.Fragment>
     );
 }

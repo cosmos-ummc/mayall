@@ -8,9 +8,6 @@ import disable_img from "../../images/disable-icon.PNG";
 
 import Button from "@material-ui/core/Button";
 import {getVisibility, setVisibility} from "../../api/visibility";
-import {getGames, getMeditations, getRecommendedFeeds, getSpecialFeeds, getTips} from "../../api/main";
-import {mapImage} from "../../utils/image-mapper";
-
 
 const useStyles = makeStyles((theme) => ({
     div: {

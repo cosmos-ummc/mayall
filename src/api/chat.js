@@ -61,3 +61,27 @@ export const findMatch = async () => {
         });
     });
 };
+
+export const getIsFirstTimeChat = async () => {
+    const id = localStorage.getItem("auth-token");
+    return new Promise((resolve, reject) => {
+        axios.get(`${apiUrl}/users/${id}`).then(res => {
+            return resolve(!res.data.data.notFirstTimeChat);
+        }).catch(err => {
+            return reject();
+        });
+    });
+};
+
+export const setNotFirstTimeChat = async () => {
+    const id = localStorage.getItem("auth-token");
+    return new Promise((resolve, reject) => {
+        axios.put(`${apiUrl}/client/users/notfirsttime`, {
+            id: id,
+        }).then(res => {
+            return resolve();
+        }).catch(err => {
+            return reject();
+        });
+    });
+};

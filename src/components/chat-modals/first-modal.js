@@ -1,10 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import grey from "@material-ui/core/colors/grey";
 import Button from "@material-ui/core/Button";
 import bee_img from "../../images/bee.png";
-
 
 const useStyles = makeStyles((theme) => ({
     div: {
@@ -56,30 +55,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FirstModal(){
+export default function FirstModal(props) {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState({
-        isOpen : true,
-    });
-
-    const closeModal = () => {
-        console.log(open.isOpen)
-        setOpen({
-            isOpen: false,
-        });
-        console.log("clicked ", open.isOpen)
-    }
 
     return (
         <React.Fragment>
-
-            <div style={{display: open.isOpen? 'block' : 'none'}}>
-                <div className={classes.div} >
+            <div style={{display: props.openFirst ? 'block' : 'none'}}>
+                <div className={classes.div}>
                     <div className={classes.innerdiv}>
-                        <img className={classes.icon} src={bee_img}/>
+                        <img className={classes.icon} src={bee_img} alt={"chat"}/>
                         <div className={classes.textdiv}>
-                            <Typography className={classes.text} >
+                            <Typography className={classes.text}>
                                 Let's talk to someone else from the quarantine centre. Your identity
                                 will be hidden from the others. Feel free to choose anyone to chat from
                                 the list on the left and remove them once you wish to stop chatting with them.
@@ -92,7 +78,7 @@ export default function FirstModal(){
                         color="primary"
                         href="#"
                         className={classes.button}
-                        onClick={closeModal}
+                        onClick={props.closeFirst}
                     >
                         Agree
                     </Button>
