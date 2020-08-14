@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import PropTypes from "prop-types";
 import cyan from "@material-ui/core/colors/cyan";
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import search_img from "../../images/searchIcon.PNG";
+import game_img from "../../images/games.png";
 import {Box} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 'auto'),
         display: 'flex',
         flexFlow: 'row',
-        width: '40%'
+        width: '40%',
     },
     gamediv: {
         margin: 0,
@@ -52,9 +52,13 @@ const useStyles = makeStyles((theme) => ({
         style: { width: '5rem', height: '5rem' },
     },
     img: {
-        width: 50,
-        margin: theme.spacing(0, 0.5),
+        width: 48,
+        margin: theme.spacing(0, 1),
     },
+    text: {
+        fontSize: 17,
+        fontWeight: 'bold'
+    }
 }));
 
 export default function Game(props) {
@@ -83,10 +87,10 @@ export default function Game(props) {
                     </Grid>
 
                     <div className={classes.icon}>
-                        <SportsEsportsIcon className={classes.img}/>
-                        <Typography gutterBottom>
+                        <img src={game_img} className={classes.img}/>
+                        <p gutterBottom className={classes.text}>
                             Click the games above to download!
-                        </Typography>
+                        </p>
                     </div>
                 </Container>
             </div>
