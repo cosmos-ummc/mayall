@@ -17,15 +17,18 @@ import CardMedia from "@material-ui/core/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
     heroContent: {
-        padding: theme.spacing(8, 0, 6),
+        padding: theme.spacing(8, 0, 8),
+        marginBottom: theme.spacing(5),
+        // backgroundColor: 'pink'
     },
     card: {
-        maxWidth: 345,
+        maxWidth: 450,
         // height: 200,
-        // width: 400,
-        display: "flex",
+        // width: 450,
+        // display: "flex",
         borderRadius: 0,
-        backgroundColor: `rgba(255, 255, 255, 0)`,
+        // backgroundColor: `rgba(255, 255, 255, 0)`,
+        backgroundColor: `${cyan[100]}`,
         boxShadow: "none",
     },
     header: {
@@ -44,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         margin: theme.spacing(0),
+    },
+    media: {
+        height: 250,
     }
 }));
 
@@ -59,12 +65,15 @@ export default function Video(props) {
                 </Typography>
                 <div className={classes.divider}></div>
 
-                <Grid container spacing={0} justify="space-evenly" alignItems="center">
+                <Grid container spacing={2} direction="row"
+                      justify="center"
+                      alignItems="center"
+                >
                     {videos.map((video) => (
-                        <Grid item key={video.title} xs={12} sm={6} md={4}>
+                        <Grid item key={video.title} xs={6} >
                             <Card className={classes.card}>
-                                <CardActions>
-                                    <CardContent>
+                                {/*<CardActions>*/}
+                                    {/*<CardContent>*/}
                                         <CardMedia
                                             component="iframe"
                                             className={classes.media}
@@ -79,8 +88,8 @@ export default function Video(props) {
                                         {/*    frameBorder="0"*/}
                                         {/*    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"*/}
                                         {/*    allowFullScreen></iframe>*/}
-                                    </CardContent>
-                                </CardActions>
+                                    {/*</CardContent>*/}
+                                {/*</CardActions>*/}
                             </Card>
                         </Grid>
                     ))}
