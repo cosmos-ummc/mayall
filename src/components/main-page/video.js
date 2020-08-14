@@ -93,6 +93,8 @@ export default function Video(props) {
                         </Grid>
                     ))}
                 </Grid>
+                <h3 style={{textAlign: "center"}}>Please do the exercise in a peaceful environment to gain the best experience !</h3>
+                <h3 style={{textAlign: "center"}}>Stay tuned for different meditation exercise tomorrow !</h3>
             </Container>
         </React.Fragment>
     );

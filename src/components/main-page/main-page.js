@@ -166,7 +166,7 @@ export default function Landing() {
             </section>
 
             <section id="feeds">
-                <Feed title="Recommended" feed={recommendedFeeds}/>
+                <Feed title="Enrich Your Thoughts" feed={recommendedFeeds}/>
                 <Feed title="Expecially for You" feed={specialFeeds}/>
             </section>
 
