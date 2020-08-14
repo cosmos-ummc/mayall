@@ -31,10 +31,8 @@ export default function Message(props){
         // Minutes part from the timestamp
         let minutes = "0" + date.getMinutes();
 
-        // Will display time in 10:30:23 format
         let formattedTime = ( today + ' ' + month + ' ' + ((hours<10)? '0':'') + hours+  ':' + minutes.substr(-2) );
 
-        console.log(date)
         return formattedTime;
     }
 
