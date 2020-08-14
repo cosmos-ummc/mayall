@@ -13,11 +13,9 @@ import logo_img from "../../images/logo9.png";
 import cyan from "@material-ui/core/colors/cyan";
 import Scrollspy from 'react-scrollspy';
 import {useHistory} from "react-router-dom";
-import {login, logout} from "../../api/auth";
+import {logout} from "../../api/auth";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme) => ({
@@ -108,13 +106,11 @@ const icons = {
     ChatIcon: ChatIcon,
     PersonIcon: PersonIcon,
     VideocamIcon: VideocamIcon
-}
+};
 
 export default function Navbar(props) {
     const classes = useStyles();
 
-    {/* Handle Profile Menu */
-    }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -150,22 +146,22 @@ export default function Navbar(props) {
             <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
 
-                    <img className={classes.logo} src={logo_img}/>
+                    <img className={classes.logo} src={logo_img} alt={"logo"}/>
 
                     <div className={classes.spacer}/>
 
                     <nav className="nav">
-                        {props.home? <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
-                            currentClassName={classes.active}
-                            style={{
-                            fontWeight: 300
-                        }}
-                            offset={-150}
-                            onUpdate={
-                            (el) => {
-                                console.log(el)
-                            }
-                        }>
+                        {props.home ? <Scrollspy items={['home', 'feeds', 'meditation', 'games']}
+                                                 currentClassName={classes.active}
+                                                 style={{
+                                                     fontWeight: 300
+                                                 }}
+                                                 offset={-150}
+                                                 onUpdate={
+                                                     (el) => {
+                                                         console.log(el)
+                                                     }
+                                                 }>
                             {info_sections.map((section) => (
                                 <Link
                                     color="textPrimary"
@@ -225,28 +221,6 @@ export default function Navbar(props) {
                                 {React.createElement(icons[func_sections[2].icon], {className: `${classes.icon}`})}
                             </Badge>
                         </Button>
-                        <Popover
-                            id="mouse-over-popover"
-                            className={classes.popover}
-                            classes={{
-                                paper: classes.paper,
-                            }}
-                            open={open}
-                            anchorEl={anchorEl2}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            onClose={handlePopoverClose}
-                            disableRestoreFocus
-                        >
-                            <Typography>You hava new message.</Typography>
-                        </Popover>
-
 
                         {/* Profile */}
                         <Button
