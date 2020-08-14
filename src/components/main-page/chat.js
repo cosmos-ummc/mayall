@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingLeft: theme.spacing(7)
     },
     div: {
         color: theme.palette.common.white,
@@ -41,11 +42,13 @@ const useStyles = makeStyles((theme) => ({
         flexFlow: 'row',
     },
     img: {
-        width: 50,
-        margin: theme.spacing(0, 2),
+        width: 100,
+        height: 100,
+        margin: theme.spacing(0.5, 2),
     },
     title: {
         fontFamily: postfont,
+        marginTop: theme.spacing(1.5)
     },
     button: {
         marginRight: theme.spacing(10),
@@ -54,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
         fontSize: 18,
         padding: theme.spacing(1, 3),
+        textAlign: 'center',
         '&:hover': {
             backgroundColor: 'grey',
             color: 'white',
@@ -72,8 +76,7 @@ export default function Chat(props) {
                 <div className={classes.div}>
                     <div className={classes.icon}>
                         <img className={classes.img} src={search_img}/>
-                        <Typography component="h3" variant="h4" color="inherit" gutterBottom className={classes.title}>
-
+                        <Typography component="h2" variant="h3" color="inherit" gutterBottom className={classes.title}>
                             <Box fontFamily="Monospace" m={1}>
                                 {title}
                             </Box>
