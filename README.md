@@ -1,68 +1,92 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Submissions
 
-## Available Scripts
+[Link to the demonstration video](https://www.youtube.com/watch?v=gR71QjbmJvo)
 
-In the project directory, you can run:
+[Link to the presentation slides](https://docs.google.com/presentation/d/1YxOG8uyPY6fy_Q7czGD5bJGpYhFRngDTRjdESdkzCLI/edit?usp=sharing)
 
-### `npm start`
+[Link to the user manual](https://docs.google.com/document/d/1yM8Fy_c3kIlEPvMYso4nH1ZZVMo2aN-5uhWAhb0Vegk/edit?usp=sharing)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Link to the demonstration video](https://quaranteams-admin.herokuapp.com/#/login)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+[Link to the Psychologist / Staff / Admin Login Page](https://quaranteams-admin.herokuapp.com/#/login)
 
-### `npm test`
+[Link to The Users(Client) Login Page](https://quaranteams-main.herokuapp.com/login) 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[Link to our humanized chat bot](https://t.me/Quaranteams_bot)
 
-### `npm run build`
+[Link to the DASS-21 Original Question Sets](https://journals.plos.org/plosone/article/file?type=supplementary&id=info:doi/10.1371/journal.pone.0219193.s004#:~:text=The%20Depression%2C%20Anxiety%20and%20Stress,into%20subscales%20with%20similar%20content.)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Link to the IES-R Original Question Sets](https://www.aerztenetz-grafschaft.de/download/IES-R-englisch-5-stufig.pdf)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[Link to the Backend Main Service GitHub Repo](https://github.com/cosmos-ummc/comet)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Link to the Client Website GitHub Repo](https://github.com/cosmos-ummc/mayall)
 
-### `npm run eject`
+[Link to the Admin Dashboard GitHub Repo](https://github.com/cosmos-ummc/butterfly)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[Link to the Backend Chat Service GitHub Repo](https://github.com/cosmos-ummc/needle)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Link to the Telegram Chat Bot GitHub Repo](https://github.com/cosmos-ummc/Willman)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Instructions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This repository is for the main client frontend website. There are several modules included:
 
-## Learn More
+- Alert tips module
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Daily tips will be provided to the users!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- "Enrich Your Thoughts" module
 
-### Code Splitting
+This module will provide random health feeds for the users to help them improve knowledge in
+health care.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- "Especially For You" module
 
-### Analyzing the Bundle Size
+This module will provide personalized health feeds that are co-related to the users' mental health status
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- Meditation module
 
-### Making a Progressive Web App
+This module will provide random meditations for the users to guide them on exercises that
+can help in easing the mental stressfulness.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Game module
 
-### Advanced Configuration
+This module will provide random games for the users to enrich their lifestyles with
+some games that can help in maintaining good mental health.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- Meeting module
 
-### Deployment
+This module will provide 1:1 meeting sessions for the users. Users with moderate / severe / extremely severe health status (Based on reports) 
+can choose to create a meeting with their chosen time slots. The consultants will be automatically assigned based on their availability.
+Aside from that, users who are in normal or mild condition can also notify for a meeting if
+they think they would like to talk to the consultants. The users will be then linked to the video
+conferencing sites for one-to-one consultations.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- Chat module
 
-### `npm run build` fails to minify
+This module includes a complete set of operations for the anonymous chatting. When users enable their
+visibility, they will have chances to match with another anonymous friend that has similar personality from time to time.
+A pop up will be shown as soon as the users are matched. Chatting is also in real time. If users find the matched friend is not 
+a good taste of him / her, they can also block the users permanently.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Project Setup
+
+- To run the server, first, setup the [Redis Server](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04).
+
+- Install [NodeJS](https://nodejs.org/en/) version v12.14.1. 
+
+- Next, clone the repository.
+
+- cd to the project directory and run `npm install` to install the dependencies.
+
+- add the environment variables as follows:
+
+```
+REACT_APP_API_URL=<Main backend service URL>
+REACT_APP_CHAT_API_URL=<Chat backend service URL>
+REACT_APP_PUSHER_KEY=<Pusher key>
+REACT_APP_PUSHER_CLUSTER=<Pusher cluster>
+```
+
+- run `npm start` to start the service locally.
