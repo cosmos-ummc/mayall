@@ -73,7 +73,7 @@ export default function Game(props) {
                                         <Typography variant="body2" gutterBottom>
                                             {info.site}
                                         </Typography>
-                                        <Link href="#" color="inherit" variant="body2">
+                                        <Link href={info.linkText} color="inherit" variant="body2">
                                             {info.linkText}
                                         </Link>
                                     </Grid>
@@ -87,7 +87,7 @@ export default function Game(props) {
                                         <Typography variant="body2" gutterBottom>
                                             {info.site}
                                         </Typography>
-                                        <Link href="#" color="inherit" variant="body2">
+                                        <Link href={info.linkText} color="inherit" variant="body2">
                                             {info.linkText}
                                         </Link>
                                     </Grid>

@@ -35,7 +35,7 @@ const footer = {
     info01: [
         {
             site: 'Ministry of Health Malaysia official website for information related to COVID-19',
-            linkText: 'http://covid-19.moh.gov.my/',
+            linkText: 'http://covid-19.moh.gov.my',
         },
         {
             site: 'Mental Illness Awareness and Support Association (MIASA)',
@@ -43,17 +43,17 @@ const footer = {
         },
         {
             site: 'Malaysian Mental Health Association (MMHA)',
-            linkText: 'www.mmha.org.my',
+            linkText: 'https://www.mmha.org.my',
         },
     ],
     info02: [
         {
             site: 'Befrienders',
-            linkText: 'https://www.befrienders.org.my/',
+            linkText: 'https://www.befrienders.org.my',
         },
         {
             site: 'Talian Kasih',
-            linkText: 'https://www.kpwkm.gov.my/kpwkm/index.php?r=portal/full&id=NGtVYXZIMjRqM3diW',
+            linkText: 'https://www.kpwkm.gov.my/kpwkm/index.php?r=portal/index',
         }
     ],
     phone: '15999',
